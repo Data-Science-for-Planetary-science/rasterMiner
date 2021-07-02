@@ -8,7 +8,6 @@ import mplcursors
 import startapp
 from sklearn.cluster import DBSCAN
 from sklearn import metrics
-from sklearn.datasets import make_blobs
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 

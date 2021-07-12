@@ -4,7 +4,7 @@ from tkinter import filedialog
 # import ast
 from tkinter import messagebox
 # import final_code
-from GUI import startApp
+from GUI import main
 from sklearn.cluster import OPTICS
 from sklearn.metrics import pairwise_distances
 

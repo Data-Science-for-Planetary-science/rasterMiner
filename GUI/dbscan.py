@@ -4,7 +4,7 @@ from tkinter import ttk
 # import re
 # import ast
 # import final_code
-from GUI import startApp
+from GUI import main
 from algorithms.clustering.kmeans import kMeans
 
 
@@ -22,7 +22,7 @@ class DBScanGUI:
         return dirName
     def back(self):
         self.root.destroy()
-        startApp.main()
+        main.main()
     def Main(self):
         iFilename = StringVar()
         oFilename = StringVar()

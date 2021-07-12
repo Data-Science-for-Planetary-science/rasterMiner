@@ -2,13 +2,11 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
 from GUI import kmeans
-import elbowKmeans
-import elbowKmeansPl
 import dbscan
-import fuzzc
 import spectralClustering
 import meanShift
-from GUI import kmeans
+from algorithms.clustering import *
+from GUI import *
 inputRasterFolder=''
 outputFolder = ''
 
@@ -28,25 +26,34 @@ def UploadAction2(event=None):
     return outputFolder
 
 
+
+
+
 def main():
+    def rasterToOtherFIles():
+        target = v1.get()
+        if target == 'None':
+            print('raster2tsv.py')
+        elif target == 'Vertical':
+            for i in range(int(startBoundVar.get()),int(endBoundVar.get())):
+                print(f'-bounds{i}',end=' ')
+            print(inputrasterFolderName.get())
+            print(outputFolderName.get())
+        elif target == 'Horizontal':
+            for i in range(2):
+                print(f'-bounds{i}',end=' ')
+            print(inputrasterFolderName.get())
+            print(outputFolderName.get())
 
     def judgeAlg():
         root.destroy()
         target = v2.get()
         if target == 'k-means/k-means++':
             kmeans.kmeansGUI().Main()
-        elif target == 'elbow-kmeans':
-            elbowKmeans.main()
-        elif target == 'elbow-kmeans++':
-            elbowKmeansPl.main()
-        elif target == 'DBscan':
-            dbscan.main()
-        elif target == 'fuzzCMeans':
-            fuzzc.main()
         elif target == 'meanShift':
-            meanShift.main()
+            meanShift.meanShiftGUI().Main()
         elif target == 'spectral Clustering':
-            spectralClustering.main()
+            spectralClustering.spectralGUI().Main()
 
     def elbowAlgSelected():
         selectBtn1.state(['pressed'])
@@ -75,7 +82,9 @@ def main():
     ttk.Label(tab1, text='Select the folder containing raster files:').grid(column=0, row=0, padx=30, pady=30,sticky = 'W')
     ttk.Label(tab1, text='Enter the file extension of the raster files:').grid(column=0, row=1, padx=30, pady=30,sticky = 'W')
     ttk.Label(tab1, text='Select output folder:').grid(column=0, row=2, padx=30, pady=30,sticky = 'W')
-    ttk.Label(tab1, text='Type of Append').grid(column=0, row=3, padx=30, pady=30, sticky='W')
+    ttk.Label(tab1, text='Type of Append').grid(column=0, row=5, padx=30, pady=30, sticky='W')
+    ttk.Label(tab1, text='Start Bound').grid(column=0, row=3, padx=30, pady=30, sticky='W')
+    ttk.Label(tab1, text='End Bound').grid(column=0, row=4, padx=30, pady=30, sticky='W')
     ttk.Label(tab3, text='Select algorithm',font=("Arial", 20)).place(relx=0,rely=0,relwidth=1,relheight=0.125)
 
     # make textbox
@@ -89,21 +98,29 @@ def main():
     e3.grid(row=2, column=1)
 
 
+
     button1 = tk.Button(tab1, text='Browse', command=lambda: inputrasterFolderName.set(UploadAction1()))
     button1.grid(row=0,column=2)
     button2 = tk.Button(tab1, text='Browse',command=lambda: outputFolderName.set(UploadAction2()))
     button2.grid(row=2,column=2)
-    submit = tk.Button(tab1,text='submit')
-    submit.grid(row=4,column=0)
+
+    startBoundVar = tk.StringVar()
+    startBound_TB = tk.Entry(tab1,textvariable=startBoundVar,width=5)
+    startBound_TB.grid(row=3,column=1)
+    endBoundVar = tk.StringVar()
+    endBound_TB = tk.Entry(tab1,textvariable=endBoundVar,width=5)
+    endBound_TB.grid(row=4,column=1)
+    submit = tk.Button(tab1,text='submit',command=rasterToOtherFIles)
+    submit.grid(row=6,column=0)
 
     #button3 = tk.Button(tab3, text='submit', command=)
 
     Type = ['None', 'Horizontal', 'Vertical']
     v1 = tk.StringVar()
     cb = ttk.Combobox(tab1, textvariable=v1,values=Type,state='readonly')
-    cb.grid(column=1, row=3, padx=30, pady=30, sticky='W')
+    cb.grid(column=1, row=5, padx=30, pady=30, sticky='W')
     cb.set(Type[0])
-    Algorithms = {'elbowAlg':["elbow-kmeans", "elbow-kmeans++"], 'simpleAlg': ["k-means/k-means++", "DBscan", "Spectral Clustering", "MeanShift","fuzzyCMeans" ]}
+    Algorithms = {'elbowAlg':["elbow-kmeans", "elbow-kmeans++"], 'simpleAlg': ["k-means/k-means++", "DBscan", "Spectral Clustering", "MeanShift","optics","birch"]}
 
     #v2 = tk.StringVar()
     selectBtn1 = ttk.Button(tab3,text='elbowAlg',padding=(10),command=elbowAlgSelected)
@@ -130,3 +147,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

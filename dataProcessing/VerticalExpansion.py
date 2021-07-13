@@ -5,8 +5,9 @@ import re
 
 
 class verticalExpansion:
-    def __init__(self, path):
-        self.path = path
+    def __init__(self, path,fileExtension,outputFolder):
+        self.path = path+ '/*.'+fileExtension
+        self.outputFolder= outputFolder
 
     def convert(self):
         # reading each file in a folder
@@ -19,7 +20,7 @@ class verticalExpansion:
 
             temp = re.findall(r'\d+', file)
             res = list(map(int, temp))
-            out_csv = ('/home/hp/outputfiles/' + str(res[2]) + '.csv')
+            out_csv = (self.outputFolder +'/' + str(res[2]) + '.csv')
 
             # convert to csv file
             columnName.append(res[2])
@@ -34,6 +35,6 @@ class verticalExpansion:
 
 
 if __name__ == '__main__':
-    a = verticalExpansion('/home/hp/raster_files/*.*')
+    a = verticalExpansion('/home/hp/raster_files', 'nc', '/home/hp/raster_files')
     a.convert()
 

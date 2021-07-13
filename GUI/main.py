@@ -5,6 +5,9 @@ from GUI import kmeans
 import dbscan
 import spectralClustering
 import meanShift
+
+from dataProcessing.VerticalExpansion import verticalExpansion
+
 from algorithms.clustering import *
 from GUI import *
 inputRasterFolder=''
@@ -40,10 +43,7 @@ def main():
             print(inputrasterFolderName.get())
             print(outputFolderName.get())
         elif target == 'single-band temporal images':
-            for i in range(2):
-                print(f'-bounds{i}',end=' ')
-            print(inputrasterFolderName.get())
-            print(outputFolderName.get())
+            verticalExpansion(inputrasterFolderName.get(),fileExtension,outputFolderName.get())
 
     def judgeAlg():
         root.destroy()
@@ -93,9 +93,12 @@ def main():
     # make textbox
     inputrasterFolderName = tk.StringVar()
     outputFolderName = tk.StringVar()
+    fileExtension = tk.StringVar()
+
     e1 = tk.Entry(tab1,textvariable=inputrasterFolderName)
-    e2 = tk.Entry(tab1)
+    e2 = tk.Entry(tab1,textvariable=fileExtension)
     e3 = tk.Entry(tab1,textvariable=outputFolderName)
+
     e1.grid(row=0, column=1)
     e2.grid(row=1, column=1)
     e3.grid(row=2, column=1)

@@ -5,8 +5,11 @@ import re
 
 
 class verticalExpansion:
-    def __init__(self, path,extension):
-        self.path = path + '/*.'+extension
+    def __init__(self, path,fileExtension,outputFolder,startBand, endBand):
+        self.path = path + '/*.'+fileExtension
+        self.outputFolder = outputFolder
+        self.startBand =startBand
+        self.endBand = endBand
 
     def convert(self):
         # reading each file in a folder
@@ -17,10 +20,13 @@ class verticalExpansion:
             #extracting output filename
             temp = re.findall(r'\d+', file)
             res = list(map(int, temp))
-            out_csv = ('/home/hp/outputfiles/' + str(res[2]) + '.csv')
+            out_csv = (self.outputFolder +'/'+ str(res[2]) + '.csv')
 
             # convert to csv file
-            paramters = '-band 1 ' + file + ' ' + out_csv
+            text =''
+            for bandNo in range(self.startBand, self.endBand+1):
+                text = text + '-band ' + bandNo + ' '
+            paramters = text + file + ' ' + out_csv
             raster2tsv.raster2tsv(paramters)
             df = pd.read_csv(out_csv, index_col=None, header=None)
             listOfDataframes.append(df)

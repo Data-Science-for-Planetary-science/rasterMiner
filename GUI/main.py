@@ -34,12 +34,12 @@ def main():
         target = v1.get()
         if target == 'None':
             print('raster2tsv.py')
-        elif target == 'Vertical':
+        elif target == 'multi-band images':
             for i in range(int(startBoundVar.get()),int(endBoundVar.get())):
                 print(f'-bounds{i}',end=' ')
             print(inputrasterFolderName.get())
             print(outputFolderName.get())
-        elif target == 'Horizontal':
+        elif target == 'single-band temporal images':
             for i in range(2):
                 print(f'-bounds{i}',end=' ')
             print(inputrasterFolderName.get())
@@ -72,7 +72,7 @@ def main():
     tab4 = ttk.Frame(tabControl)
     tab5 = ttk.Frame(tabControl)
 
-    tabControl.add(tab1, text='Convert Raster Files to CSV File')
+    tabControl.add(tab1, text='Convert Raster Files to TSV Files')
     tabControl.add(tab2, text='Pattern Mining')
     tabControl.add(tab3, text='Clustering')
     tabControl.add(tab4, text='Classification')
@@ -82,9 +82,12 @@ def main():
     ttk.Label(tab1, text='Select the folder containing raster files:').grid(column=0, row=0, padx=30, pady=30,sticky = 'W')
     ttk.Label(tab1, text='Enter the file extension of the raster files:').grid(column=0, row=1, padx=30, pady=30,sticky = 'W')
     ttk.Label(tab1, text='Select output folder:').grid(column=0, row=2, padx=30, pady=30,sticky = 'W')
-    ttk.Label(tab1, text='Type of Append').grid(column=0, row=5, padx=30, pady=30, sticky='W')
-    ttk.Label(tab1, text='Start Bound').grid(column=0, row=3, padx=30, pady=30, sticky='W')
-    ttk.Label(tab1, text='End Bound').grid(column=0, row=4, padx=30, pady=30, sticky='W')
+    ttk.Label(tab1, text='Type of conversion').grid(column=0, row=3, padx=30, pady=30, sticky='W')
+    ttk.Label(tab1, text='Initial band number').grid(column=0, row=4, padx=30, pady=30, sticky='W')
+    ttk.Label(tab1, text='Final band number').grid(column=0, row=5, padx=30, pady=30, sticky='W')
+
+
+
     ttk.Label(tab3, text='Select algorithm',font=("Arial", 20)).place(relx=0,rely=0,relwidth=1,relheight=0.125)
 
     # make textbox
@@ -106,26 +109,26 @@ def main():
 
     startBoundVar = tk.StringVar()
     startBound_TB = tk.Entry(tab1,textvariable=startBoundVar,width=5)
-    startBound_TB.grid(row=3,column=1)
+    startBound_TB.grid(row=4,column=1)
     endBoundVar = tk.StringVar()
     endBound_TB = tk.Entry(tab1,textvariable=endBoundVar,width=5)
-    endBound_TB.grid(row=4,column=1)
+    endBound_TB.grid(row=5,column=1)
     submit = tk.Button(tab1,text='submit',command=rasterToOtherFIles)
     submit.grid(row=6,column=0)
 
     #button3 = tk.Button(tab3, text='submit', command=)
 
-    Type = ['None', 'Horizontal', 'Vertical']
+    Type = ['multi-band images', 'single-band temporal images']
     v1 = tk.StringVar()
-    cb = ttk.Combobox(tab1, textvariable=v1,values=Type,state='readonly')
-    cb.grid(column=1, row=5, padx=30, pady=30, sticky='W')
+    cb = ttk.Combobox(tab1, textvariable=v1,values=['multi-band images', 'single-band temporal images'],state='readonly')
+    cb.grid(column=1, row=3, padx=30, pady=30, sticky='W')
     cb.set(Type[0])
     Algorithms = {'elbowAlg':["elbow-kmeans", "elbow-kmeans++"], 'simpleAlg': ["k-means/k-means++", "DBscan", "Spectral Clustering", "MeanShift","optics","birch"]}
 
     #v2 = tk.StringVar()
-    selectBtn1 = ttk.Button(tab3,text='elbowAlg',padding=(10),command=elbowAlgSelected)
+    selectBtn1 = ttk.Button(tab3,text='Parameter tuning',padding=(10),command=elbowAlgSelected)
     selectBtn1.bind('<1>', lambda e: cb2.config(values=Algorithms['elbowAlg']))
-    selectBtn2 = ttk.Button(tab3,text='simpleAlg',padding=(10),command=simpleAlgSelected)
+    selectBtn2 = ttk.Button(tab3,text='Individual algorithms',padding=(10),command=simpleAlgSelected)
     selectBtn2.bind('<1>', lambda e: cb2.config(values=Algorithms['simpleAlg']))
     selectBtn1.place(relx=0,rely=0.2,relwidth=0.5,relheight=0.125)
     selectBtn2.place(relx=0.5,rely=0.2,relwidth=0.5,relheight=0.125)

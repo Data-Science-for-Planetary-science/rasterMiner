@@ -105,7 +105,7 @@ class raster2tsv:
 
         # Open the output file.
         if dstfile is not None:
-            dst_fh = open(dstfile, 'wt')
+            dst_fh = open(dstfile, 'a')
         else:
             dst_fh = sys.stdout
         band_format = ("%g " * len(bands)).rstrip()

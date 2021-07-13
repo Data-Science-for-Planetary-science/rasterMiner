@@ -8,7 +8,6 @@ import meanShift
 
 from dataProcessing.VerticalExpansion import verticalExpansion
 from  dataProcessing.HorizontalExpansion import HorizontalExpansion
-
 from algorithms.clustering import *
 from GUI import *
 inputRasterFolder=''
@@ -39,14 +38,13 @@ def main():
         if target == 'None':
             print('raster2tsv.py')
         elif target == 'multi-band images':
-           # for i in range(int(startBoundVar.get()),int(endBoundVar.get())):
-                #print(f'-bounds{i}',end=' ')
-            #print(inputrasterFolderName.get())
-            #print(outputFolderName.get())
-           HorizontalExpansion('/Users/udaykiranrage/Dropbox/raashika/rasterMinerSampleData/horizontalExpansion_1',
-                               'lbl', '/Users/udaykiranrage/Dropbox/raashika/rasterMinerSampleData', 1, 9)
-
+            print("Calling HorizontalExpansion.py")
+            HorizontalExpansion(str(inputrasterFolderName.get()),str(fileExtension),str(outputFolderName.get()),int(startBoundVar.get()),int(endBoundVar.get()))
+            #     print(f'-bounds{i}',end=' ')
+            # print(inputrasterFolderName.get())
+            # print(outputFolderName.get())
         elif target == 'single-band temporal images':
+            print("Calling VertificalExpansion.py")
             verticalExpansion(inputrasterFolderName.get(),fileExtension,outputFolderName.get())
 
     def judgeAlg():
@@ -121,6 +119,7 @@ def main():
     endBound_TB = tk.Entry(tab1,textvariable=endBoundVar,width=5)
     endBound_TB.grid(row=5,column=1)
     submit = tk.Button(tab1,text='submit',command=rasterToOtherFIles)
+    submit.bind('<1>',lambda e:print('running'))
     submit.grid(row=6,column=0)
 
     #button3 = tk.Button(tab3, text='submit', command=)

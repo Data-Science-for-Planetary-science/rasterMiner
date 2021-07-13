@@ -5,7 +5,7 @@ from tkinter import ttk
 # import ast
 # import final_code
 from GUI import main
-from algorithms.clustering.kmeans import kMeans
+#from algorithms.clustering.kmeans import kMeans
 
 
 class kmeansGUI:

@@ -5,8 +5,8 @@ import re
 
 
 class verticalExpansion:
-    def __init__(self, path):
-        self.path = path
+    def __init__(self, path,extension):
+        self.path = path + '/*.'+extension
 
     def convert(self):
         # reading each file in a folder
@@ -29,5 +29,5 @@ class verticalExpansion:
 
 
 if __name__ == '__main__':
-    a = verticalExpansion('/home/hp/raster_files/*.*')
+    a = verticalExpansion('/home/hp/raster_files','nc')
     a.convert()

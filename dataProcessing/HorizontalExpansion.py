@@ -4,9 +4,9 @@ import raster2tsv
 import re
 
 
-class verticalExpansion:
-    def __init__(self, path,fileExtension,outputFolder,startBand, endBand):
-        self.path = path + '/*.'+fileExtension
+class HorizontalExpansion:
+    def __init__(self, inputFolder,fileExtension,outputFolder,startBand, endBand):
+        self.path = inputFolder + '/*.'+fileExtension
         self.outputFolder = outputFolder
         self.startBand =startBand
         self.endBand = endBand
@@ -25,9 +25,9 @@ class verticalExpansion:
             # convert to csv file
             text =''
             for bandNo in range(self.startBand, self.endBand+1):
-                text = text + '-band ' + bandNo + ' '
-            paramters = text + file + ' ' + out_csv
-            raster2tsv.raster2tsv(paramters)
+                text = text + '-band ' + str(bandNo) + ' '
+            parameters = text + file + ' ' + out_csv
+            raster2tsv.raster2tsv(parameters)
             df = pd.read_csv(out_csv, index_col=None, header=None)
             listOfDataframes.append(df)
             frames = pd.concat(listOfDataframes, axis=0, ignore_index=True)
@@ -35,5 +35,5 @@ class verticalExpansion:
 
 
 if __name__ == '__main__':
-    a = verticalExpansion('/home/hp/raster_files','nc')
+    a = HorizontalExpansion('/Users/udaykiranrage/Dropbox/raashika/rasterMinerSampleData/horizontalExpansion_1','lbl', '/Users/udaykiranrage/Dropbox/raashika/rasterMinerSampleData', 1,9)
     a.convert()

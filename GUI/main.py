@@ -7,6 +7,7 @@ import spectralClustering
 import meanShift
 
 from dataProcessing.VerticalExpansion import verticalExpansion
+from  dataProcessing.HorizontalExpansion import HorizontalExpansion
 
 from algorithms.clustering import *
 from GUI import *
@@ -38,10 +39,13 @@ def main():
         if target == 'None':
             print('raster2tsv.py')
         elif target == 'multi-band images':
-            for i in range(int(startBoundVar.get()),int(endBoundVar.get())):
-                print(f'-bounds{i}',end=' ')
-            print(inputrasterFolderName.get())
-            print(outputFolderName.get())
+           # for i in range(int(startBoundVar.get()),int(endBoundVar.get())):
+                #print(f'-bounds{i}',end=' ')
+            #print(inputrasterFolderName.get())
+            #print(outputFolderName.get())
+           HorizontalExpansion('/Users/udaykiranrage/Dropbox/raashika/rasterMinerSampleData/horizontalExpansion_1',
+                               'lbl', '/Users/udaykiranrage/Dropbox/raashika/rasterMinerSampleData', 1, 9)
+
         elif target == 'single-band temporal images':
             verticalExpansion(inputrasterFolderName.get(),fileExtension,outputFolderName.get())
 

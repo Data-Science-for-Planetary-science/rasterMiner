@@ -7,7 +7,6 @@ from tkinter import messagebox
 from GUI import main
 from sklearn.cluster import OPTICS
 from sklearn.metrics import pairwise_distances
-
 from sklearn import metrics
 from sklearn.preprocessing import StandardScaler
 import numpy as np

@@ -7,7 +7,7 @@ from GUI import spectralClustering
 from GUI import meanShift
 
 from dataProcessing.VerticalExpansion import verticalExpansion
-from  dataProcessing.HorizontalExpansion import HorizontalExpansion
+from dataProcessing.HorizontalExpansion import HorizontalExpansion
 from algorithms.clustering import *
 from GUI import *
 
@@ -33,14 +33,16 @@ class main:
 
     def rasterToHorizontal(self,inputRasterFolderName,fileExtension,outputFolderName,startBandVar,endBandVar):
         print("Calling HorizontalExpansion.py")
-        HorizontalExpansion(inputRasterFolderName, fileExtension, outputFolderName,
+        a = HorizontalExpansion(inputRasterFolderName, fileExtension, outputFolderName,
                             startBandVar, endBandVar)
+        a.convert()
             #     print(f'-bounds{i}',end=' ')
             # print(inputRasterFolderName.get())
             # print(outputFolderName.get())
     def rasterToVertical(self,inputRasterFolderName,fileExtension,outputFolderName):
         print("Calling VertificalExpansion.py")
-        verticalExpansion(inputRasterFolderName, fileExtension, outputFolderName)
+        a = verticalExpansion(inputRasterFolderName, fileExtension, outputFolderName)
+        a.convert()
 
     def judgeAlg(self,target):
         self.root.destroy()

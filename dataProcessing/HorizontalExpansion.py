@@ -27,8 +27,6 @@ class HorizontalExpansion:
             parameters = text + file + ' ' + out_csv
             raster2tsv.raster2tsv(parameters)
 
-
-
 if __name__ == '__main__':
     a = HorizontalExpansion('/Users/udaykiranrage/Dropbox/raashika/rasterMinerSampleData/horizontalExpansion_1','lbl', '/Users/udaykiranrage/Dropbox/raashika/rasterMinerSampleData', 1,9)
     a.convert()

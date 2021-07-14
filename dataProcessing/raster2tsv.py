@@ -144,6 +144,7 @@ class raster2tsv:
 
                 line1 = format % (float(geo_x), float(geo_y), band_str)
                 li = list(line1.split(" "))
+                print(li)
 
                 a = str(li[2:]).replace('\'', '').replace('[', '').replace(']', '')
                 #print(a)

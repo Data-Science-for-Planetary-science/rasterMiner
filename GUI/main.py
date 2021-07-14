@@ -31,19 +31,16 @@ class main:
         outputFolder = filename
         return outputFolder
 
-    def rasterToOtherFIles(self,target,inputRasterFolderName,fileExtension,outputFolderName,startBandVar,endBandVar):
-        if target == 'None':
-            print('raster2tsv.py')
-        elif target == 'multi-band images':
-            print("Calling HorizontalExpansion.py")
-            HorizontalExpansion(inputRasterFolderName.get(), fileExtension, outputFolderName.get(),
-                                startBandVar.get(), endBandVar.get())
+    def rasterToHorizontal(self,inputRasterFolderName,fileExtension,outputFolderName,startBandVar,endBandVar):
+        print("Calling HorizontalExpansion.py")
+        HorizontalExpansion(inputRasterFolderName, fileExtension, outputFolderName,
+                            startBandVar, endBandVar)
             #     print(f'-bounds{i}',end=' ')
             # print(inputRasterFolderName.get())
             # print(outputFolderName.get())
-        elif target == 'single-band temporal images':
-            print("Calling VertificalExpansion.py")
-            verticalExpansion(inputRasterFolderName.get(), fileExtension, outputFolderName.get())
+    def rasterToVertical(self,inputRasterFolderName,fileExtension,outputFolderName):
+        print("Calling VertificalExpansion.py")
+        verticalExpansion(inputRasterFolderName, fileExtension, outputFolderName)
 
     def judgeAlg(self,target):
         self.root.destroy()
@@ -121,6 +118,7 @@ class main:
         #selectBtn2.grid(row=1,column=2,sticky='W')
         #print(str(v2.get))
 
+
         for algorithm in Algorithms.keys():
             subFrame3 = ttk.Frame(subTab3, height=600, width=800)
             subTab3.add(subFrame3,text=algorithm)
@@ -134,24 +132,26 @@ class main:
             elif algorithm == 'individual algorithm':
                 cb2.config(values=Algorithms['individual algorithm'])
 
+        input_raster_folder_name = tk.StringVar()
+        output_folder_name = tk.StringVar()
+        file_extension = tk.StringVar()
+        start_band_var = tk.StringVar()
+        end_band_var = tk.StringVar()
+
         for option in options:
             subFrame1=ttk.Frame(subTab1,height=600,width=800)
             subTab1.add(subFrame1,text=option)
             label1 = ttk.Label(subFrame1, text='Select the folder containing raster files:')
             label2 = ttk.Label(subFrame1, text='Enter the file extension of the raster files:')
             label3 = ttk.Label(subFrame1, text='Select output folder:')
-            label4 = ttk.Label(subFrame1, text='Type of conversion')
-            label5 = ttk.Label(subFrame1, text='Initial band number')
-            label6 = ttk.Label(subFrame1, text='Final band number')
+            label4 = ttk.Label(subFrame1, text='Initial band number')
+            label5 = ttk.Label(subFrame1, text='Final band number')
             label1.grid(column=0, row=0,padx=30, pady=30,sticky='W')
             label2.grid(column=0, row=1,padx=30, pady=30,sticky='W')
             label3.grid(column=0, row=2, padx=30, pady=30, sticky='W')
-            label4.grid(column=0, row=3, padx=30, pady=30,sticky='W')
+            label4.grid(column=0, row=3, padx=30, pady=30, sticky='W')
             label5.grid(column=0, row=4, padx=30, pady=30, sticky='W')
-            label6.grid(column=0, row=5, padx=30, pady=30, sticky='W')
-            input_raster_folder_name = tk.StringVar()
-            output_folder_name = tk.StringVar()
-            file_extension = tk.StringVar()
+
             e1 = tk.Entry(subFrame1, textvariable=input_raster_folder_name)
             e2 = tk.Entry(subFrame1, textvariable=file_extension)
             e3 = tk.Entry(subFrame1, textvariable=output_folder_name)
@@ -160,36 +160,42 @@ class main:
             e2.grid(row=1, column=1)
             e3.grid(row=2, column=1)
 
-            button1 = tk.Button(subFrame1, text='Browse', command=lambda: input_raster_folder_name.set(self.UploadAction1()))
+            button1 = tk.Button(subFrame1, text='Browse', command=lambda: input_raster_folder_name.set(str(self.UploadAction1())))
             button1.grid(row=0, column=2)
-            button2 = tk.Button(subFrame1, text='Browse', command=lambda: output_folder_name.set(self.UploadAction2()))
+            button2 = tk.Button(subFrame1, text='Browse', command=lambda: output_folder_name.set(str(self.UploadAction2())))
             button2.grid(row=2, column=2)
 
-            start_band_var = tk.StringVar()
-            start_band_tb = tk.Entry(subFrame1, textvariable=start_band_var, width=5)
-            start_band_tb.grid(row=4, column=1)
-            end_band_var = tk.StringVar()
-            end_band_tb = tk.Entry(subFrame1, textvariable=end_band_var, width=5)
-            end_band_tb.grid(row=5, column=1)
-            submit = tk.Button(subFrame1, text='submit', command=lambda :self.rasterToOtherFIles(option,str(input_raster_folder_name.get()),
-                                                                str(file_extension.get()),str(output_folder_name.get()),int(start_band_var.get()),int(end_band_var.get())))
 
-            submit.bind('<1>', lambda e: print('running'))
-            submit.grid(row=6, column=0)
+            start_band_tb = tk.Entry(subFrame1, textvariable=start_band_var, width=5)
+            start_band_tb.grid(row=3, column=1)
+            end_band_tb = tk.Entry(subFrame1, textvariable=end_band_var, width=5)
+            end_band_tb.grid(row=4, column=1)
 
             if option == 'multi-band images':
+                label4.grid()
                 label5.grid()
-                label6.grid()
                 start_band_tb.grid()
                 end_band_tb.grid()
+                submit = tk.Button(subFrame1, text='submit',
+                                   command=lambda: self.rasterToHorizontal(str(input_raster_folder_name.get()),
+                                                                           str(file_extension.get()),
+                                                                           str(output_folder_name.get()),
+                                                                           int(start_band_var.get()),
+                                                                           int(end_band_var.get())))
+
+                submit.bind('<1>', lambda e: print('running'))
+                submit.grid(row=6, column=0)
             elif option == 'single-band temporal images':
+                label4.grid_remove()
                 label5.grid_remove()
-                label6.grid_remove()
                 start_band_tb.grid_remove()
                 end_band_tb.grid_remove()
-
-
-
+                submit = tk.Button(subFrame1, text='submit',
+                                   command=lambda: self.rasterToVertical(str(input_raster_folder_name.get()),
+                                                                         str(file_extension.get()),
+                                                                         str(output_folder_name.get())))
+                submit.bind('<1>', lambda e: print('running'))
+                submit.grid(row=6, column=0)
 
         # ttk.Label(tab2, text='Input csv file:').grid(column=0, row=0, padx=30, pady=30)
         # v1 = tk.StringVar()

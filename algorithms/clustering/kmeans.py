@@ -1,14 +1,7 @@
-from tkinter import *
-from tkinter import filedialog
-# import re
-# import ast
 from tkinter import messagebox
-# import final_code
-from GUI import main
 from sklearn.cluster import KMeans
-from sklearn import metrics
-from sklearn.preprocessing import StandardScaler
 import numpy as np
+
 
 class kMeans:
     def __init__(self,inputFile,outputDirectory,k,init,n_init,max_iter,random_state,alg):
@@ -21,15 +14,19 @@ class kMeans:
         # self.precompute_dist = precompute_dist
         self.random_state = random_state
         self.alg = alg
+
     def run(self):
         outputfile = self.outputDir + '/result_K-means_' + str(self.k) + '_' + str(self.max_iter) + '.csv'
         otc = self.outputDir + '/centers_K-means_' + str(self.k) + '_' + str(self.max_iter) + '.csv'
 
-        if (self.inputFile == '' or self.outputDir == '' or self.max_iter == '' or self.k == '' or self.n_init==''):
+        if (self.inputFile == '' or self.outputDir == ''):
             messagebox.showerror("Error", "Please fill the fields properly")
+
         else:
             if self.random_state == '':
                 self.random_state = None
+            else:
+                self.max_iter = int(self.max_iter)
             of = open(outputfile, 'w')
             print(self.inputFile)
             f = open(self.inputFile, 'r')
@@ -45,7 +42,7 @@ class kMeans:
                 data.append(j[1:])
             X = np.array(data)
             print(X)
-            kmeans = KMeans(n_clusters=int(self.k), init=self.init, max_iter=int(self.max_iter)
+            kmeans = KMeans(n_clusters=int(self.k), init=self.init, max_iter=self.max_iter
                             ,n_init=int(self.n_init),random_state=self.random_state,algorithm=self.alg).fit(X)
             WSSE = kmeans.inertia_
             wr = kmeans.labels_

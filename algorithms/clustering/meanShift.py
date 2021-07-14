@@ -1,10 +1,4 @@
-from tkinter import *
-from tkinter import filedialog
-# import re
-# import ast
 from tkinter import messagebox
-# import final_code
-from GUI import main
 from sklearn.cluster import MeanShift
 import numpy as np
 
@@ -16,7 +10,6 @@ class meanShift:
         self.seeds = seeds
         self.bin_seeding = bin_seeding
         self.min_bin_freq = min_bin_freq
-        # self.precompute_dist = precompute_dist
         self.cluster_all = cluster_all
         self.max_iter = max_iter
     def run(self):
@@ -45,23 +38,32 @@ class meanShift:
                 data.append(j[1:])
             X = np.array(data)
             print(X)
-            meanshift = MeanShift(bandwidth=float(self.bandwidth), max_iter=self.max_iter,seeds=self.seeds, bin_seeding=bool(self.bin_seeding)
+            meanshift = MeanShift(bandwidth=float(self.bandwidth), max_iter=self.max_iter,seeds=None, bin_seeding=bool(self.bin_seeding)
                             ,min_bin_freq=int(self.min_bin_freq),cluster_all=self.cluster_all).fit(X)
-            wr = meanshift.labels_
-            for p in range(len(X)):
-                # print(p)
-                # wr=kmeans.predict(p)
-                stri = pts[p] + ',' + str(wr[p]) + '\n'
-                of.write(stri)
-            of.close()
-            co = 1
-            for j in meanshift.cluster_centers_:
-                text = 'Center-' + str(co)
-                for d in j:
-                    text += ',' + str(d)
-                # print(text)
-                text += '\n'
-                oc.write(text)
-                co += 1
-            oc.close()
 
+            print(meanshift.labels_)
+            print(meanshift.cluster_centers_)
+            print(meanshift.n_iter_)
+
+
+
+
+
+
+            # wr = meanshift.labels_
+            # for p in range(len(X)):
+            #     # print(p)
+            #     # wr=kmeans.predict(p)
+            #     stri = pts[p] + ',' + str(wr[p]) + '\n'
+            #     of.write(stri)
+            # of.close()
+            # co = 1
+            # for j in meanshift.cluster_centers_:
+            #     text = 'Center-' + str(co)
+            #     for d in j:
+            #         text += ',' + str(d)
+            #     # print(text)
+            #     text += '\n'
+            #     oc.write(text)
+            #     co += 1
+            # oc.close()

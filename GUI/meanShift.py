@@ -1,12 +1,7 @@
 from tkinter import *
 from tkinter import filedialog, Label
-from tkinter import ttk
-# import re
-# import ast
-# import final_code
-from GUI import main
 from algorithms.clustering.meanShift import meanShift
-
+from GUI import GUImain
 
 class meanShiftGUI:
     def __init__(self):
@@ -22,7 +17,7 @@ class meanShiftGUI:
         return dirName
     def back(self):
         self.root.destroy()
-        main.main()
+        GUImain.GUImain().rootGUI()
     def Main(self):
         iFilename = StringVar()
         oFilename = StringVar()

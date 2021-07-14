@@ -4,7 +4,7 @@ from tkinter import ttk
 # import re
 # import ast
 # import final_code
-from GUI import main
+from GUI import GUImain
 
 from algorithms.clustering.spectralClustering import spectralClustering
 
@@ -23,7 +23,7 @@ class spectralGUI:
         return dirName
     def back(self):
         self.root.destroy()
-        main.main()
+        GUImain.main()
     def Main(self):
         iFilename = StringVar()
         oFilename = StringVar()

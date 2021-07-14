@@ -4,7 +4,7 @@ from tkinter import filedialog
 # import ast
 from tkinter import messagebox
 # import final_code
-from GUI import main
+from GUI import GUImain
 from sklearn.cluster import Birch
 from sklearn import metrics
 from sklearn.preprocessing import StandardScaler

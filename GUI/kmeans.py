@@ -1,20 +1,33 @@
 from tkinter import *
 from tkinter import filedialog, Label
 from tkinter import ttk
-# import re
-# import ast
-# import final_code
-from GUI import main
-#from algorithms.clustering.kmeans import kMeans
 from algorithms.clustering.kmeans import kMeans
+from GUI import GUImain
+import webbrowser
 
 
 class kmeansGUI:
     def __init__(self):
         self.root = Tk()
         self.root.title('k-means')
-        v = IntVar(self.root, 1)
         self.root.minsize(600, 400)
+        self.initVar = StringVar()
+        self.algVar = StringVar()
+        self.iFilename = StringVar()
+        self.oFilename = StringVar()
+        self.clusterVar = StringVar()
+        self.clusterVar.set(8)
+        self.randomStateVar = StringVar()
+        self.randomStateVar.set(None)
+        self.iterVar = StringVar()
+        self.iterVar.set(10)
+        self.maxIterVar = StringVar()
+        self.maxIterVar.set(300)
+    def callBack(self,url):
+        webbrowser.open_new(url)
+
+
+
     def openFile(self):
         filename1=filedialog.askopenfilename(initialdir="~/Desktop",title="select a file",filetypes=(("csv","*.csv"),("text Files","*.txt")))
         return filename1
@@ -23,66 +36,87 @@ class kmeansGUI:
         return dirName
     def back(self):
         self.root.destroy()
-        main.main()
+        GUImain.GUImain().rootGUI()
+
     def Main(self):
-        detailOptions_CHB = ttk.Checkbutton(self.root,text='details')
-        detailOptions_CHB.grid(column=0,row=9)
+        def makeAddOption(bin):
+
+            if bin.get():
+                init_label.grid(column=0, row=4)
+                init_CB.grid(column=1, row=4)
+
+                itersval_label.grid(column=0, row=5)
+                itersval_Entry.grid(column=1, row=5)
+
+                maxIter_label.grid(column=0, row=6)
+                maxIter_Entry.grid(column=1, row=6)
+
+                alg_label.grid(column=0, row=7)
+                alg_CB.grid(column=1, row=7)
+            else:
+                init_label.grid_remove()
+                init_CB.grid_remove()
+
+                itersval_Entry.grid_remove()
+                itersval_label.grid_remove()
+
+                maxIter_Entry.grid_remove()
+                maxIter_label.grid_remove()
+
+                alg_CB.grid_remove()
+                alg_label.grid_remove()
+
+        inputFile_Label = Label(self.root, text='Select the input file:')
+        inputFile_Label.grid(column=0, row=0)
+
+        inputFile_TB = Entry(self.root, textvariable=self.iFilename)
+        inputFile_TB.grid(column=1, row=0)
+        fileOpen_B = Button(self.root, text="Browse", command=lambda: self.iFilename.set(self.openFile()))
+        fileOpen_B.grid(column=2, row=0)
+
+        outputDir_label = Label(self.root, text='Select the output directory:')
+        outputDir_label.grid(column=0, row=1)
+        outputDir_label = Entry(self.root, textvariable=self.oFilename)
+        outputDir_label.grid(column=1, row=1)
+        fileOpen_B1 = Button(self.root, text="Browse", command=lambda: self.oFilename.set(self.pathtooutfile()))
+        fileOpen_B1.grid(column=2, row=1)
+
+        cluster_label = Label(self.root, text='Number of cluster')
+        cluster_label.grid(column=0, row=2)
+        cluster_Entry = Entry(self.root, textvariable=self.clusterVar)
+        cluster_Entry.grid(column=1, row=2)
+
+        randomState_label = Label(self.root, text='random state:')
+        randomState_label.grid(column=0, row=3)
+        randomState_Entry = Entry(self.root, textvariable=self.randomStateVar)
+        randomState_Entry.grid(column=1, row=3)
+
+        init_label = Label(self.root, text='Method for initialization:')
+        initOpt = ['k-means++', 'random']
+        init_CB = ttk.Combobox(self.root, textvariable=self.initVar, values=initOpt, state='readonly')
+        self.initVar.set(initOpt[0])
+
+        itersval_label = Label(self.root, text='n_init')
+        itersval_Entry = Entry(self.root, textvariable=self.iterVar)
+
+        maxIter_label = Label(self.root, text='Enter Max iterations value:')
+        maxIter_Entry = Entry(self.root, textvariable=self.maxIterVar)
+
+        alg_label = Label(self.root, text='Enter Max iterations value:')
+        algOpt = ['auto', 'full', 'elkan']
+
+        alg_CB = ttk.Combobox(self.root, textvariable=self.algVar, values=algOpt, state='readonly')
+        self.algVar.set(algOpt[0])
+
+        helpLink = Label(self.root, text="help", fg="blue", cursor="hand2",font=("Arial", 20))
+        helpLink.place(relx=0.01,rely=0.9)
+        helpLink.bind('<Button-1>',
+                        lambda e: self.callBack('https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html'))
+
         bin = BooleanVar()
         bin.set(False)
-
-        if bin.get():
-            init_label = Label(self.root, text='Method for initialization:')
-            init_label.grid(column=0, row=4)
-            initOpt = ['k-means++','random']
-            initVar =StringVar()
-            init_CB = ttk.Combobox(self.root,textvariable=initVar,values=initOpt,state='readonly')
-            initVar.set(initOpt[0])
-            init_CB.grid(column=1, row=4)
-
-            itersval_label=Label(self.root,text='k-means alg run with the different centroid')
-            itersval_label.grid(column=0, row=5)
-            itersval_Entry=Entry(self.root,textvariable='')
-            itersval_Entry.grid(column=1,row=5)
-
-            maxIter_label = Label(self.root, text='Enter Max iterations value:')
-            maxIter_label.grid(column=0, row=6)
-            maxIter_Entry = Entry(self.root, textvariable='')
-            maxIter_Entry.grid(column=1, row=6)
-
-            alg_label = Label(self.root, text='Enter Max iterations value:')
-            alg_label.grid(column=0, row=7)
-            algOpt = ['auto', 'full', 'elkan']
-            algVar = StringVar()
-            alg_CB = ttk.Combobox(self.root, textvariable=algVar, values=algOpt, state='readonly')
-            algVar.set(algOpt[0])
-            alg_CB.grid(column=1, row=7)
-        else:
-            iFilename = StringVar()
-            oFilename = StringVar()
-            inputFile_Label = Label(self.root, text='Select the input file:')
-            inputFile_Label.grid(column=0, row=0)
-
-            inputFile_TB = Entry(self.root, textvariable=iFilename)
-            inputFile_TB.grid(column=1, row=0)
-            fileOpen_B = Button(self.root, text="Browse", command=lambda: iFilename.set(self.openFile()))
-            fileOpen_B.grid(column=2, row=0)
-
-            outputDir_label = Label(self.root, text='Select the output directory:')
-            outputDir_label.grid(column=0, row=1)
-            outputDir_label = Entry(self.root, textvariable=oFilename)
-            outputDir_label.grid(column=1, row=1)
-            fileOpen_B1 = Button(self.root, text="Browse", command=lambda: oFilename.set(self.pathtooutfile()))
-            fileOpen_B1.grid(column=2, row=1)
-
-            cluster_label = Label(self.root, text='Number of cluster')
-            cluster_label.grid(column=0, row=2)
-            cluster_Entry = Entry(self.root, textvariable='')
-            cluster_Entry.grid(column=1, row=2)
-
-            randomState_label = Label(self.root, text='centroid initialization:')
-            randomState_label.grid(column=0, row=3)
-            randomState_Entry = Entry(self.root, textvariable='')
-            randomState_Entry.grid(column=1, row=3)
+        detailOptions_CHB = ttk.Checkbutton(self.root, text='add options',variable=bin,command=lambda :makeAddOption(bin))
+        detailOptions_CHB.grid(column=3,row=8)
 
 
         # precomputeDist_label = Label(self.root, text='Precompute distances:')
@@ -101,9 +135,9 @@ class kmeansGUI:
         # nJobs_Entry.grid(column=1, row=8)
 
 
-        submit=Button(self.root,text="submit",command=lambda:kMeans(iFilename.get(),oFilename.get(),cluster_Entry.get()
-                                                             ,initVar.get(),itersval_Entry.get(),maxIter_Entry.get()
-                                                             ,randomState_Entry.get(),algVar.get()).run())
+        submit=Button(self.root,text="submit",command=lambda:kMeans(self.iFilename.get(),self.oFilename.get(),self.clusterVar.get()
+                                                             ,self.initVar.get(),self.iterVar.get(),self.maxIterVar.get()
+                                                             ,self.randomStateVar.get(),self.algVar.get()).run())
         submit.grid(column=1,row=8)
         back=Button(self.root, text="Back", command=self.back)
         back.grid(column=2,row=8)

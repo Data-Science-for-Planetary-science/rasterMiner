@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
 from GUI import kmeans
-from GUI import dbscan
 from GUI import spectralClustering
 from GUI import meanShift
 
@@ -12,7 +11,7 @@ from algorithms.clustering import *
 from GUI import *
 
 
-class main:
+class GUImain:
     def __init__(self):
         self.root = tk.Tk()
         self.root.title("rasterMiner: Discovering Knowledge Hidden in Raster Images")
@@ -53,13 +52,13 @@ class main:
         elif target == 'spectral Clustering':
             spectralClustering.spectralGUI().Main()
 
-    def main(self):
+    def rootGUI(self):
 
         inputRasterFolder = ''
         outputFolder = ''
 
         Algorithms = {'Parameter tuning': ["elbow-kmeans", "elbow-kmeans++"],
-                          'individual algorithm': ["k-means/k-means++", "DBscan", "Spectral Clustering", "MeanShift",
+                          'individual algorithm': ["k-means/k-means++", "DBscan", "Spectral Clustering", "meanShift",
                                                    "optics",
                                                    "birch"]}
         options = ['multi-band images', 'single-band temporal images']
@@ -211,6 +210,6 @@ class main:
         self.root.mainloop()
 
 if __name__ == '__main__':
-    main().main()
+    GUImain().rootGUI()
 
 

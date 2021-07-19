@@ -1,10 +1,10 @@
 from algorithms.patternmining.createDenseDF import createDenseDF
 from algorithms.patternmining.dense2DB import dense2DB
-from fpGrowth import *
+from SpatialEclat import *
 import sys
 
 
-class runFpGrowth():
+class runSpatialEclat():
     def __init__(self,dFile,oFile,minSup,condition,value):
         self.dFile = dFile
         self.oFile = oFile
@@ -16,8 +16,8 @@ class runFpGrowth():
         obj = createDenseDF(self.dFile)
         obj2 = dense2DB(obj.getDF(), self.condition, self.value)
         obj2.createTemporal("sampleTDB.csv")
-        fp = Fpgrowth(r"sampleTDB.csv",self.minSup)
-        fp.startMine()
+        se = SpatialEclat(r"sampleTDB.csv",self.minSup)
+        se.startMine()
 
 
 if __name__=="__main__":
@@ -29,5 +29,5 @@ if __name__=="__main__":
     obj = createDenseDF(dataFile)
     obj2 = dense2DB(obj.getDF(), condition, value)
     obj2.createTemporal("sampleTDB.csv")
-    fp = Fpgrowth(r"sampleTDB.csv",minSup)
-    fp.startMine()
+    se = SpatialEclat(r"sampleTDB.csv",minSup)
+    se.startMine()

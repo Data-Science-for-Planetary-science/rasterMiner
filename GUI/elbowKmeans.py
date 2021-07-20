@@ -1,7 +1,6 @@
 from tkinter import *
 from tkinter import filedialog, Label
 from tkinter import ttk
-
 from algorithms.clustering.elbowKmeans import elbowKmeans
 import GUImain
 import webbrowser

@@ -4,7 +4,7 @@ from fpGrowth import *
 import sys
 
 
-class runFpGrowth():
+class runFpGrowth:
     def __init__(self,dFile,oFile,minSup,condition,value):
         self.dFile = dFile
         self.oFile = oFile

@@ -75,14 +75,14 @@ class kMeans:
             for p in range(len(X)):
                 # print(p)
                 # wr=kmeans.predict(p)
-                stri = str(','.join(pts[p])) + ',' + str(wr[p]) + '\n'
+                stri = str(','.join(pts[p])) + '\t' + str(wr[p]) + '\n'
                 of.write(stri)
             of.close()
             co = 1
             for j in kmeans.cluster_centers_:
                 text = 'Center-' + str(co)
                 for d in j:
-                    text += ',' + str(d)
+                    text += '\t' + str(d)
                 # print(text)
                 text += '\n'
                 oc.write(text)

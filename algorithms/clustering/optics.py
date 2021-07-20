@@ -66,7 +66,7 @@ class optics:
 
             for i in f:
                 j = i.strip('\n').split('\t')
-                for r in range(1, len(j)):
+                for r in range(2, len(j)):
                     j[r] = float(j[r])
                 pts.append(j[0:1])
                 data.append(j[1:])
@@ -82,8 +82,8 @@ class optics:
             for p in range(len(X)):
                 # print(p)
                 # wr=kmeans.predict(p)
-                stri = str(','.join(pts[p])) + ',' + str(wr[p]) + '\n'
+                stri = str(','.join(pts[p])) + '\t' + str(wr[p]) + '\n'
                 of.write(stri)
             for j in range(len(X)):
-                stri = str('.'.join(pts[j])) + ',' + str(ord[j]) + '\n'
+                stri = str('.'.join(pts[j])) + '\t' + str(ord[j]) + '\n'
                 of2.write(stri)

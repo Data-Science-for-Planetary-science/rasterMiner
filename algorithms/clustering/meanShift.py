@@ -39,9 +39,9 @@ class meanShift:
             header = f.readline()
             for i in f:
                 j = i.strip('\n').split('\t')
-                for r in range(1, len(j)):
+                for r in range(2, len(j)):
                     j[r] = float(j[r])
-                pts.append(j[0])
+                pts.append(j[0:1])
                 data.append(j[1:])
             X = np.array(data)
             meanshift = MeanShift(bandwidth=self.bandwidth, max_iter=self.max_iter,seeds=self.seeds, bin_seeding=bool(self.bin_seeding)
@@ -60,7 +60,7 @@ class meanShift:
             for j in meanshift.cluster_centers_:
                 text = 'Center-' + str(co)
                 for d in j:
-                    text += ',' + str(d)
+                    text += '\t' + str(d)
                 # print(text)
                 text += '\n'
                 oc.write(text)

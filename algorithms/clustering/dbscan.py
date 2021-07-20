@@ -45,7 +45,7 @@ class DBScan:
             header = f.readline()
             for i in f:
                 j = i.strip('\n').split('\t')
-                for r in range(1, len(j)):
+                for r in range(2, len(j)):
                     j[r] = float(j[r])
                 pts.append(j[0:1])
                 data.append(j[1:])
@@ -59,6 +59,6 @@ class DBScan:
             n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
             n_noise_ = list(labels).count(-1)
             for p in range(len(z)):
-                stri=str(','.join(pts[p])) +','+str(labels[p])+'\n'
+                stri=str(','.join(pts[p])) +'\t'+str(labels[p])+'\n'
                 of.write(stri)
             of.close()

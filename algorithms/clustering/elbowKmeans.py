@@ -69,7 +69,7 @@ class elbowKmeans:
             header = f.readline()
             for i in f:
                 j = i.strip('\n').split('\t')
-                for r in range(1, len(j)):
+                for r in range(2, len(j)):
                     j[r] = float(j[r])
                 pts.append(j[0:1])
                 data.append(j[1:])
@@ -82,8 +82,10 @@ class elbowKmeans:
                                 , n_init=int(self.n_init), random_state=self.random_state, algorithm=self.alg).fit(X)
                 gy.append(kmeans.inertia_)
                 gx.append(i)
-                stri = str(i) + ',' + str(kmeans.inertia_) + '\n'
+                stri = str(i) + '\t' + str(kmeans.inertia_) + '\n'
                 of.write(stri)
+
+
             of.close()
             root=tk.Tk()
             root.title('elbow k-means')

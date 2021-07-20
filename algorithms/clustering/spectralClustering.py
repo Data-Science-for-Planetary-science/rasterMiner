@@ -82,7 +82,7 @@ class spectralClustering:
             for p in range(len(X)):
                 # print(p)
                 # wr=kmeans.predict(p)
-                stri = str(','.join(pts[p])) + ',' + str(labels[p]) + '\n'
+                stri = str(','.join(pts[p])) + '\t' + str(labels[p]) + '\n'
                 of.write(stri)
             of.close()
             # print(spectralClustering.affinity_matrix_)

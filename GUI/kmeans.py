@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import filedialog, Label
 from tkinter import ttk
 from algorithms.clustering.kmeans import kMeans
-from GUI import GUImain
+import GUImain
 import webbrowser
 
 
@@ -122,7 +122,7 @@ class kmeansGUI:
         bin = BooleanVar()
         bin.set(False)
         detailOptions_CHB = ttk.Checkbutton(self.root, text='more options',variable=bin,command=lambda :makeAddOptions(bin))
-        detailOptions_CHB.grid(column=3,row=8)
+        detailOptions_CHB.grid(column=0,row=8)
 
 
         # precomputeDist_label = Label(self.root, text='Precompute distances:')

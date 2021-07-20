@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import filedialog, Label
 from tkinter import ttk
 import webbrowser
-from GUI import GUImain
+import GUImain
 
 from algorithms.clustering.spectralClustering import spectralClustering
 
@@ -171,7 +171,7 @@ class spectralGUI:
         bin.set(False)
         detailOptions_CHB = ttk.Checkbutton(self.root, text='add options', variable=bin,
                                             command=lambda: makeAddOptions(bin))
-        detailOptions_CHB.grid(column=3, row=13)
+        detailOptions_CHB.grid(column=0, row=13)
 
         submit = Button(self.root, text="submit",
                         command=lambda: spectralClustering(iFilename.get(), oFilename.get(), self.clusterVar.get()

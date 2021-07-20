@@ -3,7 +3,7 @@ from tkinter import filedialog, Label
 from tkinter import ttk
 
 from algorithms.clustering.elbowKmeans import elbowKmeans
-from GUI import GUImain
+import GUImain
 import webbrowser
 
 

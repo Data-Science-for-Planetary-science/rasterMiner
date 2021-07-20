@@ -6,7 +6,7 @@ import webbrowser
 # import re
 # import ast
 # import final_code
-from GUI import GUImain
+import GUImain
 from algorithms.clustering.affinitypropagation import affinityPropagation
 
 class affinityPropagationGUI:
@@ -39,7 +39,7 @@ class affinityPropagationGUI:
         return dirName
     def back(self):
         self.root.destroy()
-        GUImain.GUImain()
+        GUImain.GUImain().rootGUI()
     def Main(self):
         def makeAddOptions(bin):
             if bin.get():
@@ -111,7 +111,7 @@ class affinityPropagationGUI:
         bin = BooleanVar()
         bin.set(False)
         detailOptions_CHB = ttk.Checkbutton(self.root, text='add options',variable=bin,command=lambda :makeAddOptions(bin))
-        detailOptions_CHB.grid(column=6,row=7)
+        detailOptions_CHB.grid(column=0,row=7)
 
 
 

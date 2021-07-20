@@ -4,7 +4,7 @@ from tkinter import ttk
 # import re
 # import ast
 # import final_code
-from GUI import GUImain
+import GUImain
 from algorithms.clustering.optics import optics
 import webbrowser
 
@@ -183,7 +183,7 @@ class opticsGUI:
         bin = BooleanVar()
         bin.set(False)
         detailOptions_CHB = ttk.Checkbutton(self.root, text='add options',variable=bin,command=lambda :makeAddOptions(bin))
-        detailOptions_CHB.grid(column=3,row=14)
+        detailOptions_CHB.grid(column=0, row=14)
 
         # nJobs_label = Label(self.root, text='The number of OpenMP threads:')
         # nJobs_label.grid(column=0, row=10)

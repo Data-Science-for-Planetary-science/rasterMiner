@@ -1,14 +1,14 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
-from GUI import kmeans
-from GUI import spectralClustering
-from GUI import meanShift
-from GUI import dbscan
-from GUI import optics
-from GUI import birch
-from GUI import elbowKmeans
-import pandas as pd
+import kmeans
+import spectralClustering
+import meanShift
+import dbscan
+import optics
+import affinityPropagation
+import birch
+import elbowKmeans
 from dataProcessing.VerticalExpansion import verticalExpansion
 from dataProcessing.HorizontalExpansion import HorizontalExpansion
 
@@ -52,17 +52,19 @@ class GUImain:
 
     def judgeAlg(self,target):
         self.root.destroy()
-        if target == 'k-means/k-means++':
+        if target == 'k-Means/k-Means++':
             kmeans.kmeansGUI().Main()
-        elif target == 'dbScan':
+        elif target == 'DBScan':
             dbscan.DBScanGUI().Main()
-        elif target == 'meanShift':
+        elif target == 'MeanShift':
             meanShift.meanShiftGUI().Main()
-        elif target == 'spectral Clustering':
+        elif target == 'SpectralClustering':
             spectralClustering.spectralGUI().Main()
-        elif target == 'optics':
+        elif target == 'OPTICS':
             optics.opticsGUI().Main()
-        elif target == 'elbow-kmeans':
+        elif target == 'AffinityPropagation':
+            affinityPropagation.affinityPropagationGUI().Main()
+        elif target == 'Elbow-kmeans':
             elbowKmeans.elbowKmeansGUI().Main()
 
 
@@ -82,10 +84,9 @@ class GUImain:
 
         inputRasterFolder = ''
         outputFolder = ''
-        Algorithms = {'Parameter tuning': ["elbow-kmeans", "elbow-kmeans++"],
-                          'individual algorithm': ["k-means/k-means++", "dbScan", "Spectral Clustering", "meanShift",
-                                                   "optics",
-                                                   "birch"]}
+        Algorithms = {'Parameter tuning': ["Elbow-kmeans", "Elbow-kmeans++"],
+                          'individual algorithm': ["k-Means/k-Means++", "DBScan", "SpectralClustering", "MeanShift",
+                                                   "OPTICS","BIRCH","AffinityPropagation"]}
         options = ['multi-band images', 'single-band temporal images']
         tabControl = ttk.Notebook(self.root)
         tab1 = ttk.Frame(tabControl)

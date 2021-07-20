@@ -18,7 +18,7 @@ class affinityPropagation:
     def run(self):
         outputfile = self.outputDir + '/result_AffinityPropagation_' + str(self.damping) + '_' + str(self.maxIter) + '.csv'
         otc = self.outputDir + '/centers_AffinityPropagation_' + str(self.damping) + '_' + str(self.maxIter) + '.csv'
-        afMatrixOutput = '/affinityMatrix' + str(self.damping) + '_' + str(self.maxIter) + '.csv'
+        afMatrixOutput = self.outputDir + '/affinityMatrix' + str(self.damping) + '_' + str(self.maxIter) + '.csv'
         if (self.inputFile == '' or self.outputDir == ''):
             messagebox.showerror("Error", "Please fill the fields properly")
 

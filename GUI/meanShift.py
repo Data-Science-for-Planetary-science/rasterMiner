@@ -3,7 +3,7 @@ from tkinter import filedialog, Label
 import webbrowser
 from tkinter import ttk
 from algorithms.clustering.meanShift import meanShift
-from GUI import GUImain
+import GUImain
 
 
 class meanShiftGUI:
@@ -132,7 +132,7 @@ class meanShiftGUI:
         bin = BooleanVar()
         bin.set(False)
         detailOptions_CHB = ttk.Checkbutton(self.root, text='add options',variable=bin,command=lambda :makeAddOptions(bin))
-        detailOptions_CHB.grid(column=3,row=14)
+        detailOptions_CHB.grid(column=0,row=14)
 
         submit.grid(column=1,row=8)
         back=Button(self.root, text="Back", command=self.back)

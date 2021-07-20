@@ -4,7 +4,7 @@ from tkinter import ttk
 # import re
 # import ast
 # import final_code
-from GUI import GUImain
+import GUImain
 from algorithms.clustering.dbscan import DBScan
 import webbrowser
 
@@ -127,7 +127,7 @@ class DBScanGUI:
         bin = BooleanVar()
         bin.set(False)
         detailOptions_CHB = ttk.Checkbutton(self.root, text='add options',variable=bin,command=lambda :makeAddOptions(bin))
-        detailOptions_CHB.grid(column=3,row=10)
+        detailOptions_CHB.grid(column=0,row=10)
 
         submit=Button(self.root,text="submit",command=lambda :DBScan(iFilename.get(),oFilename.get(),self.epsVar.get(),self.minSampleVar.get()
                                                              ,self.leafSizeVar.get(),self.powerVar.get(),self.metricVar.get()

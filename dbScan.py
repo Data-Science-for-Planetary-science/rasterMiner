@@ -55,7 +55,7 @@ def main():
             n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
             n_noise_ = list(labels).count(-1)
             for p in range(len(z)):
-                stri=pts[p]+','+str(labels[p])+'\n'
+                stri=pts[p]+','+str()+'\n'
                 of.write(stri)
             of.close()
         # print("output generated")

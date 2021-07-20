@@ -3,12 +3,7 @@ from tkinter import filedialog
 # import re
 # import ast
 from tkinter import messagebox
-# import final_code
-from GUI import GUImain
 from sklearn.cluster import OPTICS
-from sklearn.metrics import pairwise_distances
-from sklearn import metrics
-from sklearn.preprocessing import StandardScaler
 import numpy as np
 
 class optics:
@@ -29,42 +24,66 @@ class optics:
         self.alg = alg
 
     def run(self):
-        outputfile = self.outputDir + '/result_spectralClustering' + str(self.k) + '_' + str(self.eigenSolver) + '.csv'
-        otc = self.outputDir + '/centers_spectralClustering' + str(self.k) + '_' + str(self.eigenSolver) + '.csv'
+        outputfile = self.outputDir + '/result_optics' + str(self.eps) + '.csv'
+        orderOutput = self.outputDir + '/cluster_ordering_optics' + str(self.eps) + '.csv'
 
-        if (self.inputFile == '' or self.outputDir == '' or self.k == '' or self.n_init==''):
+        self.minSamples = int(self.minSamples)
+        if (self.inputFile == '' or self.outputDir == ''):
             messagebox.showerror("Error", "Please fill the fields properly")
         else:
-            if self.random_state == '':
-                self.random_state = None
-
+            self.minSamples = float(self.minSamples)
+            if self.minClusterSize == 'None':
+                self.minClusterSize = None
+            else:
+                if self.minClusterSize < 1:
+                    self.minClusterSize = float(self.minClusterSize)
+                elif self.minClusterSize > 1:
+                    self.minClusterSize = int(self.minClusterSize)
+            if self.minSamples > 1:
+                self.minSamples = int(self.minSamples)
+            elif 0 <= self.minSamples <= 1:
+                self.minSamples = float(self.minSamples)
+            if self.metricParams == 'None':
+                self.metricParams = None
+            else:
+                self.metricParams = dict(self.metricParams)
+            if self.eps == 'None':
+                self.eps = None
+            else:
+                self.eps = float(self.eps)
+            if self.maxEps == 'inf':
+                self.maxEps = np.inf
+            else:
+                self.maxEps = float(self.maxEps)
 
             of = open(outputfile, 'w')
+            of2 = open(orderOutput,'w')
             f = open(self.inputFile, 'r')
-            oc = open(otc, 'w')
             data = []
             # data1=[]
             pts = []
+            header = f.readline()
 
             for i in f:
-                j = i.strip('\n').split(' ')
+                j = i.strip('\n').split('\t')
                 for r in range(1, len(j)):
                     j[r] = float(j[r])
-                pts.append(j[0])
+                pts.append(j[0:1])
                 data.append(j[1:])
             X = np.array(data)
             #X_precomputed = pairwise_distances(X, metric='manhattan')
-            spectralClustering = OPTICS(n_clusters=int(self.k),=self.eigenSolver,random_state=self.random_state,
-                                                    n_init=int(self.n_init),gamma=float(self.gamma),affinity=self.affinity,
-                                                    n_neighbors=int(self.n_neighbor),assign_labels=self.assign_labels,degree=float(self.degree),
-                                                    coef0=float(self.coef0)).fit(X)
-
-            labels = spectralClustering.labels_
+            clustering = OPTICS(min_samples=self.minSamples,max_eps=self.maxEps,metric=self.metric,p=int(self.p)
+                                ,metric_params=self.metricParams,cluster_method=self.clusterMethod,eps=self.eps,xi=self.xi
+                                ,predecessor_correction=self.preCorrect,min_cluster_size=self.minClusterSize,algorithm=self.alg
+                                ,leaf_size=self.leafSize).fit(X)
+            wr = clustering.labels_
+            ord = clustering.ordering_
 
             for p in range(len(X)):
                 # print(p)
                 # wr=kmeans.predict(p)
-                stri = pts[p] + ',' + str(labels[p]) + '\n'
+                stri = str(','.join(pts[p])) + ',' + str(wr[p]) + '\n'
                 of.write(stri)
-            of.close()
-            print(spectralClustering.affinity_matrix_)
+            for j in range(len(X)):
+                stri = str('.'.join(pts[j])) + ',' + str(ord[j]) + '\n'
+                of2.write(stri)

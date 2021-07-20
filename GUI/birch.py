@@ -11,9 +11,9 @@ from algorithms.clustering.spectralClustering import spectralClustering
 class spectralGUI:
     def __init__(self):
         self.root = Tk()
-        self.root.title('BIRCH')
-        v = IntVar(self.root, 1)
+        self.root.title('')
         self.root.minsize(600, 400)
+
     def openFile(self):
         filename1=filedialog.askopenfilename(initialdir="~/Desktop",title="select a file",filetypes=(("csv","*.csv"),("All Files","*.txt")))
         return filename1
@@ -67,7 +67,7 @@ class spectralGUI:
         # nJobs_Entry = Entry(self.root, textvariable='')
         # nJobs_Entry.grid(column=1, row=10)
 
-        submit=Button(self.root,text="submit",command=lambda :spectralClustering(iFilename.get(),oFilename.get(),cluster_Entry.get()
+        submit=Button(self.root,text="submit",command=lambda :BIRCH(iFilename.get(),oFilename.get(),cluster_Entry.get()
                                                                         ,eigenSolverVar.get(),nInit_Entry.get(),randomState_Entry.get(),
                                                                          gamma_Entry.get(),nNeighbors_Entry.get(),assignVar.get(),
                                                                          degree_Entry.get(),coef0_Entry.get(),affinity_Entry.get()).run())

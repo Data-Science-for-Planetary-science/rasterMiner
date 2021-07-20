@@ -37,7 +37,7 @@ def main():
         maxk=textBox4.get()
         inc=textBox5.get()
         outputfile=textBox1.get()+'/result_elbowKmeans_'+str(mink)+'_to_'+str(maxk)+'_by_'+str(inc)+'.csv'
-        if(inputfile=='' or outputfile=='' or maxiterations=='' or mink=='' or maxk=='' or inc==''):
+        if(inputfile=='' or outputfile==''):
             messagebox.showerror("Error", "Please fill the fields properly")
         else:
             of=open(outputfile, 'w')

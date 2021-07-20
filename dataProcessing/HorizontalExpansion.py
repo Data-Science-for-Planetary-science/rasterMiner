@@ -28,5 +28,5 @@ class HorizontalExpansion:
             raster2tsv.raster2tsv(parameters)
 
 if __name__ == '__main__':
-    a = HorizontalExpansion('/Users/yukimaru/Downloads/rasterMinerSampleData/horizontalExpansion_1','lbl', '/Users/yukimaru/Downloads/rasterMinerSampleData', 1,9)
+    a = HorizontalExpansion('/Users/yukimaru/Downloads/rasterMinerSampleData/horizontalExpansion_1','lbl', '/Users/yukimaru/Downloads/rasterMinerSampleData/',3,9)
     a.convert()

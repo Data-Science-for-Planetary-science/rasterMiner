@@ -147,12 +147,12 @@ class raster2tsv:
 
                 a = str(li[2:]).replace('\'', '').replace('[', '').replace(']', '')
                 #print(a)
-                '''temp_line = li[0] + ' ' + li[1] + '\t'
+                temp_line = 'Point(' +li[0] + ' ' + li[1] + ')\t'
                 for a in li[2:]:
-                    temp_line = temp_line + str(a) + '\t'''
-                #dst_fh.write(temp_line[:-1] + "\n")
+                    temp_line = temp_line + str(a) + '\t'
+                dst_fh.write(temp_line[:-1] + "\n")
 
-                dst_fh.write(a + "\n")
+                #dst_fh.write(a + "\n")
 
 
 '''import re

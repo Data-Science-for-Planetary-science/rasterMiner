@@ -2,6 +2,7 @@ import glob
 import pandas as pd
 from dataProcessing import raster2tsv
 import re
+import os
 
 
 class verticalExpansion:
@@ -15,26 +16,50 @@ class verticalExpansion:
         file = glob.glob(self.path)
         listOfDataframes = []
         columnName = []
+        filecounter = 0
+        mainDataFrame = []
         for file in glob.glob(self.path):
             #extracting output filename
-
+            # if filecounter == 0:
             temp = re.findall(r'\d+', file)
             res = list(map(int, temp))
-            out_csv = (self.outputFolder +'/' + str(res[2]) + '.csv')
+            out_csv = (self.outputFolder + '/' + str(res[0]) + '.csv')
 
             # convert to csv file
-            columnName.append(res[2])
+            columnName.append(res[0])
             paramters = '-band 1 ' + file + ' ' + out_csv
             raster2tsv.raster2tsv(paramters)
-            #expanding csv files
+            # expanding csv files
             df = pd.read_csv(out_csv, index_col=None, header=None)
-            listOfDataframes.append(df)
-            frames = pd.concat(listOfDataframes, axis = 1,ignore_index=True)
-            frames.columns = columnName
-        print(frames)
+            df = df[0].str.split('\t',expand=True)
+            df = df.rename(index=df[0])
+            listOfDataframes.append(df[1])
+            mainDataFrame = pd.concat(listOfDataframes, axis=1, ignore_index=True)
+            mainDataFrame.columns = sorted(columnName)
+            os.remove(out_csv)
+        mainDataFrame.to_csv(self.outputFolder+'/temporalData.tsv',sep='\t')
+
+        #     else:
+        #         temp = re.findall(r'\d+', file)
+        #         res = list(map(int, temp))
+        #         out_csv = (self.outputFolder + '/' + str(res[0]) + '.tsv')
+        #
+        #         # convert to csv file
+        #         columnName.append(res[0])
+        #         paramters = '-band 1 ' + file + ' ' + out_csv
+        #         raster2tsv.raster2tsv(paramters)
+        #         # expanding csv files
+        #         df = pd.read_csv(out_csv, index_col=None, header=None)
+        #         listOfDataframes.append(df)
+        #         mainDataFrame = pd.concat(listOfDataframes, axis=1, ignore_index=True)
+        #         mainDataFrame.columns = columnName
+        #         os.remove(out_csv)
+        #         print(mainDataFrame)
+        #
+        # df = mainDataFrame.to_csv("test.csv")
 
 
 if __name__ == '__main__':
-    a = verticalExpansion('/home/hp/raster_files', 'nc', '/home/hp/raster_files')
+    a = verticalExpansion('/Users/yukimaru/Downloads/rasterMinerSampleData/virtialExpansion', 'nc', '/Users/yukimaru/Downloads/rasterMinerSampleData')
     a.convert()
 

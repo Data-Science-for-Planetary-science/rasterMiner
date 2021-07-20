@@ -1,15 +1,16 @@
 from tkinter import *
 from tkinter import filedialog, Label
 from tkinter import ttk
-from algorithms.clustering.kmeans import kMeans
+
+from algorithms.clustering.elbowKmeans import elbowKmeans
 from GUI import GUImain
 import webbrowser
 
 
-class kmeansGUI:
+class elbowKmeansGUI:
     def __init__(self):
         self.root = Tk()
-        self.root.title('k-means')
+        self.root.title('elbow k-means')
         self.root.minsize(600, 400)
         self.initVar = StringVar()
         self.algVar = StringVar()
@@ -23,6 +24,12 @@ class kmeansGUI:
         self.iterVar.set(10)
         self.maxIterVar = StringVar()
         self.maxIterVar.set(300)
+        self.minkVar = StringVar()
+        self.maxkVar = StringVar()
+        self.incVar = StringVar()
+
+
+
     def enter_fg(self,event):
         event.widget['fg'] = 'blue'
     def leave_fg(self,event):
@@ -46,17 +53,17 @@ class kmeansGUI:
         def makeAddOptions(bin):
 
             if bin.get():
-                init_label.grid(column=0, row=4)
-                init_CB.grid(column=1, row=4)
+                init_label.grid(column=0, row=7)
+                init_CB.grid(column=1, row=7)
 
-                itersval_label.grid(column=0, row=5)
-                itersval_Entry.grid(column=1, row=5)
+                itersval_label.grid(column=0, row=8)
+                itersval_Entry.grid(column=1, row=8)
 
-                maxIter_label.grid(column=0, row=6)
-                maxIter_Entry.grid(column=1, row=6)
+                maxIter_label.grid(column=0, row=9)
+                maxIter_Entry.grid(column=1, row=9)
 
-                alg_label.grid(column=0, row=7)
-                alg_CB.grid(column=1, row=7)
+                alg_label.grid(column=0, row=10)
+                alg_CB.grid(column=1, row=10)
             else:
                 init_label.grid_remove()
                 init_CB.grid_remove()
@@ -95,6 +102,23 @@ class kmeansGUI:
         randomState_Entry = Entry(self.root, textvariable=self.randomStateVar)
         randomState_Entry.grid(column=1, row=3)
 
+        mink_label = Label(self.root, text='mink')
+        mink_label.grid(column=0, row=4)
+        mink_Entry = Entry(self.root, textvariable=self.minkVar)
+        mink_Entry.grid(column=1, row=4)
+
+        maxk_label = Label(self.root, text='maxk')
+        maxk_label.grid(column=0, row=5)
+        maxk_Entry = Entry(self.root,textvariable=self.maxkVar)
+        maxk_Entry.grid(column=1, row=5)
+
+        inc_label = Label(self.root, text='increment')
+        inc_label.grid(column=0, row=6)
+        inc_Entry = Entry(self.root, textvariable=self.incVar)
+        inc_Entry.grid(column=1, row=6)
+
+
+
         init_label = Label(self.root, text='Method for initialization:')
         initOpt = ['k-means++', 'random']
         init_CB = ttk.Combobox(self.root, textvariable=self.initVar, values=initOpt, state='readonly')
@@ -122,7 +146,7 @@ class kmeansGUI:
         bin = BooleanVar()
         bin.set(False)
         detailOptions_CHB = ttk.Checkbutton(self.root, text='more options',variable=bin,command=lambda :makeAddOptions(bin))
-        detailOptions_CHB.grid(column=3,row=8)
+        detailOptions_CHB.grid(column=3,row=11)
 
 
         # precomputeDist_label = Label(self.root, text='Precompute distances:')
@@ -141,17 +165,16 @@ class kmeansGUI:
         # nJobs_Entry.grid(column=1, row=8)
 
 
-        submit=Button(self.root,text="submit",command=lambda:kMeans(self.iFilename.get(),self.oFilename.get(),self.clusterVar.get()
+        submit=Button(self.root,text="submit",command=lambda:elbowKmeans(self.iFilename.get(),self.oFilename.get(),self.clusterVar.get()
                                                              ,self.initVar.get(),self.iterVar.get(),self.maxIterVar.get()
-                                                             ,self.randomStateVar.get(),self.algVar.get()).run())
-        submit.grid(column=1,row=8)
+                                                             ,self.randomStateVar.get(),self.algVar.get(),self.minkVar.get()
+                                                             ,self.maxkVar.get(),self.incVar.get()).run())
+        submit.grid(column=1,row=11)
         back=Button(self.root, text="Back", command=self.back)
-        back.grid(column=2,row=8)
+        back.grid(column=2,row=11)
 
 
         self.root.mainloop()
 
 if __name__ == '__main__':
-    kmeansGUI().Main()
-
-
+    elbowKmeansGUI().Main()

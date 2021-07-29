@@ -6,15 +6,27 @@ from sklearn.preprocessing import StandardScaler
 
 
 class affinityPropagation:
-    def __init__(self, inputFile, outputDirectory, damping, maxIter, convergenceIter, preference, affinity, randomState):
-        self.inputFile = inputFile
-        self.outputDir = outputDirectory
-        self.damping = damping
-        self.maxIter = maxIter
-        self.convergenceIter = convergenceIter
-        self.preference = preference
-        self.affinity = affinity
-        self.randomState = randomState
+    def __init__(self, *args):
+        if len(args) == 4:
+            self.inputFile = args[0]
+            self.outputDir = args[1]
+            self.damping = args[2]
+            self.maxIter = args[3]
+            self.convergenceIter = 15
+            self.preference = None
+            self.affinity = 'euclidean'
+            self.randomState = 0
+
+        elif len(args) == 8:
+            self.inputFile = args[0]
+            self.outputDir = args[1]
+            self.damping = args[2]
+            self.maxIter = args[3]
+            self.convergenceIter = args[4]
+            self.preference = args[5]
+            self.affinity = args[6]
+            self.randomState = args[7]
+
     def run(self):
         outputfile = self.outputDir + '/result_AffinityPropagation_' + str(self.damping) + '_' + str(self.maxIter) + '.csv'
         otc = self.outputDir + '/centers_AffinityPropagation_' + str(self.damping) + '_' + str(self.maxIter) + '.csv'
@@ -75,3 +87,10 @@ class affinityPropagation:
                 text += '\t' + str(k)
                 text += '\n'
                 afmo.write(text)
+if __name__ == '__main__':
+    if len(sys.argv) == 5:
+        obj = affinityPropagation(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+        obj.run()
+
+    elif len(sys.argv) == 9:
+        affinityPropagation(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4],sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8],)

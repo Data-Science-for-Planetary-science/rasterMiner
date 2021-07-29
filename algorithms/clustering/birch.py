@@ -11,13 +11,21 @@ from sklearn.preprocessing import StandardScaler
 import numpy as np
 
 class BIRCH:
-    def __init__(self,inputFile,outputDirectory,threshold,branchingFactor,computeLabels,n_cluster):
-        self.inputFile = inputFile
-        self.outputDir = outputDirectory
-        self.threshold = threshold
-        self.branchFactor = branchingFactor
-        self.computeLabels = computeLabels
-        self.nCluster = n_cluster
+    def __init__(self,*args):
+        if len(args) == 3:
+            self.inputFile = args[0]
+            self.outputDir = args[1]
+            self.threshold = args[2]
+            self.branchFactor = 50
+            self.computeLabels = True
+            self.nCluster = 3
+        elif len(args) == 6:
+                self.inputFile = args[0]
+                self.outputDir = args[1]
+                self.threshold = args[2]
+                self.branchFactor = args[3]
+                self.computeLabels = args[4]
+                self.nCluster = args[5]
     def run(self):
 
         outputfile = self.outputDir + '/result_birch' + str(self.threshold) + '_' + str(self.threshold) + '.csv'
@@ -59,3 +67,10 @@ class BIRCH:
             #     co += 1
             # oc.close()
 
+if __name__ == '__main__':
+    if len(sys.argv) == 4:
+        obj = BIRCH(sys.argv[1], sys.argv[2], sys.argv[3])
+        obj.run()
+    elif len(sys.argv) == 7:
+        obj = BIRCH(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
+        obj.run()

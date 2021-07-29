@@ -1,3 +1,4 @@
+import sys
 from tkinter import *
 from tkinter import filedialog
 # import re
@@ -7,21 +8,38 @@ from sklearn.cluster import OPTICS
 import numpy as np
 
 class optics:
-    def __init__(self,inputFile,outputDirectory,minSamples,maxEps,metric,p,metricParams,clusterMethod,eps,xi,preCorrect,leafSize,minClusterSize,alg):
-        self.inputFile = inputFile
-        self.outputDir = outputDirectory
-        self.minSamples = minSamples
-        self.maxEps = maxEps
-        self.metric = metric
-        self.leafSize = leafSize
-        self.p = p
-        self.metricParams = metricParams
-        self.clusterMethod = clusterMethod
-        self.eps = eps
-        self.xi = xi
-        self.preCorrect = preCorrect
-        self.minClusterSize = minClusterSize
-        self.alg = alg
+    def __init__(self,*args):
+        if  len(args) == 4:
+            self.inputFile = args[0]
+            self.outputDir = args[1]
+            self.minSamples = args[2]
+            self.maxEps = args[3]
+            self.metric = 'minkowski'
+            self.leafSize = 30
+            self.p = 2
+            self.metricParams = None
+            self.clusterMethod = 'xi'
+            self.eps = None
+            self.xi = 0.05
+            self.preCorrect = True
+            self.minClusterSize = None
+            self.alg = 'auto'
+
+        elif len(args) == 14:
+            self.inputFile = args[0]
+            self.outputDir = args[1]
+            self.minSamples = args[2]
+            self.maxEps = args[3]
+            self.metric = args[4]
+            self.leafSize = args[5]
+            self.p = args[6]
+            self.metricParams = args[7]
+            self.clusterMethod = args[8]
+            self.eps = args[9]
+            self.xi = args[10]
+            self.preCorrect = args[11]
+            self.minClusterSize = args[12]
+            self.alg = args[13]
 
     def run(self):
         outputfile = self.outputDir + '/result_optics' + str(self.eps) + '.csv'
@@ -87,3 +105,11 @@ class optics:
             for j in range(len(X)):
                 stri = str('.'.join(pts[j])) + '\t' + str(ord[j]) + '\n'
                 of2.write(stri)
+if __name__ == '__main__':
+    if len(sys.argv) == 5:
+        obj = optics(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+        obj.run()
+    elif len(sys.argv) == 15:
+        obj = optics(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9]
+                     ,sys.argv[10],sys.argv[11],sys.argv[12],sys.argv[13],sys.argv[14])
+        obj.run()

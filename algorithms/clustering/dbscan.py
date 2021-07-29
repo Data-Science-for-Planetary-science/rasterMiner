@@ -10,16 +10,28 @@ from sklearn.preprocessing import StandardScaler
 import numpy as np
 
 class DBScan:
-    def __init__(self,inputFile,outputDirectory,epsi,minpts,leafSize,power,metric,metricParams,alg):
-        self.inputFile = inputFile
-        self.outputDir = outputDirectory
-        self.epsi = epsi
-        self.minpts = minpts
-        self.leafSize = leafSize
-        self.power = power
-        self.metric = metric
-        self.metricParams = metricParams
-        self.alg = alg
+    def __init__(self,*args):
+        if len(args) == 4:
+            self.inputFile = args[0]
+            self.outputDir = args[1]
+            self.epsi = args[2]
+            self.minpts = args[3]
+            self.leafSize = args[4]
+            self.power = None
+            self.metric = 'euclidean'
+            self.metricParams = None
+            self.alg = 'auto'
+
+        elif len(args) == 9:
+            self.inputFile = args[0]
+            self.outputDir = args[1]
+            self.epsi = args[2]
+            self.minpts = args[3]
+            self.leafSize = args[4]
+            self.power = args[5]
+            self.metric = args[6]
+            self.metricParams = args[7]
+            self.alg = args[8]
 
     def run(self):
         outputfile = self.outputDir + '/result_DBScan_' + str(self.epsi) + '_' + str(self.minpts) + '.csv'
@@ -62,3 +74,10 @@ class DBScan:
                 stri=str(','.join(pts[p])) +'\t'+str(labels[p])+'\n'
                 of.write(stri)
             of.close()
+if __name__ == '__main__':
+    if len(sys.argv) == 5:
+        obj = DBScan(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+        obj.run()
+    elif len(sys.argv) == 10:
+        obj = DBScan(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9])
+        obj.run()

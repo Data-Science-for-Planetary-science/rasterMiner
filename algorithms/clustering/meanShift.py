@@ -3,15 +3,16 @@ from sklearn.cluster import MeanShift
 import numpy as np
 
 class meanShift:
-    def __init__(self,inputFile,outputDirectory,bandwidth,seeds,bin_seeding,min_bin_freq,cluster_all,max_iter):
-        self.inputFile = inputFile
-        self.outputDir = outputDirectory
-        self.bandwidth = bandwidth
-        self.seeds = seeds
-        self.bin_seeding = bin_seeding
-        self.min_bin_freq = min_bin_freq
-        self.cluster_all = cluster_all
-        self.max_iter = max_iter
+    def __init__(self,*args):
+        if len(args) == 8:
+            self.inputFile = args[0]
+            self.outputDir = args[1]
+            self.bandwidth = args[2]
+            self.seeds = args[3]
+            self.bin_seeding = args[4]
+            self.min_bin_freq = args[5]
+            self.cluster_all = args[6]
+            self.max_iter = args[7]
     def run(self):
         outputfile = self.outputDir + '/result_MeanShift_' + str(self.max_iter) + '.csv'
         otc = self.outputDir + '/centers_MeanShift_' + str(self.max_iter) + '.csv'

@@ -53,7 +53,7 @@ class dense2DB:
                     if len(transaction) > 1:
                         f.write(f'{transaction[0]}')
                         for item in transaction[1:]:
-                            f.write(f',{item}')
+                            f.write(f'\t{item}')
                     elif len(transaction) == 1:
                         f.write(f'{transaction}')
                     else:
@@ -79,9 +79,9 @@ class dense2DB:
                     if len(transaction) > 1:
                         f.write(f'{transaction[0]}')
                         for item in transaction[1:]:
-                            f.write(f',{item}')
+                            f.write(f'\t{item}')
                     elif len(transaction) == 1:
-                        f.write(f',{transaction}')
+                        f.write(f'{transaction}')
                     else:
                         continue
                     f.write('\n')

@@ -2,6 +2,7 @@ from abstract import *
 import sys
 import pandas as pd
 
+
 class SpatialEclat(frequentPatterns):
     """ 
         Spatial Eclat is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up
@@ -99,7 +100,8 @@ class SpatialEclat(frequentPatterns):
     Database = []
 
     def __init__(self, iFile, nFile, minSup):
-        super().__init__(iFile, nFile, minSup)
+        super().__init__(iFile,minSup)
+        self.nFile = nFile
         self.NighboursMap = {}
 
     def creatingItemSets(self, iFileName):
@@ -276,7 +278,6 @@ class SpatialEclat(frequentPatterns):
         self.creatingItemSets(iFileName)
         self.minSup = self.convert(self.minSup)
         self.mapNighbours(self.nFile)
-        print(self.minSup)
         self.frequentOneItem()
         frequentSet = self.generateFrequentPatterns(self.finalPatterns)
         # print("frequentSet",self.finalPatterns)
@@ -342,10 +343,10 @@ class SpatialEclat(frequentPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self.finalPatterns.items():
-            pat = ""
+            """pat = ""
             for i in x:
-                pat += str(i) + " "
-            patternsAndSupport = pat + ": " + str(len(y))
+                pat += str(i) + " """""
+            patternsAndSupport = str(x) + ": " + str(len(y))
             writer.write("%s \n" % patternsAndSupport)
 
     def getFrequentPatterns(self):

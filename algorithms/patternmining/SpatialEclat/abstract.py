@@ -10,7 +10,7 @@ import psutil
 
 
 class frequentPatterns(ABC):
-    """ This Abstract base class defines the variables and methods that every frequent pattern mining algorithm must
+    """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
     employ in PAMI
         ...
         Attributes

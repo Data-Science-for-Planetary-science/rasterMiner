@@ -1,6 +1,6 @@
-from Transpose.createDenseDF import createDenseDF
-from Transpose.dense2DB import dense2DB
-from FpGrowth import fpgrowth
+from createDenseDF import createDenseDF
+from dense2DB import dense2DB
+from fpgrowth import FpGrowth
 import sys
 
 
@@ -37,7 +37,7 @@ class runFpGrowth:
         obj = createDenseDF(self.dFile)
         obj2 = dense2DB(obj.getDF(), self.condition, self.value)
         obj2.createTemporal("sampleTDB.csv")
-        self.fp = fpgrowth.Fpgrowth(r"sampleTDB.csv",self.minSup)
+        self.fp = FpGrowth(r"sampleTDB.csv",self.minSup)
         self.fp.startMine()
 
 
@@ -50,7 +50,7 @@ if __name__=="__main__":
     obj = createDenseDF(dataFile)
     obj2 = dense2DB(obj.getDF(), condition, value)
     obj2.createTemporal("sampleTDB.csv")"""
-    fp = fpgrowth.Fpgrowth("/Users/masuyudai/runDataTranspose/Data/transactional_T10I4D100K.csv",1000)
+    fp = FpGrowth("/Users/masuyudai/runDataTranspose/Data/transactional_T10I4D100K.csv",1000)
     fp.startMine()
     print(len(fp.getFrequentPatterns()))
 

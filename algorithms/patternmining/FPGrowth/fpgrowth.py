@@ -1,6 +1,6 @@
 from types import TracebackType
 from collections import OrderedDict
-
+import sys
 
 class Node:
     def __init__(self):
@@ -41,10 +41,11 @@ class Tree:
             self.nodeLastLinks[node.value] = node
         
 class FpGrowth:
-    def __init__(self,iFile,minSup):
-        self.finalPatterns = set()
+    def __init__(self,iFile,oFile,minSup):
+        self.finalPatterns = []
         self.transaction = []
         self.iFile = iFile
+        self.oFile = oFile
         self.minSup = minSup
         self.fpList = []
         self.fpTree = Tree()
@@ -59,6 +60,7 @@ class FpGrowth:
                     oneFrequentItem[item] = oneFrequentItem.get(item,0) + 1
         oneFrequentItem = {key:value for key,value in oneFrequentItem.items() if value >= self.minSup}
         self.fpList = list(dict(sorted(oneFrequentItem.items(),key=lambda x:x[1],reverse=True)))
+        self.finalPatterns.extend(self.fpList)
 
 
     def sortTransaction(self):
@@ -81,11 +83,11 @@ class FpGrowth:
             currentNode = currentNode.nextNode
         return partialTree
         
-    def getAllFrequentPattern(self):
+    def createAllFrequentPattern(self):
         for item in reversed(self.fpList):
-            self.getFrequentPattern(self.fpTree.nodeLinks[item],self.fpTree.nodeLinks[item].value)
+            self.createFrequentPattern(self.fpTree.nodeLinks[item],self.fpTree.nodeLinks[item].value)
 
-    def getFrequentPattern(self,node,suffixItem):
+    def createFrequentPattern(self,node,suffixItem):
         pTree = self.createConditionalPatternBase(node)
         frequentItems = {}
         for item in reversed(pTree.nodeLinks):
@@ -104,15 +106,43 @@ class FpGrowth:
                 else:
                     pattern = {suffixItem}.union({item})
 
-                if frozenset(pattern) not in self.finalPatterns:
-                    self.finalPatterns.add(frozenset(pattern))
-                    self.getFrequentPattern(pTree.nodeLinks[item],pattern)
+                if pattern not in self.finalPatterns:
+                    self.finalPatterns.append(pattern)
+                    self.createFrequentPattern(pTree.nodeLinks[item], pattern)
+
+    def startMine(self):
+        self.readDataBase()
+        self.sortTransaction()
+        self.createFPTree()
+        self.createAllFrequentPattern()
+
+
+    def getFrequentPatterns(self):
+        return self.finalPatterns
+
+
+    def storePatternInFile(self):
+        with open(self.oFile,"w") as f:
+            for items in self.finalPatterns:
+                for item in items:
+                    pattern = str(item) + " "
+                pattern += "\n"
+                f.write(pattern)
 
 
 if __name__=="__main__":
-    fp = FpGrowth("/Users/masuyudai/runDataTranspose/Data/transactional_T10I4D100K.csv",1000)
+    """iFile = sys.argv[1]
+    oFile = sys.argv[2]
+    minSup = sys.argv[3]
+    fp = FpGrowth(iFile,oFile,minSup)
     fp.readDataBase()
     fp.sortTransaction()
     fp.createFPTree()
-    fp.getAllFrequentPattern()
+    fp.createAllFrequentPattern()"""
+
+    fp = FpGrowth("/Users/masuyudai/runDataTranspose/Data/transactional_T10I4D100K.csv","output.txt",1000)
+    fp.readDataBase()
+    fp.sortTransaction()
+    fp.createFPTree()
+    fp.createAllFrequentPattern()
     print(len(fp.finalPatterns))

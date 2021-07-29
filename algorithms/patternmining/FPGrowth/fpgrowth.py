@@ -130,6 +130,7 @@ class FpGrowth:
                 f.write(pattern)
 
 
+
 if __name__=="__main__":
     """iFile = sys.argv[1]
     oFile = sys.argv[2]

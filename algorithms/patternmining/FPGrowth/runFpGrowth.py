@@ -3,8 +3,6 @@ from dense2DB import dense2DB
 from fpgrowth import FpGrowth
 import sys
 
-
-
 class runFpGrowth:
     """
     Attributes:

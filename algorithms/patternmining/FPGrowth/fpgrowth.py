@@ -1,4 +1,3 @@
-from types import TracebackType
 from collections import OrderedDict
 import sys
 
@@ -146,4 +145,5 @@ if __name__=="__main__":
     fp.sortTransaction()
     fp.createFPTree()
     fp.createAllFrequentPattern()
+
     print(len(fp.finalPatterns))

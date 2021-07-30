@@ -1,10 +1,29 @@
 from tkinter import messagebox
 from sklearn.cluster import MeanShift
 import numpy as np
+import sys
 
 class meanShift:
     def __init__(self,*args):
-        if len(args) == 8:
+        if len(args) == 3:
+            self.inputFile = args[0]
+            self.outputDir = args[1]
+            self.bandwidth = args[2]
+            self.seeds = 'None'
+            self.bin_seeding = 'False'
+            self.min_bin_freq = 1
+            self.cluster_all = 'True'
+            self.max_iter = 300
+        elif len(args) == 4:
+            self.inputFile = args[0]
+            self.outputDir = args[1]
+            self.bandwidth = args[2]
+            self.seeds = 'None'
+            self.bin_seeding = 'False'
+            self.min_bin_freq = 1
+            self.cluster_all = 'True'
+            self.max_iter = args[3]
+        elif len(args) == 8:
             self.inputFile = args[0]
             self.outputDir = args[1]
             self.bandwidth = args[2]
@@ -67,3 +86,19 @@ class meanShift:
                 oc.write(text)
                 co += 1
             oc.close()
+if __name__ == '__main__':
+    if len(sys.argv) == 4:
+        obj = meanShift(sys.argv[1], sys.argv[2], sys.argv[3])
+        obj.run()
+    elif len(sys.argv) == 5:
+        obj = meanShift(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+        obj.run()
+    elif len(sys.argv) == 15:
+        obj = meanShift(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9]
+                     ,sys.argv[10],sys.argv[11],sys.argv[12],sys.argv[13],sys.argv[14])
+        obj.run()
+    else:
+        print('Please enter in one of the following format:'
+              '1. python meanShift.py <inputFile> <outputFile> <band width>'
+              '2. python meanShift.py <inputFile> <outputFile> <band width> <maxIter>'
+              '3. python meanShift.py <inputFile> <outputFile> <band width> <maxIter> <seeds> <bin seeding> <min bin freq> <cluster all> ')

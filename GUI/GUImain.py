@@ -73,13 +73,14 @@ class GUImain:
         def addOpt():
             if wranglingVar.get() == 'fill':
                 dropValue_CB.grid_remove()
-                convertValue_TB.grid(column=2, row=1, padx=30, pady=30)
+                convertValue_TB.grid(column=2, row=2, padx=30, pady=30)
             else:
                 convertValue_TB.grid_remove()
-                dropValue_CB.grid(column=2, row=1, padx=30, pady=30)
+                dropValue_CB.grid(column=2, row=2, padx=30, pady=30)
 
         def dataWrangling():
-            df = pd.read_csv(inputFileNameTab1.get(), encoding="shift-jis")
+            df = pd.read_csv(iFileNameHandlingNan.get(), encoding="shift-jis")
+
             if wranglingVar.get() == 'fill':
                 df = df.fillna(convertVal.get())
             elif wranglingVar.get() == 'drop':
@@ -96,11 +97,13 @@ class GUImain:
                 elif dropVar.get() == 'any row':
                     df = df.dropna(how='any', axis=1)
             print(df)
+            df.to_csv(oFileNameHandlingNan.get() + '/result.csv')
+
         clusteringAlgorithms = {'Parameter tuning': ["Elbow-kmeans", "Elbow-kmeans++"],
                           'individual algorithm': ["k-Means/k-Means++", "DBScan", "SpectralClustering", "MeanShift",
                                                    "OPTICS","BIRCH","AffinityPropagation"]}
 
-        options = ['multi-band images', 'single-band temporal images',"pandas options"]
+        options = ['multi-band images', 'single-band temporal images',"handling Nan value"]
 
         mineOptions = ['Temporal File', 'Mining', 'Neighborhood File']
         TypeofFile = ['Binary', 'Utility']
@@ -135,7 +138,8 @@ class GUImain:
         v2 = tk.StringVar()
         inputRasterFolderName = tk.StringVar()
         outputFolderNameTab1 = tk.StringVar()
-        inputFileNameTab1 = tk.StringVar()
+        iFileNameHandlingNan = tk.StringVar()
+        oFileNameHandlingNan = tk.StringVar()
         fileExtension = tk.StringVar()
         start_band_var = tk.StringVar()
         end_band_var = tk.StringVar()
@@ -173,7 +177,7 @@ class GUImain:
                 iTempFile_TB = ttk.Entry(subFrame2, textvariable=inputTempFileName, width=40)
                 iTempFile_TB.grid(column=1, row=0, padx=60, pady=30)
                 iTempFile_B = tk.Button(subFrame2, text='Browse',
-                                    command=lambda :inputFileNameTab1.set(str(self.uploadInputFile())))
+                                    command=lambda :iFileNameHandlingNan.set(str(self.uploadInputFile())))
                 iTempFile_B.grid(row=0, column=2, padx=60, pady=30)
 
                 fileType_label = ttk.Label(subFrame2, text='Type of file')
@@ -281,7 +285,7 @@ class GUImain:
                                                                          str(outputFolderNameTab1.get())))
                 submit.bind('<1>', lambda e: print('running'))
                 submit.grid(row=6, column=0)
-            elif option == 'pandas options':
+            elif option == 'handling Nan value':
                 convertValue_TB = ttk.Entry(subFrame1, textvariable=convertVal, width=10)
                 dropValue_CB = ttk.Combobox(subFrame1, textvariable=dropVar, values=dropOpt, state='readonly')
                 e1.grid_remove()
@@ -296,22 +300,34 @@ class GUImain:
                 label5.grid_remove()
                 start_band_TB.grid_remove()
                 end_band_TB.grid_remove()
-                label6 = ttk.Label(subFrame1,text='Select the file')
+                label6 = ttk.Label(subFrame1,text='Select the inputFile')
                 label6.grid(row=0, column=0, padx=30, pady=30)
-                fileName_TB = tk.Entry(subFrame1, textvariable=inputFileNameTab1, width=40)
-                fileName_TB.grid(row=0, column=1, padx=30, pady=30)
-                button3 = tk.Button(subFrame1, text='Browse',
-                                    command=lambda :inputFileNameTab1.set(str(self.uploadInputFile())))
+                label7 = ttk.Label(subFrame1,text='Select the outputFolder')
+                label7.grid(row=1, column=0, padx=30, pady=30)
+                label7 = ttk.Label(subFrame1,text='Select the handling type')
+                label7.grid(row=2, column=0, padx=30, pady=30)
+
+
+                iFileName_TB = tk.Entry(subFrame1, textvariable=iFileNameHandlingNan, width=40)
+                iFileName_TB.grid(row=0, column=1, padx=30, pady=30)
+                iFileName_B = tk.Button(subFrame1, text='Browse',
+                                    command=lambda :iFileNameHandlingNan.set(str(self.uploadInputFile())))
+                oFileName_TB = tk.Entry(subFrame1, textvariable=oFileNameHandlingNan, width=40)
+                oFileName_TB.grid(row=1, column=1, padx=30, pady=30)
+                oFIleName_B = tk.Button(subFrame1, text='Browse',
+                                    command=lambda :oFileNameHandlingNan.set(str(self.uploadOutputDir())))
                 nanValueTreat_CB = ttk.Combobox(subFrame1, textvariable=wranglingVar, value=nanOpt, state='readonly')
-                nanValueTreat_CB.grid(row=1, column=1, padx=30, pady=30)
-                nanValueTreat_CB.set(nanOpt[0])
+                nanValueTreat_CB.grid(row=2, column=1, padx=30, pady=30)
+                # nanValueTreat_CB.set(nanOpt[0])
                 nanValueTreat_CB.bind('<<ComboboxSelected>>',
                                       lambda e: addOpt())
 
                 # valueConvert_CHB = ttk.Checkbutton(subFrame1,text='convertNanValue',variable=wranglingFlag,command=lambda :makeOptions(wranglingFlag))
                 # valueConvert_CHB.grid(row=1, column=0, padx=30, pady=30)
 
-                button3.grid(row=0, column=2, padx=30)
+                iFileName_B.grid(row=0, column=2, padx=30)
+                oFIleName_B.grid(row=1, column=2, padx=30)
+
                 submit = tk.Button(subFrame1, text='submit')
                 submit.grid(row=3, column=1)
                 submit.bind('<1>',

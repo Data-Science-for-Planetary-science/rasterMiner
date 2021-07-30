@@ -8,7 +8,7 @@ class HorizontalExpansion:
     def __init__(self, inputFolder,fileExtension,outputFolder,startBand, endBand):
         self.path = inputFolder + '/*.'+fileExtension
         self.outputFolder = outputFolder
-        self.startBand =startBand
+        self.startBand = startBand
         self.endBand = endBand
 
     def convert(self):

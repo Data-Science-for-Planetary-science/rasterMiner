@@ -20,12 +20,12 @@ class BIRCH:
             self.computeLabels = True
             self.nCluster = 3
         elif len(args) == 6:
-                self.inputFile = args[0]
-                self.outputDir = args[1]
-                self.threshold = args[2]
-                self.branchFactor = args[3]
-                self.computeLabels = args[4]
-                self.nCluster = args[5]
+            self.inputFile = args[0]
+            self.outputDir = args[1]
+            self.threshold = args[2]
+            self.branchFactor = args[3]
+            self.computeLabels = args[4]
+            self.nCluster = args[5]
     def run(self):
 
         outputfile = self.outputDir + '/result_birch' + str(self.threshold) + '_' + str(self.threshold) + '.csv'
@@ -74,3 +74,7 @@ if __name__ == '__main__':
     elif len(sys.argv) == 7:
         obj = BIRCH(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
         obj.run()
+    else:
+        print('Please enter in one of the following format:'
+              '1. python birch.py <inputFile> <outputFile> <threshold>'
+              '2. python birch.py <inputFile> <outputFile> <threshold> <branch factor> <computeLables> <nCluster>')

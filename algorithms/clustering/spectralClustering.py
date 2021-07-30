@@ -9,10 +9,10 @@ class spectralClustering:
             self.inputFile = args[0]
             self.outputDir = args[1]
             self.k = args[2]
-            self.eigenSolver = None
+            self.eigenSolver = 'None'
             self.n_init = 10
             self.gamma = 1.0
-            self.random_state = None
+            self.random_state = 'None'
             self.n_neighbors = 10
             self.assign_labels = 'kmeans'
             self.degree = 3
@@ -23,10 +23,10 @@ class spectralClustering:
             self.inputFile = args[0]
             self.outputDir = args[1]
             self.k = args[2]
-            self.eigenSolver = None
+            self.eigenSolver = 'None'
             self.n_init = 10
             self.gamma = 1.0
-            self.random_state = None
+            self.random_state = 'None'
             self.n_neighbors = 10
             self.assign_labels = 'kmeans'
             self.degree = 3

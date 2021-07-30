@@ -11,15 +11,25 @@ import numpy as np
 
 class DBScan:
     def __init__(self,*args):
-        if len(args) == 4:
+        if len(args) == 3:
+            self.inputFile = args[0]
+            self.outputDir = args[1]
+            self.epsi = args[2]
+            self.minpts = 5
+            self.leafSize = 30
+            self.power = 'None'
+            self.metric = 'euclidean'
+            self.metricParams = 'None'
+            self.alg = 'auto'
+        elif len(args) == 4:
             self.inputFile = args[0]
             self.outputDir = args[1]
             self.epsi = args[2]
             self.minpts = args[3]
-            self.leafSize = args[4]
-            self.power = None
+            self.leafSize = 30
+            self.power = 'None'
             self.metric = 'euclidean'
-            self.metricParams = None
+            self.metricParams = 'None'
             self.alg = 'auto'
 
         elif len(args) == 9:
@@ -75,9 +85,17 @@ class DBScan:
                 of.write(stri)
             of.close()
 if __name__ == '__main__':
-    if len(sys.argv) == 5:
+    if len(sys.argv) == 4:
+        obj = DBScan(sys.argv[1], sys.argv[2], sys.argv[3])
+        obj.run()
+    elif len(sys.argv) == 5:
         obj = DBScan(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
         obj.run()
     elif len(sys.argv) == 10:
         obj = DBScan(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], sys.argv[7], sys.argv[8], sys.argv[9])
         obj.run()
+    else:
+        print('Please enter in one of the following format:'
+              '1. python dbscan.py <inputFile> <outputFile> <eps>'
+              '2. python dbscan.py <inputFile> <outputFile> <eps> <minSample>'
+              '3. python dbscan.py <inputFile> <outputFile> <eps> <minSample> <leaf size> <power> <metric> <metric params> <algorithm> ')

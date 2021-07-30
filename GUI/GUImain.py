@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
+
 import kmeans
 import spectralClustering
 import meanShift
@@ -104,7 +105,6 @@ class GUImain:
                                                    "OPTICS","BIRCH","AffinityPropagation"]}
 
         options = ['multi-band images', 'single-band temporal images',"handling Nan value"]
-
         mineOptions = ['Temporal File', 'Mining', 'Neighborhood File']
         TypeofFile = ['Binary', 'Utility']
         nanOpt = ['drop', 'fill']
@@ -146,7 +146,6 @@ class GUImain:
         wranglingVar = tk.StringVar()
         convertVal = tk.StringVar()
         dropVar = tk.StringVar()
-
         inputTempFileName = tk.StringVar()
         fileTypeVar = tk.StringVar()
         thresholdVar = tk.StringVar()
@@ -224,8 +223,6 @@ class GUImain:
 
                 submit = tk.Button(subFrame2, text='submit')
                 submit.grid(row=2, column=0, pady=30)
-
-
 
 
         for option in options:

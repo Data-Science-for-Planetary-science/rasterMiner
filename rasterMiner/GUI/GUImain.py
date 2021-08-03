@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
+
 import kmeans
 import spectralClustering
 import meanShift
@@ -11,7 +12,6 @@ import pandas as pd
 import elbowKmeans
 from dataProcessing.VerticalExpansion import verticalExpansion
 from dataProcessing.HorizontalExpansion import HorizontalExpansion
-from tkinter import messagebox
 
 
 class GUImain:
@@ -43,7 +43,6 @@ class GUImain:
         a = HorizontalExpansion(inputRasterFolderName, fileExtension, outputFolderName,
                             startBandVar, endBandVar)
         a.convert()
-        messagebox.showinfo('notification','Successfully completed')
             #     print(f'-bounds{i}',end=' ')
             # print(inputRasterFolderName.get())
             # print(outputFolderName.get())
@@ -51,8 +50,6 @@ class GUImain:
         print("Calling VertificalExpansion.py")
         a = verticalExpansion(inputRasterFolderName, fileExtension, outputFolderName)
         a.convert()
-        messagebox.showinfo('notification','Successfully completed')
-
 
 
     def judgeAlg(self,target):
@@ -100,8 +97,8 @@ class GUImain:
                     df = df.dropna(how='any')
                 elif dropVar.get() == 'any row':
                     df = df.dropna(how='any', axis=1)
+            print(df)
             df.to_csv(oFileNameHandlingNan.get() + '/result.csv')
-            messagebox.showinfo('notification', 'Successfully completed')
 
         clusteringAlgorithms = {'Parameter tuning': ["Elbow-kmeans", "Elbow-kmeans++"],
                           'individual algorithm': ["k-Means/k-Means++", "DBScan", "SpectralClustering", "MeanShift",
@@ -198,8 +195,10 @@ class GUImain:
             elif mineOption == 'Mining':
                 patternMiningAlg_label = ttk.Label(subFrame2, text='select the algorithm')
                 patternMiningAlg_label.grid(column=0, row=0, padx=60, pady=30, sticky='W')
+
                 fileType_CB = ttk.Combobox(subFrame2, textvariable=fileTypeVar, values=TypeofFile, state='readonly')
                 fileType_CB.grid(column=1, row=0, padx=60, pady=30)
+
                 submit = tk.Button(subFrame2, text='submit')
                 submit.grid(row=1, column=0, pady=30)
 
@@ -344,3 +343,30 @@ class GUImain:
 
 if __name__ == '__main__':
     GUImain().rootGUI()
+
+# def elbowAlgSelected():
+#     selectBtn1.state(['pressed'])
+#     selectBtn2.state(['!pressed'])
+# def simpleAlgSelected():
+#     selectBtn1.state(['!pressed'])
+#     selectBtn2.state(['pressed'])
+
+# ttk.Label(subFrame3, text='Select algorithm',font=("Arial", 20)).place(relx=0,rely=0,relwidth=1,relheight=0.125)
+
+# make textbox
+
+# button3 = tk.Button(tab3, text='submit', command=)
+
+# v2 = tk.StringVar()
+
+# selectBtn1 = ttk.Button(tab3,text='Parameter tuning',padding=(10),command=elbowAlgSelected)
+# selectBtn1.bind('<1>', lambda e: cb2.config(values=Algorithms['elbowAlg']))
+# selectBtn2 = ttk.Button(tab3,text='Individual algorithms',padding=(10),command=simpleAlgSelected)
+# selectBtn2.bind('<1>', lambda e: ))
+# selectBtn1.place(relx=0,rely=0.2,relwidth=0.5,relheight=0.125)
+# selectBtn2.place(relx=0.5,rely=0.2,relwidth=0.5,relheight=0.125)
+# selectBtn1.grid(row=1,column=1,sticky='W')
+# selectBtn2.grid(row=1,column=2,sticky='W')
+# print(str(v2.get))
+
+

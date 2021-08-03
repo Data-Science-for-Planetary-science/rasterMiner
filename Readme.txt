@@ -2,7 +2,7 @@ Way to start:
 		python3 rasterMiner/GUI/GUImain,py
 
 libraries required:
-	tinter
+	tkinter
 	sklearn
 	matplotlib
 	mplcursors

@@ -1,5 +1,5 @@
 Way to start:
-		python3 startapp.py
+		python3 rasterMiner/GUI/GUImain,py
 
 libraries required:
 	tinter
@@ -8,6 +8,6 @@ libraries required:
 	mplcursors
 	sklearn_extensions
 	numpy
-	raster2xyz
+	gdal
 
 	The above libraries can be installed using the following command: sudo pip3 install setuptools wheel numpy sklearn matplotlib mplcursors tk sklearn_extensions raster2xyz

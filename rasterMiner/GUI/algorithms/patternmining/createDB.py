@@ -12,9 +12,8 @@ class createDB:
     def run(self):
         print(self.thresholdValue,self.condition)
         dataFrame = createDenseDF.createDenseDF(self.iFile)
-        dataFrame.getDF()
-        dataBase = dense2DB.dense2DB(dataFrame,self.condition,self.thresholdValue)
-        dataBase.createTransactinal(self.oFile)
+        dataBase = dense2DB.dense2DB(dataFrame.getDF(),self.condition,self.thresholdValue)
+        dataBase.createTransactional(self.oFile)
 
 
 if __name__ == "__main__":

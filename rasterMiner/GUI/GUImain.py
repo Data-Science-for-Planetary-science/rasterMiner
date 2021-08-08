@@ -11,6 +11,7 @@ import affinityPropagation
 import pandas as pd
 import elbowKmeans
 from algorithms.patternmining.createDB import createDB
+from algorithms.patternmining.euclidDistance import EuclidDistance
 from dataProcessing.VerticalExpansion import verticalExpansion
 from dataProcessing.HorizontalExpansion import HorizontalExpansion
 
@@ -236,8 +237,14 @@ class GUImain:
                                     command=lambda: outputNeighborFolderVar.set(str(self.uploadOutputDir())))
                 outputNeighborFolder_B.grid(row=1, column=2, padx=60)
 
-                submit = tk.Button(subFrame2, text='submit')
-                submit.grid(row=2, column=0, pady=30)
+                threshold_label = ttk.Label(subFrame2, text='threshold')
+                threshold_label.grid(column=0, row=2, padx=60, pady=30)
+                threshold_TB = ttk.Entry(subFrame2, textvariable=thresholdVar)
+                threshold_TB.grid(column=1, row=2, padx=60, pady=30)
+
+                submit = tk.Button(subFrame2, text='submit', command=lambda :EuclidDistance(inputNeighborFileVar.get(), outputNeighborFolderVar.get(),
+                                                                                            int(thresholdVar.get())).run())
+                submit.grid(row=3, column=0, pady=30)
 
 
         for option in options:

@@ -12,6 +12,7 @@ class EuclidDistance:
         coordinates = []
         result = {}
         with open(self.iFile,"r") as f:
+            header = f.readline()
             for line in f:
                 l = line.rstrip().split("\t")
                 l[0] = re.sub(r'[^0-9. ]', '', l[0])

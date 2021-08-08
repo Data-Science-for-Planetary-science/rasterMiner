@@ -68,6 +68,8 @@ class GUImain:
             affinityPropagation.affinityPropagationGUI().Main()
         elif target == 'Elbow-kmeans':
             elbowKmeans.elbowKmeansGUI().Main()
+        # elif target == 'Elbow-kmeans++':
+        #     elbowKmeansPl.elbowKmeansPlGUI().Main()
 
 
     def rootGUI(self):
@@ -103,10 +105,10 @@ class GUImain:
         clusteringAlgorithms = {'Parameter tuning': ["Elbow-kmeans", "Elbow-kmeans++"],
                           'individual algorithm': ["k-Means/k-Means++", "DBScan", "SpectralClustering", "MeanShift",
                                                    "OPTICS","BIRCH","AffinityPropagation"]}
-
+        pamiAlgorithms = ['SpatialEclat','spatialFPGrowth']
         options = ['multi-band images', 'single-band temporal images',"handling Nan value"]
         mineOptions = ['Temporal File', 'Mining', 'Neighborhood File']
-        TypeofFile = ['Binary', 'Utility']
+        condition = ['<=', '>=','<','>']
         nanOpt = ['drop', 'fill']
         dropOpt = ['all', 'all column', 'all row', 'any', 'any column', 'any row']
 
@@ -137,7 +139,6 @@ class GUImain:
 
         v2 = tk.StringVar()
         inputRasterFolderName = tk.StringVar()
-        outputFolderNameTab1 = tk.StringVar()
         iFileNameHandlingNan = tk.StringVar()
         oFileNameHandlingNan = tk.StringVar()
         fileExtension = tk.StringVar()
@@ -147,10 +148,14 @@ class GUImain:
         convertVal = tk.StringVar()
         dropVar = tk.StringVar()
         inputTempFileName = tk.StringVar()
-        fileTypeVar = tk.StringVar()
+        conditionVar = tk.StringVar()
         thresholdVar = tk.StringVar()
         inputNeighborFileVar = tk.StringVar()
         outputNeighborFolderVar = tk.StringVar()
+        pamiAlgVar = tk.StringVar()
+        outputFolderNameTab1 = tk.StringVar()
+        oTempFolderVar = tk.StringVar()
+
 
 
 
@@ -176,28 +181,36 @@ class GUImain:
                 iTempFile_TB = ttk.Entry(subFrame2, textvariable=inputTempFileName, width=40)
                 iTempFile_TB.grid(column=1, row=0, padx=60, pady=30)
                 iTempFile_B = tk.Button(subFrame2, text='Browse',
-                                    command=lambda :iFileNameHandlingNan.set(str(self.uploadInputFile())))
+                                    command=lambda :inputTempFileName.set(str(self.uploadInputFile())))
                 iTempFile_B.grid(row=0, column=2, padx=60, pady=30)
 
-                fileType_label = ttk.Label(subFrame2, text='Type of file')
-                fileType_label.grid(column=0,row=1, padx=60, pady=30, sticky='W')
-                fileType_CB = ttk.Combobox(subFrame2, textvariable=fileTypeVar, values=TypeofFile, state='readonly')
-                fileType_CB.grid(column=1, row=1, padx=60, pady=30)
+                oTempFolder_label = ttk.Label(subFrame2, text='output folder')
+                oTempFolder_label.grid(column=0, row=1, padx=60, pady=30, sticky='W')
+                oTempFolder_TB = ttk.Entry(subFrame2, textvariable=oTempFolderVar, width=40)
+                oTempFolder_TB.grid(column=1, row=1, padx=60, pady=30)
+                oTempFolder_B = tk.Button(subFrame2, text='Browse',
+                                    command=lambda :oTempFolderVar.set(str(self.uploadOutputDir())))
+                oTempFolder_B.grid(row=1, column=2, padx=60, pady=30)
+
+                condition_label = ttk.Label(subFrame2, text='condition')
+                condition_label.grid(column=0,row=2, padx=60, pady=30, sticky='W')
+                condition_CB = ttk.Combobox(subFrame2, textvariable=conditionVar, values=condition, state='readonly')
+                condition_CB.grid(column=1, row=2, padx=60, pady=30)
 
                 threshold_label = ttk.Label(subFrame2, text='threshold')
-                threshold_label.grid(column=0, row=2, padx=60, pady=30)
+                threshold_label.grid(column=0, row=3, padx=60, pady=30)
                 threshold_TB = ttk.Entry(subFrame2, textvariable=thresholdVar)
-                threshold_TB.grid(column=1, row=2, padx=60, pady=30)
+                threshold_TB.grid(column=1, row=3, padx=60, pady=30)
 
                 submit = tk.Button(subFrame2, text='submit')
-                submit.grid(row=3, column=0, pady=30)
+                submit.grid(row=4, column=0, pady=30)
 
             elif mineOption == 'Mining':
                 patternMiningAlg_label = ttk.Label(subFrame2, text='select the algorithm')
                 patternMiningAlg_label.grid(column=0, row=0, padx=60, pady=30, sticky='W')
 
-                fileType_CB = ttk.Combobox(subFrame2, textvariable=fileTypeVar, values=TypeofFile, state='readonly')
-                fileType_CB.grid(column=1, row=0, padx=60, pady=30)
+                condition_CB = ttk.Combobox(subFrame2, textvariable=pamiAlgVar, values=pamiAlgorithms, state='readonly')
+                condition_CB.grid(column=1, row=0, padx=60, pady=30)
 
                 submit = tk.Button(subFrame2, text='submit')
                 submit.grid(row=1, column=0, pady=30)
@@ -209,7 +222,7 @@ class GUImain:
                 iNeighborFile_TB.grid(row=0, column=1)
 
                 iNeighborFile_B = tk.Button(subFrame2, text='Browse',
-                                    command=lambda: inputRasterFolderName.set(str(self.uploadInputDir())))
+                                    command=lambda: inputNeighborFileVar.set(str(self.uploadInputFile())))
                 iNeighborFile_B.grid(row=0, column=2, padx=60)
 
                 outputNeighborFolder_label = ttk.Label(subFrame2, text='Select output folder:')
@@ -218,7 +231,7 @@ class GUImain:
                 outputNeighborFolder_TB.grid(row=1, column=1)
 
                 outputNeighborFolder_B = tk.Button(subFrame2, text='Browse',
-                                    command=lambda: outputFolderNameTab1.set(str(self.uploadOutputDir())))
+                                    command=lambda: outputNeighborFolderVar.set(str(self.uploadOutputDir())))
                 outputNeighborFolder_B.grid(row=1, column=2, padx=60)
 
                 submit = tk.Button(subFrame2, text='submit')

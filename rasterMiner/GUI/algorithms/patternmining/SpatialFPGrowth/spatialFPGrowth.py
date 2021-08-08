@@ -61,15 +61,13 @@ class Tree:
 
 
 class spatialFpGrowth:
-    def __init__(self, iFile, nFile, oFile, minSup, maxDist):
+    def __init__(self, iFile, nFile, minSup):
         self.finalPatterns = []
         self.transaction = []
         self.iFile = iFile
         self.nFile = nFile
-        self.oFile = oFile
         self.neighbourList = {}
         self.minSup = minSup
-        self.maxDist = maxDist
         self.fpList = []
         self.fpTree = Tree()
 
@@ -150,13 +148,11 @@ class spatialFpGrowth:
                     self.finalPatterns.append(pattern)
                     self.createSpatialFrequentPattern(pTree.nodeLinks[item], pattern)
 
-
     def getFrequentPatterns(self):
         return self.finalPatterns
 
-
-    def storePatternInFile(self):
-        with open(self.oFile,"w") as f:
+    def storePatternInFile(self, oFile):
+        with open(oFile,"w") as f:
             self.finalPatterns.sort(key=len)
             for items in self.finalPatterns:
                 pattern = ""
@@ -164,6 +160,12 @@ class spatialFpGrowth:
                     pattern += str(item) + " "
                 pattern += "\n"
                 f.write(pattern)
+
+    def startMine(self):
+        self.readDataBase()
+        self.sortTransaction()
+        self.createSpatialFPTree()
+        self.createAllSpatialFrequentPattern()
 
 
 if __name__ == "__main__":
@@ -179,7 +181,7 @@ if __name__ == "__main__":
     obj2.createTransactional("sampleTDB.csv")
     obj3 = euclidDistance.EuclidDistance(dFile, nFile, maxDist)
     obj3.run()
-    spatialFpGrowth = spatialFpGrowth(obj2.getFileName(), obj3.getFileName(), oFile, minSup, maxDist)
+    spatialFpGrowth = spatialFpGrowth(obj2.getFileName(), obj3.getFileName(), oFile, minSup)
     spatialFpGrowth.readDataBase()
     spatialFpGrowth.sortTransaction()
     spatialFpGrowth.createSpatialFPTree()

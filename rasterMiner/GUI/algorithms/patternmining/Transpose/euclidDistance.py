@@ -3,9 +3,9 @@ import re
 from math import sqrt
 
 class EuclidDistance:
-    def __init__(self,iFile,oFile,threshold):
+    def __init__(self,iFile,oFolder,threshold):
         self.iFile = iFile
-        self.oFile = oFile
+        self.oFile = oFolder+"/neighbourhood.csv"
         self.threshold = threshold
 
     def run(self):

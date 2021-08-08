@@ -1,25 +1,16 @@
 import spatialFPGrowth as sfp
-import createDenseDF
-import dense2DB
-import euclidDistance
 
-class runSpatialFpGrowth():
-    def __init__(self, iFile, nFile, oFile, minSup, maxDist ,condition):
+
+class runSpatialFpGrowth:
+    def __init__(self, iFile, nFile, oFolder, minSup):
         self.iFile = iFile
         self.nFile = nFile
-        self.oFile = oFile
-        self.minSup = minSup
-        self.maxDist = maxDist
-        self.condition = condition
+        self.oFile = oFolder+"/output_sfp.csv"
+        self.minSup = int(minSup)
+
 
     def run(self):
-        dataFrame = createDenseDF.createDenseDF(iFile)
-        obj2 = dense2DB.dense2DB(obj.getDF(), condition, value)
-        obj2.createTransactional("sampleTDB.csv")
-        obj3 = euclidDistance.EuclidDistance(dFile, nFile, maxDist)
-        obj3.run()
-        spatialFpGrowth = sfp.spatialFpGrowth(obj2.getFileName(), obj3.getFileName(), oFile, minSup, maxDist)
-        spatialFpGrowth.readDataBase()
-        spatialFpGrowth.sortTransaction()
-        spatialFpGrowth.createSpatialFPTree()
-        spatialFpGrowth.createAllSpatialFrequentPattern()
+        spatialFpGrowth = sfp.spatialFpGrowth(self.iFile, self.nFile, self.minSup)
+        spatialFpGrowth.startMine()
+        spatialFpGrowth.storePatternInFile(self.oFile)
+

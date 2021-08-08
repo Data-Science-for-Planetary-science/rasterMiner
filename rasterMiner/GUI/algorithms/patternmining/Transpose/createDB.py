@@ -1,4 +1,4 @@
-from createDenseDF import *
+import createDenseDF
 from dense2DB import *
 import sys
 
@@ -10,7 +10,8 @@ class createDB:
         self.thresholdValue = thresholdValue
 
     def run(self):
-        dataFrame = createDenseDF(self.iFile)
+        print("a")
+        dataFrame = createDenseDF.createDenseDF(self.iFile)
         dataFrame.getDF()
         dataBase = dense2DB(dataFrame,self.condition,self.thresholdValue)
         dataBase.createTemporal(self.oFile)

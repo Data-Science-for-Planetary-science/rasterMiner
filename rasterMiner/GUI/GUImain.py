@@ -10,6 +10,7 @@ import optics
 import affinityPropagation
 import pandas as pd
 import elbowKmeans
+from algorithms.patternmining.Transpose.createDB import createDB
 from dataProcessing.VerticalExpansion import verticalExpansion
 from dataProcessing.HorizontalExpansion import HorizontalExpansion
 
@@ -202,7 +203,8 @@ class GUImain:
                 threshold_TB = ttk.Entry(subFrame2, textvariable=thresholdVar)
                 threshold_TB.grid(column=1, row=3, padx=60, pady=30)
 
-                submit = tk.Button(subFrame2, text='submit')
+                submit = tk.Button(subFrame2, text='submit', command=lambda :createDB(inputTempFileName.get(), oTempFolderVar.get()
+                                                                                      ,conditionVar.get(), thresholdVar.get()).run())
                 submit.grid(row=4, column=0, pady=30)
 
             elif mineOption == 'Mining':

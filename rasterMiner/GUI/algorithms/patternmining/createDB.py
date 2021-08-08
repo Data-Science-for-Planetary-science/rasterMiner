@@ -1,5 +1,5 @@
-import createDenseDF
-from dense2DB import *
+from algorithms.patternmining import createDenseDF
+from algorithms.patternmining import dense2DB
 import sys
 
 class createDB:
@@ -10,11 +10,11 @@ class createDB:
         self.thresholdValue = thresholdValue
 
     def run(self):
-        print("a")
+        print(self.thresholdValue,self.condition)
         dataFrame = createDenseDF.createDenseDF(self.iFile)
         dataFrame.getDF()
-        dataBase = dense2DB(dataFrame,self.condition,self.thresholdValue)
-        dataBase.createTemporal(self.oFile)
+        dataBase = dense2DB.dense2DB(dataFrame,self.condition,self.thresholdValue)
+        dataBase.createTransactinal(self.oFile)
 
 
 if __name__ == "__main__":

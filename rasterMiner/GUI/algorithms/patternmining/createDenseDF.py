@@ -1,5 +1,4 @@
 import pandas as pd
-import re
 
 class createDenseDF:
     def __init__(self, inputFile):

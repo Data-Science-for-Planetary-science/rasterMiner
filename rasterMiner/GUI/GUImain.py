@@ -14,6 +14,7 @@ from algorithms.patternmining.createDB import createDB
 from algorithms.patternmining.euclidDistance import EuclidDistance
 from dataProcessing.VerticalExpansion import verticalExpansion
 from dataProcessing.HorizontalExpansion import HorizontalExpansion
+from algorithms.patternmining.runSpatialFPGrowth import runSpatialFpGrowth
 
 
 class GUImain:
@@ -40,6 +41,11 @@ class GUImain:
         print('selected:', inputFile)
         return inputFile
 
+    def uploadOutputFile(self):
+        outputFile = filedialog.askopenfilename()
+        print('selected:', outputFile)
+        return outputFile
+
     def rasterToHorizontal(self,inputRasterFolderName,fileExtension,outputFolderName,startBandVar,endBandVar):
         print("Calling HorizontalExpansion.py")
         a = HorizontalExpansion(inputRasterFolderName, fileExtension, outputFolderName,
@@ -54,7 +60,7 @@ class GUImain:
         a.convert()
 
 
-    def judgeAlg(self,target):
+    def judgeClusteringAlg(self, target):
         self.root.destroy()
         if target == 'k-Means/k-Means++':
             kmeans.kmeansGUI().Main()
@@ -72,6 +78,16 @@ class GUImain:
             elbowKmeans.elbowKmeansGUI().Main()
         # elif target == 'Elbow-kmeans++':
         #     elbowKmeansPl.elbowKmeansPlGUI().Main()
+
+    def judgePatternMiningAlg(self, target, iFile, nFile, minSup, oFolder):
+        print(oFolder)
+        # if target == 'SpatualEclat':
+        #     se = SpatialEclat(iFile, nFile, minSup)
+        #     se.startMine()
+        #     se.storePatternsInFile(oFile)
+        if target == 'spatialFPGrowth':
+            runSpatialFpGrowth(iFile, nFile, oFolder, minSup).run()
+
 
 
     def rootGUI(self):
@@ -157,7 +173,10 @@ class GUImain:
         pamiAlgVar = tk.StringVar()
         outputFolderNameTab1 = tk.StringVar()
         oTempFolderVar = tk.StringVar()
-
+        mineTargetInputFileVar = tk.StringVar()
+        mineTargetOutputFileVar = tk.StringVar()
+        minSupVar = tk.StringVar()
+        mineinputNeighborFileVar = tk.StringVar()
 
 
 
@@ -167,7 +186,7 @@ class GUImain:
             subTab3.add(subFrame3,text=algorithm)
             cb2 = ttk.Combobox(subFrame3, textvariable=v2, state='readonly')
             cb2.place(relx=0.25, rely=0.5, relwidth=0.5)
-            submit = ttk.Button(subFrame3, text='submit', command=lambda :self.judgeAlg(v2.get()))
+            submit = ttk.Button(subFrame3, text='submit', command=lambda :self.judgeClusteringAlg(v2.get()))
             submit.place(relx=0.378, rely=0.7, relwidth=0.25, relheight=0.125)
             if algorithm == 'Parameter tuning':
                 cb2.config(values=clusteringAlgorithms['Parameter tuning'])
@@ -212,11 +231,41 @@ class GUImain:
                 patternMiningAlg_label = ttk.Label(subFrame2, text='select the algorithm')
                 patternMiningAlg_label.grid(column=0, row=0, padx=60, pady=30, sticky='W')
 
-                condition_CB = ttk.Combobox(subFrame2, textvariable=pamiAlgVar, values=pamiAlgorithms, state='readonly')
-                condition_CB.grid(column=1, row=0, padx=60, pady=30)
+                patternMiningAlg_CB = ttk.Combobox(subFrame2, textvariable=pamiAlgVar, values=pamiAlgorithms, state='readonly')
+                patternMiningAlg_CB.grid(column=1, row=0, padx=60, pady=30)
 
-                submit = tk.Button(subFrame2, text='submit')
-                submit.grid(row=1, column=0, pady=30)
+                mineTargetInputFile_label = ttk.Label(subFrame2, text='select the input file name')
+                mineTargetInputFile_label.grid(column=0, row=1, padx=60, pady=30, sticky='W')
+                mineTargetInputFile_TB = tk.Entry(subFrame2, textvariable=mineTargetInputFileVar, width=40)
+                mineTargetInputFile_TB.grid(row=1, column=1)
+                mineTargetInputFile_B = tk.Button(subFrame2, text='Browse',
+                                            command=lambda: mineTargetInputFileVar.set(str(self.uploadInputFile())))
+                mineTargetInputFile_B.grid(row=1, column=2, padx=60)
+
+                mineTargetOutputFile_label = ttk.Label(subFrame2, text='select the input file name')
+                mineTargetOutputFile_label.grid(column=0, row=2, padx=60, pady=30, sticky='W')
+                mineTargetOutputFile_TB = tk.Entry(subFrame2, textvariable=mineTargetOutputFileVar, width=40)
+                mineTargetOutputFile_TB.grid(row=2, column=1)
+                mineTargetOutputFile_B = tk.Button(subFrame2, text='Browse',
+                                            command=lambda: mineTargetOutputFileVar.set(str(self.uploadOutputDir())))
+                mineTargetOutputFile_B.grid(row=2, column=2, padx=60)
+
+                mineInputNeighborFile_label = ttk.Label(subFrame2, text='Select the Neighborhood file:')
+                mineInputNeighborFile_label.grid(row=3, column=0, padx=60, pady=30, sticky='W')
+                mineInputNeighborFile_TB = tk.Entry(subFrame2, textvariable=mineinputNeighborFileVar, width=40)
+                mineInputNeighborFile_TB.grid(row=3, column=1)
+
+                mineInputNeighborFile_B = tk.Button(subFrame2, text='Browse',
+                                    command=lambda: mineinputNeighborFileVar.set(str(self.uploadInputFile())))
+                mineInputNeighborFile_B.grid(row=3, column=2, padx=60)
+
+                minSup_label = ttk.Label(subFrame2, text='minSup')
+                minSup_label.grid(column=0, row=4, padx=60, pady=30)
+                minSup_TB = ttk.Entry(subFrame2, textvariable=minSupVar)
+                minSup_TB.grid(column=1, row=4, padx=60, pady=30)
+
+                submit = tk.Button(subFrame2, text='submit', command=lambda : self.judgePatternMiningAlg(pamiAlgVar.get(), mineTargetInputFileVar.get(), mineinputNeighborFileVar.get(), int(minSupVar.get()), mineTargetOutputFileVar.get()))
+                submit.grid(row=5, column=0, pady=30)
 
             elif mineOption == 'Neighborhood File':
                 iNeighborFile_label = ttk.Label(subFrame2, text='Select the file:')

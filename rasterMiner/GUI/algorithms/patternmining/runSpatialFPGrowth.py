@@ -1,5 +1,4 @@
-import spatialFPGrowth as sfp
-
+from algorithms.patternmining import spatialFPGrowth as sfp
 
 class runSpatialFpGrowth:
     def __init__(self, iFile, nFile, oFolder, minSup):

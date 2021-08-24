@@ -5,13 +5,14 @@ from math import sqrt
 class EuclidDistance:
     def __init__(self,iFile,oFolder,threshold):
         self.iFile = iFile
-        self.oFile = oFolder+"/neighbourhood.csv"
+        self.oFile = oFolder + '/NeighborhoodData.tsv'
         self.threshold = threshold
 
     def run(self):
         coordinates = []
         result = {}
         with open(self.iFile,"r") as f:
+            header = f.readline()
             for line in f:
                 l = line.rstrip().split("\t")
                 l[0] = re.sub(r'[^0-9. ]', '', l[0])

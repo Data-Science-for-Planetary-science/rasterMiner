@@ -5,7 +5,7 @@ class createDenseDF:
         self.inputFile = inputFile
 
     def getDF(self):
-        df = pd.read_table(self.inputFile, sep='\t', header=None)
+        df = pd.read_csv(self.inputFile, sep='\t', header=None)
         df[0] = df[0].str.replace('[^0-9. ]',"")
         df = df.T
         df = df.rename(index=lambda s: 'band'+str(s))

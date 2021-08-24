@@ -3,6 +3,8 @@ import pandas as pd
 from dataProcessing import raster2tsv
 import re
 import os
+from tkinter import messagebox
+
 
 
 class verticalExpansion:
@@ -18,6 +20,7 @@ class verticalExpansion:
         columnName = []
         filecounter = 0
         mainDataFrame = []
+
         for file in glob.glob(self.path):
             #extracting output filename
             # if filecounter == 0:
@@ -38,7 +41,7 @@ class verticalExpansion:
             mainDataFrame.columns = sorted(columnName)
             os.remove(out_csv)
         mainDataFrame.to_csv(self.outputFolder+'/temporalData.tsv',sep='\t')
-
+        messagebox.showinfo('notification', 'Successfully completed')
         #     else:
         #         temp = re.findall(r'\d+', file)
         #         res = list(map(int, temp))
@@ -60,6 +63,6 @@ class verticalExpansion:
 
 
 if __name__ == '__main__':
-    a = verticalExpansion('/Users/yukimaru/Downloads/rasterMinerSampleData/virtialExpansion', 'nc', '/Users/yukimaru/Downloads/rasterMinerSampleData')
+    a = verticalExpansion('/Users/yukimaru/Downloads/rasterMinerSampleData/verticalExpansion', 'nc', '/Users/yukimaru/Downloads/rasterMinerSampleData')
     a.convert()
 

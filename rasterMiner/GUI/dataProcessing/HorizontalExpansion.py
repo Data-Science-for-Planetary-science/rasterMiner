@@ -1,6 +1,9 @@
 import glob
 import pandas as pd
 from dataProcessing import raster2tsv
+import os
+from tkinter import messagebox
+
 
 
 class HorizontalExpansion:
@@ -15,17 +18,25 @@ class HorizontalExpansion:
         my_df = pd.DataFrame()
         file = glob.glob(self.path)
         listOfDataframes = []
-
+        mainDataFrame = pd.DataFrame
         out_csv = (self.outputFolder + '/spatialData.tsv')
         text = ''
+        header = ['coordinate']
         for bandNo in range(self.startBand, self.endBand + 1):
             text = text + '-band ' + str(bandNo) + ' '
-
+            header.append('-band' + str(bandNo))
+        os.remove(out_csv)
         for file in glob.glob(self.path):
             #extracting output filename
             parameters = text + file + ' ' + out_csv
             raster2tsv.raster2tsv(parameters)
+            mainDataFrame = pd.read_csv(out_csv, index_col=None, header=None, sep='\t')
+            mainDataFrame.columns = header
+        print(mainDataFrame)
+        mainDataFrame.to_csv(self.outputFolder + '/spatialData.tsv', sep='\t')
+        messagebox.showinfo('notification', 'Successfully completed')
+
 
 if __name__ == '__main__':
-    a = HorizontalExpansion('/Users/yukimaru/Downloads/rasterMinerSampleData/horizontalExpansion_1','lbl', '/Users/yukimaru/Downloads/rasterMinerSampleData/',3,9)
+    a = HorizontalExpansion('/Users/yukimaru/Downloads/rasterMinerSampleData/horizontalExpansion_1','lbl', '/Users/yukimaru/Desktops',3,9)
     a.convert()

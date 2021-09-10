@@ -62,7 +62,7 @@ class dense2DB:
 
             elif self.condition == '>=':
                 for tid in self.tids:
-                    transaction = [item for item in self.items if self.inputDF.at[tid, item] >= self.thresholdValue]
+                    transaction = [item for item in self.items if int(self.inputDF.at[tid, item]) >= self.thresholdValue]
                     if len(transaction) > 1:
                         f.write(f'{transaction[0]}')
                         for item in transaction[1:]:
@@ -113,6 +113,7 @@ class dense2DB:
         with open(outputFile, 'w') as f:
             if self.condition == '>':
                 for tid in self.tids:
+
                     transaction = [item for item in self.items if self.inputDF.at[tid, item] > self.thresholdValue]
                     if len(transaction) > 1:
                         f.write(f'{tid}')
@@ -141,6 +142,7 @@ class dense2DB:
 
             elif self.condition == '<=':
                 for tid in self.tids:
+
                     transaction = [item for item in self.items if self.inputDF.at[tid, item] <= self.thresholdValue]
                     if len(transaction) > 1:
                         f.write(f'{tid}')

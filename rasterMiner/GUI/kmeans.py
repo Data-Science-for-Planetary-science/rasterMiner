@@ -29,11 +29,9 @@ class kmeansGUI:
         event.widget['fg'] = 'black'
     def callBack(self,url):
         webbrowser.open_new(url)
-
     def openFile(self):
         filename1=filedialog.askopenfilename(initialdir="~/Desktop",title="select a file",filetypes=(("csv","*.csv"),
-                                                                                                     ("text Files","*.txt"),
-                                                                                                     ('tsv file','*.tsv')))
+                                                                                                     ("text Files","*.txt"),                                                                                          ('tsv file','*.tsv')))
         return filename1
     def pathtooutfile(self):
         dirName=filedialog.askdirectory(initialdir="~/Desktop")
@@ -44,7 +42,6 @@ class kmeansGUI:
 
     def Main(self):
         def makeAddOptions(bin):
-
             if bin.get():
                 init_label.grid(column=0, row=4)
                 init_CB.grid(column=1, row=4)

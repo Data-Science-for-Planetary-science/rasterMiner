@@ -1,5 +1,6 @@
 import glob
 import pandas as pd
+#from rasterMiner.GUI.dataProcessing import raster2tsv
 from dataProcessing import raster2tsv
 import re
 import os
@@ -10,7 +11,7 @@ from tkinter import messagebox
 class verticalExpansion:
     def __init__(self, path,fileExtension,outputFolder):
         self.path = path+ '/*.'+fileExtension
-        self.outputFolder= outputFolder
+        self.outputFolder=outputFolder
 
     def convert(self):
         # reading each file in a folder
@@ -19,7 +20,7 @@ class verticalExpansion:
         listOfDataframes = []
         columnName = []
         filecounter = 0
-        mainDataFrame = []
+        mainDataFrame = pd.DataFrame()
 
         for file in glob.glob(self.path):
             #extracting output filename
@@ -30,17 +31,18 @@ class verticalExpansion:
 
             # convert to csv file
             columnName.append(res[0])
-            paramters = '-band 1 ' + file + ' ' + out_csv
-            raster2tsv.raster2tsv(paramters)
+            parameters = '-band 1 ' + file + ' ' + out_csv
+            raster2tsv.raster2tsv(parameters)
             # expanding csv files
-            df = pd.read_csv(out_csv, index_col=None, header=None)
+            df = pd.read_csv(out_csv,index_col=None,header=None)
             df = df[0].str.split('\t',expand=True)
             df = df.rename(index=df[0])
             listOfDataframes.append(df[1])
-            mainDataFrame = pd.concat(listOfDataframes, axis=1, ignore_index=True)
+            mainDataFrame = pd.concat(listOfDataframes,axis=1,ignore_index=True)
             mainDataFrame.columns = sorted(columnName)
             os.remove(out_csv)
-        mainDataFrame.to_csv(self.outputFolder+'/temporalData.tsv',sep='\t')
+        mainDataFrame.insert(0,'coordinate',mainDataFrame.index)
+        mainDataFrame.to_csv(self.outputFolder+'/temporalData.tsv',sep='\t',index=False)
         messagebox.showinfo('notification', 'Successfully completed')
         #     else:
         #         temp = re.findall(r'\d+', file)
@@ -63,6 +65,6 @@ class verticalExpansion:
 
 
 if __name__ == '__main__':
-    a = verticalExpansion('/Users/yukimaru/Downloads/rasterMinerSampleData/verticalExpansion', 'nc', '/Users/yukimaru/Downloads/rasterMinerSampleData')
+    a = verticalExpansion('/Users/yukimaru/Downloads/rasterMinerSampleData/virtialExpansion', 'nc', '/Users/yukimaru/Downloads/rasterMinerSampleData')
     a.convert()
 

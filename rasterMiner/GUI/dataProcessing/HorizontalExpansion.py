@@ -21,19 +21,23 @@ class HorizontalExpansion:
         mainDataFrame = pd.DataFrame
         out_csv = (self.outputFolder + '/spatialData.tsv')
         text = ''
-        header = ['coordinate']
+        header = ['0']
         for bandNo in range(self.startBand, self.endBand + 1):
             text = text + '-band ' + str(bandNo) + ' '
             header.append('-band' + str(bandNo))
-        os.remove(out_csv)
+
+        if os.path.exists(out_csv):
+            os.remove(out_csv)
+
         for file in glob.glob(self.path):
             #extracting output filename
             parameters = text + file + ' ' + out_csv
             raster2tsv.raster2tsv(parameters)
-            mainDataFrame = pd.read_csv(out_csv, index_col=None, header=None, sep='\t')
+            mainDataFrame = pd.read_csv(out_csv, header=None, sep='\t')
             mainDataFrame.columns = header
+        #mainDataFrame = mainDataFrame.set_index('coordinate')
         print(mainDataFrame)
-        mainDataFrame.to_csv(self.outputFolder + '/spatialData.tsv', sep='\t')
+        mainDataFrame.to_csv(self.outputFolder + '/spatialData.tsv', index=False, sep='\t')
         messagebox.showinfo('notification', 'Successfully completed')
 
 

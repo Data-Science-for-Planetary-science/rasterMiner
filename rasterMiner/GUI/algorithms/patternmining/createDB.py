@@ -10,7 +10,6 @@ class createDB:
         self.thresholdValue = thresholdValue
 
     def run(self):
-        print(self.thresholdValue,self.condition)
         dataFrame = createDenseDF.createDenseDF(self.iFile)
         dataBase = dense2DB.dense2DB(dataFrame.getDF(),self.condition,self.thresholdValue)
         dataBase.createTransactional(self.oFile)

@@ -23,5 +23,5 @@ Installation using Anaconda.
 6. In the pycharm, add rasterMiner as the interpreter
 7. Open the terminal in pycharm, and execute the following command
 
-          pip install mplcursors matplotlib sklearn pandass
+          pip install mplcursors matplotlib sklearn pandas
 

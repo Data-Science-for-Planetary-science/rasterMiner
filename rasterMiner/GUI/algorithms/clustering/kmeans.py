@@ -14,7 +14,7 @@ class kMeans:
             self.n_init = 10
             self.max_iter = 300
             #cls.precompute_dist = precompute_dist
-            self.random_state = None
+            self.random_state = 'None'
             self.alg = 'auto'
         elif len(args) == 4:
             self.inputFile = args[0]
@@ -23,7 +23,7 @@ class kMeans:
             self.init = args[3]
             self.n_init = 10
             self.max_iter = 300
-            self.random_state = None
+            self.random_state = 'None'
             self.alg = 'auto'
         elif len(args) == 8:
             self.inputFile = args[0]
@@ -63,9 +63,12 @@ class kMeans:
             for i in f:
                 j = i.strip('\n').split('\t')
                 for r in range(2, len(j)):
+                    # print(j[r])
+                    j[r] = j[r].replace('"','')
                     j[r] = float(j[r])
                 pts.append(j[0:1])
                 data.append(j[1:])
+                # print(pts)
 
             X = np.array(data)
             kmeans = KMeans(n_clusters=int(self.k), init=self.init, max_iter=int(self.max_iter)

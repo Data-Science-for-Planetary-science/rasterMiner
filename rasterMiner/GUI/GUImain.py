@@ -10,6 +10,7 @@ import optics
 import affinityPropagation
 import pandas as pd
 import elbowKmeans
+import elbowKmeansPl
 from algorithms.patternmining.createDB import createDB
 from algorithms.patternmining.euclidDistance import EuclidDistance
 from dataProcessing.VerticalExpansion import verticalExpansion
@@ -76,8 +77,8 @@ class GUImain:
             affinityPropagation.affinityPropagationGUI().Main()
         elif target == 'Elbow-kmeans':
             elbowKmeans.elbowKmeansGUI().Main()
-        # elif target == 'Elbow-kmeans++':
-        #     elbowKmeansPl.elbowKmeansPlGUI().Main()
+        elif target == 'Elbow-kmeans++':
+            elbowKmeansPl.elbowKmeansPlGUI().Main()
 
     def judgePatternMiningAlg(self, target):
         self.root.destroy()
@@ -114,7 +115,7 @@ class GUImain:
                 elif dropVar.get() == 'any row':
                     df = df.dropna(how='any', axis=1)
             print(df)
-            df.to_csv(oFileNameHandlingNan.get() + '/result.csv')
+            df.to_csv(oFileNameHandlingNan.get() + '/processedData.tsv', sep='\t',index=False,float_format='%.2f')
 
         clusteringAlgorithms = {'Parameter tuning': ["Elbow-kmeans", "Elbow-kmeans++"],
                           'individual algorithm': ["k-Means/k-Means++", "DBScan", "SpectralClustering", "MeanShift",

@@ -42,7 +42,7 @@ class verticalExpansion:
             mainDataFrame.columns = sorted(columnName)
             os.remove(out_csv)
         mainDataFrame.insert(0,'coordinate',mainDataFrame.index)
-        mainDataFrame.to_csv(self.outputFolder+'/temporalData.tsv',sep='\t',index=False)
+        mainDataFrame.to_csv(self.outputFolder+'/rawData.tsv',sep='\t',index=False)
         messagebox.showinfo('notification', 'Successfully completed')
         #     else:
         #         temp = re.findall(r'\d+', file)

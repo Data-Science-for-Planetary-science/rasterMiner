@@ -19,7 +19,7 @@ class HorizontalExpansion:
         file = glob.glob(self.path)
         listOfDataframes = []
         mainDataFrame = pd.DataFrame
-        out_csv = (self.outputFolder + '/spatialData.tsv')
+        out_csv = (self.outputFolder + '/rawData.tsv')
         text = ''
         header = ['0']
         for bandNo in range(self.startBand, self.endBand + 1):
@@ -37,7 +37,7 @@ class HorizontalExpansion:
             mainDataFrame.columns = header
         #mainDataFrame = mainDataFrame.set_index('coordinate')
         print(mainDataFrame)
-        mainDataFrame.to_csv(self.outputFolder + '/spatialData.tsv', index=False, sep='\t')
+        mainDataFrame.to_csv(self.outputFolder + '/rawData.tsv', index=False, sep='\t')
         messagebox.showinfo('notification', 'Successfully completed')
 
 

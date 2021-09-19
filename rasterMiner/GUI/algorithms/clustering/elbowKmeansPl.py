@@ -9,12 +9,12 @@ import mplcursors
 import tkinter as tk
 
 
-class elbowKmeans:
+class elbowKmeansPl:
     def __init__(self,*args):
         if len(args) == 5:
             self.inputFile = args[0]
             self.k = args[1]
-            self.init = 'random'
+            self.init = 'k-means++'
             self.n_init = 10
             self.max_iter = 300
             #cls.precompute_dist = precompute_dist
@@ -26,7 +26,7 @@ class elbowKmeans:
         elif len(args) == 6:
             self.inputFile = args[0]
             self.k = args[1]
-            self.init = 'random'
+            self.init = 'k-means++'
             self.n_init = args[2]
             self.max_iter = 300
             self.random_state = None
@@ -38,7 +38,7 @@ class elbowKmeans:
             print(args)
             self.inputFile = args[0]
             self.k = args[1]
-            self.init = 'random'
+            self.init = 'k-means++'
             self.n_init = args[2]
             self.max_iter = args[3]
             # self.precompute_dist = precompute_dist
@@ -50,9 +50,9 @@ class elbowKmeans:
         else:
             print('Error message print')
     def run(self):
-        # outputfile = self.outputDir + '/result_K-means_' + str(self.k) + '_' + str(self.max_iter) + '.csv'
+        # outputfile = self.outputDir + '/result_K-means_++' + str(self.k) + '_' + str(self.max_iter) + '.csv'
 
-        if self.inputFile == '' :
+        if self.inputFile == '':
             messagebox.showerror("Error", "Please fill the fields properly")
         else:
             if self.random_state == 'None':
@@ -80,16 +80,16 @@ class elbowKmeans:
                                 , n_init=int(self.n_init), random_state=self.random_state, algorithm=self.alg).fit(X)
                 gy.append(kmeans.inertia_)
                 gx.append(i)
-                stri = str(i) + '\t' + str(kmeans.inertia_) + '\n'
+                # stri = str(i) + '\t' + str(kmeans.inertia_) + '\n'
                 # of.write(stri)
             messagebox.showinfo('notification', 'Successfully completed')
 
             # of.close()
             root=tk.Tk()
-            root.title('elbow k-means')
+            root.title('elbow k-means++')
             f=Figure(figsize=(5,5),dpi=100)
             a=f.add_subplot(111,facecolor='white')
-            a.set_title('Elbow KMeans')
+            a.set_title('Elbow KMeans++')
             a.set_xlabel('k value')
             a.set_ylabel('WSSE')
             a.set_xticks(gx)

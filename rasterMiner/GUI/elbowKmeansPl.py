@@ -1,20 +1,19 @@
 from tkinter import *
 from tkinter import filedialog, Label
 from tkinter import ttk
-from algorithms.clustering.elbowKmeans import elbowKmeans
+from algorithms.clustering.elbowKmeansPl import elbowKmeansPl
 import GUImain
 import webbrowser
 
 
-class elbowKmeansGUI:
+class elbowKmeansPlGUI:
     def __init__(self):
         self.root = Tk()
-        self.root.title('elbow k-means')
+        self.root.title('elbow k-means++')
         self.root.minsize(600, 400)
         # self.initVar = StringVar()
         self.algVar = StringVar()
         self.iFilename = StringVar()
-        self.oFilename = StringVar()
         self.clusterVar = StringVar()
         self.clusterVar.set(8)
         self.randomStateVar = StringVar()
@@ -78,7 +77,6 @@ class elbowKmeansGUI:
 
         inputFile_Label = Label(self.root, text='Select the input file:')
         inputFile_Label.grid(column=0, row=0)
-
         inputFile_TB = Entry(self.root, textvariable=self.iFilename)
         inputFile_TB.grid(column=1, row=0)
         fileOpen_B = Button(self.root, text="Browse", command=lambda: self.iFilename.set(self.openFile()))
@@ -117,9 +115,9 @@ class elbowKmeansGUI:
         inc_Entry.grid(column=1, row=5)
 
 
-
+        #
         # init_label = Label(self.root, text='Method for initialization:')
-        # initOpt = 'random'
+        # initOpt = 'k-means++'
         # init_CB = ttk.Combobox(self.root, textvariable=self.initVar, values=initOpt, state='readonly')
         # self.initVar.set(initOpt)
 
@@ -164,7 +162,7 @@ class elbowKmeansGUI:
         # nJobs_Entry.grid(column=1, row=8)
 
 
-        submit=Button(self.root,text="submit",command=lambda:elbowKmeans(self.iFilename.get(),self.clusterVar.get()
+        submit=Button(self.root,text="submit",command=lambda:elbowKmeansPl(self.iFilename.get(),self.clusterVar.get()
                                                              ,self.iterVar.get(),self.maxIterVar.get()
                                                              ,self.randomStateVar.get(),self.algVar.get(),self.minkVar.get()
                                                              ,self.maxkVar.get(),self.incVar.get()).run())
@@ -176,4 +174,4 @@ class elbowKmeansGUI:
         self.root.mainloop()
 
 if __name__ == '__main__':
-    elbowKmeansGUI().Main()
+    elbowKmeansPlGUI().Main()

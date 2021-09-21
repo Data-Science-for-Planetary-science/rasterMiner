@@ -40,7 +40,7 @@
 
 8. Execute the rasterMiner code by typing the following command
 
-        python rasterMiner/rasterMiner/GUI/main.py
+       python rasterMiner/rasterMiner/GUI/main.py
           
      
           

@@ -11,5 +11,5 @@
 7. In the pycharm, add rasterMiner as the interpreter
 8. Open the terminal in pycharm, and execute the following command
 
-          pip install mplcursors matplotlib sklearn pandas
+          pip install mplcursors matplotlib sklearn pandas gdal
           

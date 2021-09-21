@@ -21,7 +21,7 @@
          
 6. Open the terminal in pycharm, and execute the following command
 
-       pip install mplcursors matplotlib sklearn pandas
+       pip install mplcursors matplotlib sklearn pandas pami
          
 7. Clone the rasterMiner repository using git clone command
 

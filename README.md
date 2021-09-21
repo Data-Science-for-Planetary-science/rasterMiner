@@ -5,7 +5,7 @@
 1. Install and set up Anaconda. URL:   https://linuxize.com/post/how-to-install-anaconda-on-centos-7
 2. Create a virtual environment using conda.
 
-      conda create --name rasterMiner
+       conda create --name rasterMiner
      
 3. Enter into virtual environment. 
 

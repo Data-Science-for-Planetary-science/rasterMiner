@@ -1,5 +1,16 @@
-# RasterMiner
+# rasterMiner
 
+   rasterMiner's objective is empower Users to discover knowledge hidden in raster datasets.
+   It is an open source software distributed under GNU-V3 liscense.
+   rasterMiner currently supports the following knowledge discovery tasks:
+   
+   1. Data preprocessing and Nan value handling
+   2. Pattern mining
+   3. Clustering
+   4. Classification
+   5. Prediction (yet to be developed)
+   
+   
 ## Installation using Anaconda.
 
 1. Install and set up Anaconda. URL:   https://linuxize.com/post/how-to-install-anaconda-on-centos-7

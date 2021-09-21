@@ -1,6 +1,6 @@
 # rasterMiner
 
-   rasterMiner's objective is empower Users to discover knowledge hidden in raster datasets.
+   Our software provides a set of tools to discover knowledge hidden in raster datasets.  
    It is an open source software distributed under GNU-V3 liscense.
    rasterMiner currently supports the following knowledge discovery tasks:
    
@@ -10,6 +10,13 @@
    4. Classification
    5. Prediction (yet to be developed)
    
+## Ways to execute rasterMiner
+
+   rasterMiner can be executed in any one of the following ways:
+   
+   1. Terminal-based execution
+   2. GUI-based execution
+   3. As a Python-library in QGIS, ARCGIS, ENVI, and in conventional python programs. 
    
 ## Installation using Anaconda.
 
@@ -42,5 +49,15 @@
 
        python rasterMiner/rasterMiner/GUI/main.py
           
-     
+
+## Usage of Anaconda
+
+1. Open terminal and enter into rasterMiner virtual environment. 
+
+       conda activate rasterMiner
+       
+2. Execute the rasterMiner code by typing the following command
+
+       python rasterMiner/rasterMiner/GUI/main.py
+
           

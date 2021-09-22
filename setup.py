@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name = 'rasterMiner',
-    version = '0.1',
+    version = '0.1.1',
     author = 'Rage Uday Kiran',
     author_email = 'uday.rage@gmail.com',
     description = 'This software is being developed at the University of Aizu, Aizu-Wakamatsu, Fukushima, Japan',
@@ -14,7 +14,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     url = 'https://github.com/udayRage/PAMI',
     license='GPLv3',
-    install_requires=[            # All necessary packages utilized by our PAMI software
+    install_requires=[
         'psutil',
         'pandas',
         'matplotlib',
@@ -24,6 +24,7 @@ setuptools.setup(
         'pandas',
         'pami',
         'sklearn-extensions',
+        'tk',
     ],
     classifiers = [
         'Development Status :: 3 - Alpha',      # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package

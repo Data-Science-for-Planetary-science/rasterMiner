@@ -19,5 +19,6 @@ python3 -m twine upload dist/*
 echo "Deleting unnecessary files"
 rm -rf dist/ rasterMiner.egg-info/ build/
 
+pip3 show rasterMiner
 
 echo "Completed."

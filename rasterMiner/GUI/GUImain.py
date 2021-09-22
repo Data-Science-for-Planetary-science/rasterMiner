@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
-
+from tkinter import messagebox
 import kmeans
 import spectralClustering
 import meanShift
@@ -116,6 +116,7 @@ class GUImain:
                     df = df.dropna(how='any', axis=1)
             print(df)
             df.to_csv(oFileNameHandlingNan.get() + '/processedData.tsv', sep='\t',index=False,float_format='%.2f')
+            messagebox.showinfo('notification', 'Successfully completed')
 
         clusteringAlgorithms = {'Parameter tuning': ["Elbow-kmeans", "Elbow-kmeans++"],
                           'individual algorithm': ["k-Means/k-Means++", "DBScan", "SpectralClustering", "MeanShift",

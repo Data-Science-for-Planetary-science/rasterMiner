@@ -97,7 +97,7 @@ class GUImain:
                 dropValue_CB.grid(column=2, row=2, padx=30, pady=30)
 
         def dataWrangling():
-            df = pd.read_csv(iFileNameHandlingNan.get(), encoding="shift-jis")
+            df = pd.read_table(iFileNameHandlingNan.get(), encoding="shift-jis")
 
             if wranglingVar.get() == 'fill':
                 df = df.fillna(convertVal.get())

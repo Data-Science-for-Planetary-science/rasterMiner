@@ -61,6 +61,8 @@ class elbowKmeansPl:
                 self.random_state = int(self.random_state)
             # of = open(outputfile, 'w')
             f = open(self.inputFile, 'r')
+            header = f.readline()
+            print(header)
             data = []
             pts = []
             header = f.readline()

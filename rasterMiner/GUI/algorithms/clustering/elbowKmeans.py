@@ -11,42 +11,39 @@ import tkinter as tk
 
 class elbowKmeans:
     def __init__(self,*args):
-        if len(args) == 5:
+        if len(args) == 4:
             self.inputFile = args[0]
-            self.k = args[1]
             self.init = 'random'
             self.n_init = 10
             self.max_iter = 300
             #cls.precompute_dist = precompute_dist
             self.random_state = None
             self.alg = 'auto'
-            self.mink = args[2]
-            self.maxk = args[3]
-            self.inc = args[4]
-        elif len(args) == 6:
+            self.mink = args[1]
+            self.maxk = args[2]
+            self.inc = args[3]
+        elif len(args) == 5:
             self.inputFile = args[0]
-            self.k = args[1]
             self.init = 'random'
-            self.n_init = args[2]
+            self.n_init = args[1]
             self.max_iter = 300
             self.random_state = None
             self.alg = 'auto'
-            self.mink = args[3]
-            self.maxk = args[4]
-            self.inc = args[5]
-        elif len(args) == 9:
+            self.mink = args[2]
+            self.maxk = args[3]
+            self.inc = args[4]
+        elif len(args) == 8:
             print(args)
             self.inputFile = args[0]
-            self.k = args[1]
             self.init = 'random'
-            self.n_init = args[2]
-            self.max_iter = args[3]
+            self.n_init = args[1]
+            self.max_iter = args[2]
             # self.precompute_dist = precompute_dist
-            self.random_state = args[4]
-            self.alg = args[5]
-            self.mink = args[6]
-            self.maxk = args[7]
-            self.inc = args[8]
+            self.random_state = args[3]
+            self.alg = args[4]
+            self.mink = args[5]
+            self.maxk = args[6]
+            self.inc = args[7]
         else:
             print('Error message print')
     def run(self):
@@ -76,7 +73,7 @@ class elbowKmeans:
             gy=[]
             # g2y=[]
             for i in range(int(self.mink), int(self.maxk) + 1, int(self.inc)):
-                kmeans = KMeans(n_clusters=int(self.k), init='random', max_iter=int(self.max_iter)
+                kmeans = KMeans(n_clusters=i, init='random', max_iter=int(self.max_iter)
                                 , n_init=int(self.n_init), random_state=self.random_state, algorithm=self.alg).fit(X)
                 gy.append(kmeans.inertia_)
                 gx.append(i)

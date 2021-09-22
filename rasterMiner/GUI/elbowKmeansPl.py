@@ -54,14 +54,14 @@ class elbowKmeansPlGUI:
                 # init_label.grid(column=0, row=7)
                 # init_CB.grid(column=1, row=7)
 
-                itersval_label.grid(column=0, row=6)
-                itersval_Entry.grid(column=1, row=6)
+                itersval_label.grid(column=0, row=5)
+                itersval_Entry.grid(column=1, row=5)
 
-                maxIter_label.grid(column=0, row=7)
-                maxIter_Entry.grid(column=1, row=7)
+                maxIter_label.grid(column=0, row=6)
+                maxIter_Entry.grid(column=1, row=6)
 
-                alg_label.grid(column=0, row=8)
-                alg_CB.grid(column=1, row=8)
+                alg_label.grid(column=0, row=7)
+                alg_CB.grid(column=1, row=7)
             else:
                 # init_label.grid_remove()
                 # init_CB.grid_remove()
@@ -89,30 +89,30 @@ class elbowKmeansPlGUI:
         # fileOpen_B1 = Button(self.root, text="Browse", command=lambda: self.oFilename.set(self.pathtooutfile()))
         # fileOpen_B1.grid(column=2, row=1)
 
-        cluster_label = Label(self.root, text='Number of cluster')
-        cluster_label.grid(column=0, row=1)
-        cluster_Entry = Entry(self.root, textvariable=self.clusterVar)
-        cluster_Entry.grid(column=1, row=1)
+        # cluster_label = Label(self.root, text='Number of cluster')
+        # cluster_label.grid(column=0, row=1)
+        # cluster_Entry = Entry(self.root, textvariable=self.clusterVar)
+        # cluster_Entry.grid(column=1, row=1)
 
         randomState_label = Label(self.root, text='random state:')
-        randomState_label.grid(column=0, row=2)
+        randomState_label.grid(column=0, row=1)
         randomState_Entry = Entry(self.root, textvariable=self.randomStateVar)
-        randomState_Entry.grid(column=1, row=2)
+        randomState_Entry.grid(column=1, row=1)
 
         mink_label = Label(self.root, text='mink')
-        mink_label.grid(column=0, row=3)
+        mink_label.grid(column=0, row=2)
         mink_Entry = Entry(self.root, textvariable=self.minkVar)
-        mink_Entry.grid(column=1, row=3)
+        mink_Entry.grid(column=1, row=2)
 
         maxk_label = Label(self.root, text='maxk')
-        maxk_label.grid(column=0, row=4)
+        maxk_label.grid(column=0, row=3)
         maxk_Entry = Entry(self.root,textvariable=self.maxkVar)
-        maxk_Entry.grid(column=1, row=4)
+        maxk_Entry.grid(column=1, row=3)
 
         inc_label = Label(self.root, text='increment')
-        inc_label.grid(column=0, row=5)
+        inc_label.grid(column=0, row=4)
         inc_Entry = Entry(self.root, textvariable=self.incVar)
-        inc_Entry.grid(column=1, row=5)
+        inc_Entry.grid(column=1, row=4)
 
 
         #
@@ -143,7 +143,7 @@ class elbowKmeansPlGUI:
         bin = BooleanVar()
         bin.set(False)
         detailOptions_CHB = ttk.Checkbutton(self.root, text='more options',variable=bin,command=lambda :makeAddOptions(bin))
-        detailOptions_CHB.grid(column=3,row=9)
+        detailOptions_CHB.grid(column=3,row=8)
 
 
         # precomputeDist_label = Label(self.root, text='Precompute distances:')
@@ -162,10 +162,10 @@ class elbowKmeansPlGUI:
         # nJobs_Entry.grid(column=1, row=8)
 
 
-        submit=Button(self.root,text="submit",command=lambda:elbowKmeansPl(self.iFilename.get(),self.clusterVar.get()
-                                                             ,self.iterVar.get(),self.maxIterVar.get()
-                                                             ,self.randomStateVar.get(),self.algVar.get(),self.minkVar.get()
-                                                             ,self.maxkVar.get(),self.incVar.get()).run())
+        submit=Button(self.root,text="submit",command=lambda:elbowKmeansPl(self.iFilename.get(),self.iterVar.get(),
+                                                                           self.maxIterVar.get(),self.randomStateVar.get(),
+                                                                           self.algVar.get(),self.minkVar.get(),
+                                                                           self.maxkVar.get(),self.incVar.get()).run())
         submit.grid(column=1,row=9)
         back=Button(self.root, text="Back", command=self.back)
         back.grid(column=2,row=9)

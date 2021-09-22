@@ -62,7 +62,6 @@ class elbowKmeansPl:
             # of = open(outputfile, 'w')
             f = open(self.inputFile, 'r')
             header = f.readline()
-            print(header)
             data = []
             pts = []
             header = f.readline()
@@ -78,7 +77,7 @@ class elbowKmeansPl:
             gy=[]
             # g2y=[]
             for i in range(int(self.mink), int(self.maxk) + 1, int(self.inc)):
-                kmeans = KMeans(n_clusters=int(self.k), init=self.init, max_iter=int(self.max_iter)
+                kmeans = KMeans(n_clusters=int(self.k), init='k-means++', max_iter=int(self.max_iter)
                                 , n_init=int(self.n_init), random_state=self.random_state, algorithm=self.alg).fit(X)
                 gy.append(kmeans.inertia_)
                 gx.append(i)

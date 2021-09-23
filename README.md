@@ -50,7 +50,7 @@
 
 8. Execute the rasterMiner code by typing the following command
 
-       python rasterMiner/rasterMiner/GUI/main.py
+       python rasterMiner/rasterMiner/GUI/rasterMiner.py
          
 ### Installation in MacOS
 
@@ -74,7 +74,7 @@
 
 6. Execute the rasterMiner code by typing the following command
 
-       python rasterMiner/rasterMiner/GUI/main.py
+       python rasterMiner/rasterMiner/GUI/rasterMiner.py
        
 ### Installation in Ubuntu
 
@@ -100,7 +100,7 @@
 
 5. Execute the rasterMiner code by typing the following command
 
-       python rasterMiner/rasterMiner/GUI/main.py
+       python rasterMiner/rasterMiner/GUI/rasterMiner.py
        
        
 ### Execution of rasterMiner

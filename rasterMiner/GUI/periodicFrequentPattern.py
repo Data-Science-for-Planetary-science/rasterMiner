@@ -66,8 +66,8 @@ class periodicFrequentPattern:
         submit = Button(self.root, text='submit',
                            command=lambda: runSpatialFpGrowth(self.mineTargetInputFileVar.get(),
                                                                       self.mineinputNeighborFileVar.get(),
-                                                                      int(self.minSupVar.get()),
-                                                                      self.mineTargetOutputFileVar.get()).run())
+                                                                      self.mineTargetOutputFileVar.get(),
+                                                                        int(self.minSupVar.get())).run())
         submit.grid(row=4, column=0, pady=30)
 
         back=Button(self.root, text="Back", command=self.back)

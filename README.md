@@ -105,4 +105,4 @@
        
 1. Execute the following command to open the GUI:
 
-     python rasterMiner/rasterMiner/GUI/main.py
+      python rasterMiner/rasterMiner/GUI/main.py

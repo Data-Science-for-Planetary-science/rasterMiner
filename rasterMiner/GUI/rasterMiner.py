@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
-
+from tkinter import messagebox
 import kmeans
 import spectralClustering
 import meanShift
@@ -16,7 +16,7 @@ from algorithms.patternmining.euclidDistance import EuclidDistance
 from dataProcessing.VerticalExpansion import verticalExpansion
 from dataProcessing.HorizontalExpansion import HorizontalExpansion
 import periodicFrequentPattern
-
+import os
 
 class GUImain:
     def __init__(self):
@@ -97,8 +97,7 @@ class GUImain:
                 dropValue_CB.grid(column=2, row=2, padx=30, pady=30)
 
         def dataWrangling():
-            df = pd.read_csv(iFileNameHandlingNan.get(), encoding="shift-jis")
-
+            df = pd.read_table(iFileNameHandlingNan.get(), encoding="shift-jis")
             if wranglingVar.get() == 'fill':
                 df = df.fillna(convertVal.get())
             elif wranglingVar.get() == 'drop':
@@ -116,6 +115,7 @@ class GUImain:
                     df = df.dropna(how='any', axis=1)
             print(df)
             df.to_csv(oFileNameHandlingNan.get() + '/processedData.tsv', sep='\t',index=False,float_format='%.2f')
+            messagebox.showinfo('notification', 'Successfully completed')
 
         clusteringAlgorithms = {'Parameter tuning': ["Elbow-kmeans", "Elbow-kmeans++"],
                           'individual algorithm': ["k-Means/k-Means++", "DBScan", "SpectralClustering", "MeanShift",

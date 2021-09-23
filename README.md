@@ -10,6 +10,7 @@
    4. Classification
    5. Prediction (yet to be developed)
    
+   The user manual for rasterMiner is available at  https://udayrage.github.io/rasterMiner/
 ## Ways to execute rasterMiner
 
    rasterMiner can be executed in any one of the following ways:
@@ -17,7 +18,8 @@
    1. Terminal-based execution
    2. GUI-based execution
    3. As a Python-library in QGIS, ARCGIS, ENVI, and in conventional python programs. (Under development) 
-   
+    
+    
 ## Installation 
 
 ### Installation using Anaconda (Any operating system)

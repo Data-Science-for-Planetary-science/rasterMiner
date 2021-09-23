@@ -81,10 +81,11 @@
        sudo apt-add-repository ppa:ubuntugis/ubuntugis-unstable
        sudo apt-get update
        sudo apt-get gdal-bin
-       sudo apt install git-all
+       sudo apt-get install git
     
 2. Install any Python 3 version
 
+       sudo apt-get install python
 
 3. Install the following libraries using PIP 
 

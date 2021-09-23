@@ -55,11 +55,11 @@
 1. Install Homebrew in Mac
 2. Install GDAL using brew
   
-      sudo brew install gdal
+       sudo brew install gdal
        
 3. Install Git clone
 
-      brew install git
+       brew install git
 
 4. Install the following libraries using PIP 
 

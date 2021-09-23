@@ -18,9 +18,9 @@
    2. GUI-based execution
    3. As a Python-library in QGIS, ARCGIS, ENVI, and in conventional python programs. (Under development) 
    
-## Installation and execution of rasterMiner using Anaconda (OS independent).
+## Installation 
 
-### Installation
+### Installation using Anaconda (Any operating system)
 1. Install and set up Anaconda. URL:   https://linuxize.com/post/how-to-install-anaconda-on-centos-7
 2. Create a virtual environment using conda.
 
@@ -50,21 +50,7 @@
 
        python rasterMiner/rasterMiner/GUI/main.py
          
-
-### Execution
-
-1. Open terminal and enter into rasterMiner virtual environment. 
-
-       conda activate rasterMiner
-       
-2. Execute the rasterMiner code by typing the following command
-
-       python rasterMiner/rasterMiner/GUI/main.py
-
-          
-## Installation and Execution of rasterMiner in MacOS
-
-### Installation
+### Installation in MacOS
 
 1. Install Homebrew in Mac
 2. Install GDAL using brew
@@ -87,17 +73,8 @@
 6. Execute the rasterMiner code by typing the following command
 
        python rasterMiner/rasterMiner/GUI/main.py
-
-
-### Execution
        
-1. Execute the rasterMiner code by typing the following command
-
-       python rasterMiner/rasterMiner/GUI/main.py
-
-## Installation and Execution in Ubuntu
-
-### Installation
+### Installation in Ubuntu
 
 1. Execute the following four steps in the presented order:
 
@@ -122,8 +99,9 @@
 
        python rasterMiner/rasterMiner/GUI/main.py
        
-### Execution
        
-1. Execute the rasterMiner code by typing the following command
+### Execution of rasterMiner
+       
+1. Execute the following command to open the GUI:
 
-       python rasterMiner/rasterMiner/GUI/main.py
+     python rasterMiner/rasterMiner/GUI/main.py

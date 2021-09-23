@@ -98,6 +98,8 @@ class GUImain:
 
         def dataWrangling():
             df = pd.read_table(iFileNameHandlingNan.get(), encoding="shift-jis")
+            if os.path.isfile(oFileNameHandlingNan.get() + '/processedData.tsv'):
+                os.remove(oFileNameHandlingNan.get() + '/processedData.tsv')
             if wranglingVar.get() == 'fill':
                 df = df.fillna(convertVal.get())
             elif wranglingVar.get() == 'drop':

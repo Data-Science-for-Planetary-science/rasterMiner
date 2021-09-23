@@ -1,9 +1,9 @@
 # rasterMiner
 
-   Our software provides a set of tools to discover knowledge hidden in raster datasets.  
-   It is an open source software distributed under GNU-V3 liscense.
-   rasterMiner currently supports the following knowledge discovery tasks:
+   This open-source software empowers the users with the set of tools to discover knowledge hidden in raster datasets.  
+   This software is distributed under GNU-V3 liscense.
    
+   rasterMiner currently supports the following knowledge discovery tasks:
    1. Data preprocessing and Nan value handling
    2. Pattern mining
    3. Clustering
@@ -16,10 +16,11 @@
    
    1. Terminal-based execution
    2. GUI-based execution
-   3. As a Python-library in QGIS, ARCGIS, ENVI, and in conventional python programs. 
+   3. As a Python-library in QGIS, ARCGIS, ENVI, and in conventional python programs. (Under development) 
    
-## Installation using Anaconda.
+## Installation and execution of rasterMiner using Anaconda (OS independent).
 
+### Installation
 1. Install and set up Anaconda. URL:   https://linuxize.com/post/how-to-install-anaconda-on-centos-7
 2. Create a virtual environment using conda.
 
@@ -37,7 +38,7 @@
 
        conda install gdal
          
-6. Open the terminal in pycharm, and execute the following command
+6. Install the following libraries using PIP 
 
        pip install mplcursors matplotlib sklearn pandas pami
          
@@ -48,9 +49,9 @@
 8. Execute the rasterMiner code by typing the following command
 
        python rasterMiner/rasterMiner/GUI/main.py
-          
+         
 
-## Usage of Anaconda
+### Execution
 
 1. Open terminal and enter into rasterMiner virtual environment. 
 
@@ -61,3 +62,68 @@
        python rasterMiner/rasterMiner/GUI/main.py
 
           
+## Installation and Execution of rasterMiner in MacOS
+
+### Installation
+
+1. Install Homebrew in Mac
+2. Install GDAL using brew
+  
+      sudo brew install gdal
+       
+3. Install Git clone
+
+      brew install git
+
+4. Install the following libraries using PIP 
+
+       pip install mplcursors matplotlib sklearn pandas pami
+       
+       
+5. Clone the rasterMiner
+
+       git clone https://github.com/udayRage/rasterMiner.git
+
+6. Execute the rasterMiner code by typing the following command
+
+       python rasterMiner/rasterMiner/GUI/main.py
+
+
+### Execution
+       
+1. Execute the rasterMiner code by typing the following command
+
+       python rasterMiner/rasterMiner/GUI/main.py
+
+## Installation and Execution in Ubuntu
+
+### Installation
+
+1. Execute the following four steps in the presented order:
+
+       sudo apt-add-repository ppa:ubuntugis/ubuntugis-unstable
+       sudo apt-get update
+       sudo apt-get gdal-bin
+       sudo apt install git-all
+    
+2. Install any Python 3 version
+
+
+3. Install the following libraries using PIP 
+
+       pip install mplcursors matplotlib sklearn pandas pami
+       
+       
+4. Clone the rasterMiner
+
+       git clone https://github.com/udayRage/rasterMiner.git
+
+5. Execute the rasterMiner code by typing the following command
+
+       python rasterMiner/rasterMiner/GUI/main.py
+       
+### Execution
+       
+1. Execute the rasterMiner code by typing the following command
+
+       python rasterMiner/rasterMiner/GUI/main.py

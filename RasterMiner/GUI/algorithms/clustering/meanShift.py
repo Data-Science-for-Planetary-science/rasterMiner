@@ -64,7 +64,7 @@ class meanShift:
                     j[r] = float(j[r])
                 pts.append(j[0:1])
                 data.append(j[1:])
-            X = np.array(data)
+            X = np.array(data,dtype='float64')
             meanshift = MeanShift(bandwidth=self.bandwidth, max_iter=self.max_iter,seeds=self.seeds, bin_seeding=bool(self.bin_seeding)
                             ,min_bin_freq=int(self.min_bin_freq),cluster_all=bool(self.cluster_all)).fit(X)
 

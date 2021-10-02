@@ -21,7 +21,7 @@ import os
 class GUImain:
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("rasterMiner: Discovering Knowledge Hidden in Raster Images")
+        self.root.title("RasterMiner: Discovering Knowledge Hidden in Raster Images")
         self.root.minsize(600,400)
 
     def uploadInputDir(self, event=None):
@@ -98,8 +98,6 @@ class GUImain:
 
         def dataWrangling():
             df = pd.read_table(iFileNameHandlingNan.get(), encoding="shift-jis")
-            if os.path.isfile(oFileNameHandlingNan.get() + '/processedData.tsv'):
-                os.remove(oFileNameHandlingNan.get() + '/processedData.tsv')
             if wranglingVar.get() == 'fill':
                 df = df.fillna(convertVal.get())
             elif wranglingVar.get() == 'drop':

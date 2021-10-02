@@ -4,7 +4,7 @@ with open('README.md', 'r') as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name = 'rasterMiner',
+    name = 'RasterMiner',
     version = '0.1.2',
     author = 'Rage Uday Kiran',
     author_email = 'uday.rage@gmail.com',

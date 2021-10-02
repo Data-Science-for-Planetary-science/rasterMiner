@@ -8,6 +8,7 @@ import meanShift
 import dbscan
 import optics
 import affinityPropagation
+import fuzzyKMeans
 import pandas as pd
 import elbowKmeans
 import elbowKmeansPl
@@ -21,7 +22,7 @@ import os
 class GUImain:
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("rasterMiner: Discovering Knowledge Hidden in Raster Images")
+        self.root.title("RasterMiner: Discovering Knowledge Hidden in Raster Images")
         self.root.minsize(600,400)
 
     def uploadInputDir(self, event=None):
@@ -65,6 +66,8 @@ class GUImain:
         self.root.destroy()
         if target == 'k-Means/k-Means++':
             kmeans.kmeansGUI().Main()
+        elif target == 'fuzzy-kMeans':
+            fuzzyKMeans.fuzzyKMeansGUI().Main()
         elif target == 'DBScan':
             dbscan.DBScanGUI().Main()
         elif target == 'MeanShift':
@@ -98,6 +101,8 @@ class GUImain:
 
         def dataWrangling():
             df = pd.read_table(iFileNameHandlingNan.get(), encoding="shift-jis")
+            if os.path.isfile(oFileNameHandlingNan.get() + '/processedData.tsv'):
+                os.remove(oFileNameHandlingNan.get() + '/processedData.tsv')
             if wranglingVar.get() == 'fill':
                 df = df.fillna(convertVal.get())
             elif wranglingVar.get() == 'drop':
@@ -118,7 +123,7 @@ class GUImain:
             messagebox.showinfo('notification', 'Successfully completed')
 
         clusteringAlgorithms = {'Parameter tuning': ["Elbow-kmeans", "Elbow-kmeans++"],
-                          'individual algorithm': ["k-Means/k-Means++", "DBScan", "SpectralClustering", "MeanShift",
+                          'individual algorithm': ["k-Means/k-Means++", "fuzzy-kMeans", "DBScan", "SpectralClustering", "MeanShift",
                                                    "OPTICS","BIRCH","AffinityPropagation"]}
         pamiAlgorithms = ['Periodic-frequent Pattern', 'Partial-periodic Pattern', 'Frequent-spatial Pattern', 'Periodic-frequent spatial Pattern']
         classificationOptions = ['1folderValue','prediction']

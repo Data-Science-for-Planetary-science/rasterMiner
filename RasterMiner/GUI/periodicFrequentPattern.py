@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import filedialog, Label
 from tkinter import ttk
 
-import GUImain
+import rasterMiner
 from algorithms.patternmining.runSpatialFPGrowth import runSpatialFpGrowth
 
 
@@ -31,7 +31,7 @@ class periodicFrequentPattern:
 
     def back(self):
         self.root.destroy()
-        GUImain.GUImain().rootGUI()
+        rasterMiner.GUImain().rootGUI()
     def Main(self):
         mineTargetInputFile_label = ttk.Label(self.root, text='select the input file name')
         mineTargetInputFile_label.grid(column=0, row=0, padx=60, pady=30, sticky='W')

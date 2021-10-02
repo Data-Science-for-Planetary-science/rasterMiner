@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import filedialog, Label
 from tkinter import ttk
 from algorithms.clustering.elbowKmeansPl import elbowKmeansPl
-import GUImain
+import rasterMiner
 import webbrowser
 
 
@@ -45,7 +45,7 @@ class elbowKmeansPlGUI:
         return dirName
     def back(self):
         self.root.destroy()
-        GUImain.GUImain().rootGUI()
+        rasterMiner.GUImain().rootGUI()
 
     def Main(self):
         def makeAddOptions(bin):

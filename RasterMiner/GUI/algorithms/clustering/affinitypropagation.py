@@ -62,7 +62,8 @@ class affinityPropagation:
                     j[r] = float(j[r])
                 pts.append(j[0:1])
                 data.append(j[1:])
-            z = np.array(data)
+            z = np.array(data,dtype='float64')
+
             X = StandardScaler().fit_transform(z)
 
             clustering = AffinityPropagation(damping=float(self.damping), max_iter=int(self.maxIter), convergence_iter=int(self.convergenceIter),

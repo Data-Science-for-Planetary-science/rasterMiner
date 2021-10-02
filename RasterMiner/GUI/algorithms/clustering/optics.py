@@ -104,7 +104,7 @@ class optics:
                     j[r] = float(j[r])
                 pts.append(j[0:1])
                 data.append(j[1:])
-            X = np.array(data)
+            X = np.array(data,dtype='float64')
             #X_precomputed = pairwise_distances(X, metric='manhattan')
             clustering = OPTICS(min_samples=self.minSamples,max_eps=self.maxEps,metric=self.metric,p=int(self.p)
                                 ,metric_params=self.metricParams,cluster_method=self.clusterMethod,eps=self.eps,xi=self.xi

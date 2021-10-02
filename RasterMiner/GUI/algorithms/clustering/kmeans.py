@@ -70,7 +70,7 @@ class kMeans:
                 data.append(j[1:])
                 # print(pts)
 
-            X = np.array(data)
+            X = np.array(data,dtype='float64')
             kmeans = KMeans(n_clusters=int(self.k), init=self.init, max_iter=int(self.max_iter)
                             ,n_init=int(self.n_init),random_state=self.random_state,algorithm=self.alg).fit(X)
             WSSE = kmeans.inertia_

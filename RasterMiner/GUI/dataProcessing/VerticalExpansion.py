@@ -1,6 +1,6 @@
 import glob
 import pandas as pd
-#from rasterMiner.GUI.dataProcessing import raster2tsv
+#from RasterMiner.GUI.dataProcessing import raster2tsv
 from dataProcessing import raster2tsv
 import re
 import os

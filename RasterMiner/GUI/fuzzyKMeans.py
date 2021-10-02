@@ -1,28 +1,29 @@
 from tkinter import *
 from tkinter import filedialog, Label
 from tkinter import ttk
-from algorithms.clustering.kmeans import kMeans
-import GUImain
+from algorithms.clustering.fuzzyKmeans import fuzzyKmeans
+import rasterMiner
 import webbrowser
 
 
-class kmeansGUI:
+class fuzzyKMeansGUI:
     def __init__(self):
         self.root = Tk()
-        self.root.title('k-means')
+        self.root.title('fuzzyK-means')
         self.root.minsize(600, 400)
-        self.initVar = StringVar()
-        self.algVar = StringVar()
         self.iFilename = StringVar()
         self.oFilename = StringVar()
         self.clusterVar = StringVar()
         self.clusterVar.set(8)
+        self.mVar = StringVar()
+        self.mVar.set(2)
         self.randomStateVar = StringVar()
-        self.randomStateVar.set(None)
-        self.iterVar = StringVar()
-        self.iterVar.set(10)
+        self.randomStateVar.set(0)
         self.maxIterVar = StringVar()
         self.maxIterVar.set(300)
+        self.tolVar = StringVar()
+        self.tolVar.set(1e-4)
+
     def enter_fg(self,event):
         event.widget['fg'] = 'blue'
     def leave_fg(self,event):
@@ -38,34 +39,27 @@ class kmeansGUI:
         return dirName
     def back(self):
         self.root.destroy()
-        GUImain.GUImain().rootGUI()
+        rasterMiner.GUImain().rootGUI()
 
     def Main(self):
         def makeAddOptions(bin):
             if bin.get():
-                init_label.grid(column=0, row=4)
-                init_CB.grid(column=1, row=4)
+                maxIter_label.grid(column=0, row=4)
+                maxIter_Entry.grid(column=1, row=4)
 
-                itersval_label.grid(column=0, row=5)
-                itersval_Entry.grid(column=1, row=5)
+                randomState_label.grid(column=0, row=5)
+                randomState_Entry.grid(column=1, row=5)
 
-                maxIter_label.grid(column=0, row=6)
-                maxIter_Entry.grid(column=1, row=6)
+                tol_label.grid(column=0, row=6)
+                tol_Entry.grid(column=1, row=6)
 
-                alg_label.grid(column=0, row=7)
-                alg_CB.grid(column=1, row=7)
             else:
-                init_label.grid_remove()
-                init_CB.grid_remove()
-
-                itersval_Entry.grid_remove()
-                itersval_label.grid_remove()
-
                 maxIter_Entry.grid_remove()
                 maxIter_label.grid_remove()
-
-                alg_CB.grid_remove()
-                alg_label.grid_remove()
+                randomState_label.grid_remove()
+                randomState_Entry.grid_remove()
+                tol_label.grid_remove()
+                tol_Entry.grid_remove()
 
         inputFile_Label = Label(self.root, text='Select the input file:')
         inputFile_Label.grid(column=0, row=0)
@@ -87,27 +81,19 @@ class kmeansGUI:
         cluster_Entry = Entry(self.root, textvariable=self.clusterVar)
         cluster_Entry.grid(column=1, row=2)
 
+        cluster_label = Label(self.root, text='fuzzy-ness parameter')
+        cluster_label.grid(column=0, row=3)
+        cluster_Entry = Entry(self.root, textvariable=self.mVar)
+        cluster_Entry.grid(column=1, row=3)
+
         randomState_label = Label(self.root, text='random state:')
-        randomState_label.grid(column=0, row=3)
         randomState_Entry = Entry(self.root, textvariable=self.randomStateVar)
-        randomState_Entry.grid(column=1, row=3)
-
-        init_label = Label(self.root, text='Method for initialization:')
-        initOpt = ['k-means++', 'random']
-        init_CB = ttk.Combobox(self.root, textvariable=self.initVar, values=initOpt, state='readonly')
-        self.initVar.set(initOpt[0])
-
-        itersval_label = Label(self.root, text='n_init')
-        itersval_Entry = Entry(self.root, textvariable=self.iterVar)
 
         maxIter_label = Label(self.root, text='Enter Max iterations value:')
         maxIter_Entry = Entry(self.root, textvariable=self.maxIterVar)
 
-        alg_label = Label(self.root, text='Enter Max iterations value:')
-        algOpt = ['auto', 'full', 'elkan']
-
-        alg_CB = ttk.Combobox(self.root, textvariable=self.algVar, values=algOpt, state='readonly')
-        self.algVar.set(algOpt[0])
+        tol_label = Label(self.root, text='tol value:')
+        tol_Entry = Entry(self.root, textvariable=self.tolVar)
 
         helpLink = Label(self.root, text="help", fg="black",font=("Arial", 20))
         helpLink.place(relx=0.01,rely=0.9)
@@ -119,7 +105,7 @@ class kmeansGUI:
         bin = BooleanVar()
         bin.set(False)
         detailOptions_CHB = ttk.Checkbutton(self.root, text='more options',variable=bin,command=lambda :makeAddOptions(bin))
-        detailOptions_CHB.grid(column=0,row=8)
+        detailOptions_CHB.grid(column=0,row=7)
 
 
         # precomputeDist_label = Label(self.root, text='Precompute distances:')
@@ -138,17 +124,16 @@ class kmeansGUI:
         # nJobs_Entry.grid(column=1, row=8)
 
 
-        submit=Button(self.root,text="submit",command=lambda:kMeans(self.iFilename.get(),self.oFilename.get(),self.clusterVar.get()
-                                                             ,self.initVar.get(),self.iterVar.get(),self.maxIterVar.get()
-                                                             ,self.randomStateVar.get(),self.algVar.get()).run())
-        submit.grid(column=1,row=8)
+        submit=Button(self.root,text="submit",command=lambda:fuzzyKmeans(self.iFilename.get(),self.oFilename.get(),self.clusterVar.get()
+                                                             ,self.mVar.get(),self.maxIterVar.get()
+                                                             ,self.randomStateVar.get(),self.tolVar.get()).run())
+        submit.grid(column=1,row=7)
         back=Button(self.root, text="Back", command=self.back)
-        back.grid(column=2,row=8)
+        back.grid(column=2,row=7)
 
 
         self.root.mainloop()
 
 if __name__ == '__main__':
-    kmeansGUI().Main()
-
+    fuzzyKMeansGUI().Main()
 

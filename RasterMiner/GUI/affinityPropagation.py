@@ -6,7 +6,7 @@ import webbrowser
 # import re
 # import ast
 # import final_code
-import GUImain
+import rasterMiner
 from algorithms.clustering.affinitypropagation import affinityPropagation
 
 class affinityPropagationGUI:
@@ -39,7 +39,7 @@ class affinityPropagationGUI:
         return dirName
     def back(self):
         self.root.destroy()
-        GUImain.GUImain().rootGUI()
+        rasterMiner.GUImain().rootGUI()
     def Main(self):
         def makeAddOptions(bin):
             if bin.get():

@@ -1,17 +1,17 @@
 from tkinter import *
 from tkinter import filedialog, Label
 from tkinter import ttk
-from algorithms.clustering.elbowKmeans import elbowKmeans
-import GUImain
+from algorithms.clustering.kmeans import kMeans
+import rasterMiner
 import webbrowser
 
 
-class elbowKmeansGUI:
+class kmeansGUI:
     def __init__(self):
         self.root = Tk()
-        self.root.title('elbow k-means')
+        self.root.title('k-means')
         self.root.minsize(600, 400)
-        # self.initVar = StringVar()
+        self.initVar = StringVar()
         self.algVar = StringVar()
         self.iFilename = StringVar()
         self.oFilename = StringVar()
@@ -23,37 +23,28 @@ class elbowKmeansGUI:
         self.iterVar.set(10)
         self.maxIterVar = StringVar()
         self.maxIterVar.set(300)
-        self.minkVar = StringVar()
-        self.maxkVar = StringVar()
-        self.incVar = StringVar()
-
-
-
     def enter_fg(self,event):
         event.widget['fg'] = 'blue'
     def leave_fg(self,event):
         event.widget['fg'] = 'black'
     def callBack(self,url):
         webbrowser.open_new(url)
-
     def openFile(self):
         filename1=filedialog.askopenfilename(initialdir="~/Desktop",title="select a file",filetypes=(("csv","*.csv"),
-                                                                                                     ("text Files","*.txt"),
-                                                                                                     ('tsv file','*.tsv')))
+                                                                                                     ("text Files","*.txt"),                                                                                          ('tsv file','*.tsv')))
         return filename1
     def pathtooutfile(self):
         dirName=filedialog.askdirectory(initialdir="~/Desktop")
         return dirName
     def back(self):
         self.root.destroy()
-        GUImain.GUImain().rootGUI()
+        rasterMiner.GUImain().rootGUI()
 
     def Main(self):
         def makeAddOptions(bin):
-
             if bin.get():
-                # init_label.grid(column=0, row=7)
-                # init_CB.grid(column=1, row=7)
+                init_label.grid(column=0, row=4)
+                init_CB.grid(column=1, row=4)
 
                 itersval_label.grid(column=0, row=5)
                 itersval_Entry.grid(column=1, row=5)
@@ -64,8 +55,8 @@ class elbowKmeansGUI:
                 alg_label.grid(column=0, row=7)
                 alg_CB.grid(column=1, row=7)
             else:
-                # init_label.grid_remove()
-                # init_CB.grid_remove()
+                init_label.grid_remove()
+                init_CB.grid_remove()
 
                 itersval_Entry.grid_remove()
                 itersval_label.grid_remove()
@@ -84,44 +75,27 @@ class elbowKmeansGUI:
         fileOpen_B = Button(self.root, text="Browse", command=lambda: self.iFilename.set(self.openFile()))
         fileOpen_B.grid(column=2, row=0)
 
-        # outputDir_label = Label(self.root, text='Select the output directory:')
-        # outputDir_label.grid(column=0, row=1)
-        # outputDir_label = Entry(self.root, textvariable=self.oFilename)
-        # outputDir_label.grid(column=1, row=1)
-        # fileOpen_B1 = Button(self.root, text="Browse", command=lambda: self.oFilename.set(self.pathtooutfile()))
-        # fileOpen_B1.grid(column=2, row=1)
+        outputDir_label = Label(self.root, text='Select the output directory:')
+        outputDir_label.grid(column=0, row=1)
+        outputDir_label = Entry(self.root, textvariable=self.oFilename)
+        outputDir_label.grid(column=1, row=1)
+        fileOpen_B1 = Button(self.root, text="Browse", command=lambda: self.oFilename.set(self.pathtooutfile()))
+        fileOpen_B1.grid(column=2, row=1)
 
-        # cluster_label = Label(self.root, text='Number of cluster')
-        # cluster_label.grid(column=0, row=1)
-        # cluster_Entry = Entry(self.root, textvariable=self.clusterVar)
-        # cluster_Entry.grid(column=1, row=1)
+        cluster_label = Label(self.root, text='Number of cluster')
+        cluster_label.grid(column=0, row=2)
+        cluster_Entry = Entry(self.root, textvariable=self.clusterVar)
+        cluster_Entry.grid(column=1, row=2)
 
         randomState_label = Label(self.root, text='random state:')
-        randomState_label.grid(column=0, row=1)
+        randomState_label.grid(column=0, row=3)
         randomState_Entry = Entry(self.root, textvariable=self.randomStateVar)
-        randomState_Entry.grid(column=1, row=1)
+        randomState_Entry.grid(column=1, row=3)
 
-        mink_label = Label(self.root, text='mink')
-        mink_label.grid(column=0, row=2)
-        mink_Entry = Entry(self.root, textvariable=self.minkVar)
-        mink_Entry.grid(column=1, row=2)
-
-        maxk_label = Label(self.root, text='maxk')
-        maxk_label.grid(column=0, row=3)
-        maxk_Entry = Entry(self.root,textvariable=self.maxkVar)
-        maxk_Entry.grid(column=1, row=3)
-
-        inc_label = Label(self.root, text='increment')
-        inc_label.grid(column=0, row=4)
-        inc_Entry = Entry(self.root, textvariable=self.incVar)
-        inc_Entry.grid(column=1, row=4)
-
-
-
-        # init_label = Label(self.root, text='Method for initialization:')
-        # initOpt = 'random'
-        # init_CB = ttk.Combobox(self.root, textvariable=self.initVar, values=initOpt, state='readonly')
-        # self.initVar.set(initOpt)
+        init_label = Label(self.root, text='Method for initialization:')
+        initOpt = ['k-means++', 'random']
+        init_CB = ttk.Combobox(self.root, textvariable=self.initVar, values=initOpt, state='readonly')
+        self.initVar.set(initOpt[0])
 
         itersval_label = Label(self.root, text='n_init')
         itersval_Entry = Entry(self.root, textvariable=self.iterVar)
@@ -145,7 +119,7 @@ class elbowKmeansGUI:
         bin = BooleanVar()
         bin.set(False)
         detailOptions_CHB = ttk.Checkbutton(self.root, text='more options',variable=bin,command=lambda :makeAddOptions(bin))
-        detailOptions_CHB.grid(column=3,row=8)
+        detailOptions_CHB.grid(column=0,row=8)
 
 
         # precomputeDist_label = Label(self.root, text='Precompute distances:')
@@ -164,16 +138,17 @@ class elbowKmeansGUI:
         # nJobs_Entry.grid(column=1, row=8)
 
 
-        submit=Button(self.root,text="submit",command=lambda:elbowKmeans(self.iFilename.get(),self.iterVar.get(),
-                                                                         self.maxIterVar.get(),self.randomStateVar.get(),
-                                                                         self.algVar.get(),self.minkVar.get(),
-                                                                         self.maxkVar.get(),self.incVar.get()).run())
-        submit.grid(column=1,row=9)
+        submit=Button(self.root,text="submit",command=lambda:kMeans(self.iFilename.get(),self.oFilename.get(),self.clusterVar.get()
+                                                             ,self.initVar.get(),self.iterVar.get(),self.maxIterVar.get()
+                                                             ,self.randomStateVar.get(),self.algVar.get()).run())
+        submit.grid(column=1,row=8)
         back=Button(self.root, text="Back", command=self.back)
-        back.grid(column=2,row=9)
+        back.grid(column=2,row=8)
 
 
         self.root.mainloop()
 
 if __name__ == '__main__':
-    elbowKmeansGUI().Main()
+    kmeansGUI().Main()
+
+

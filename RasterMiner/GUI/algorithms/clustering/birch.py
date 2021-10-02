@@ -45,7 +45,7 @@ class BIRCH:
                     j[r] = float(j[r])
                 pts.append(j[0:1])
                 data.append(j[1:])
-            X = np.array(data)
+            X = np.array(data,dtype='float64')
             birch = Birch(n_clusters=int(self.nCluster),threshold=float(self.threshold),branching_factor=int(self.branchFactor)
                             ,compute_labels=bool(self.computeLabels)).fit(X)
             wr = birch.labels_

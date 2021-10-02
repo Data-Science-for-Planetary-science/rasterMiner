@@ -72,7 +72,7 @@ class DBScan:
                     j[r] = float(j[r])
                 pts.append(j[0:1])
                 data.append(j[1:])
-            z = np.array(data)
+            z = np.array(data,dtype='float64')
             X = StandardScaler().fit_transform(z)
 
             dbs = DBSCAN(eps=float(self.epsi),min_samples=int(self.minpts),metric=self.metric,metric_params=self.metricParams

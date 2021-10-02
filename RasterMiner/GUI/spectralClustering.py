@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import filedialog, Label
 from tkinter import ttk
 import webbrowser
-import GUImain
+import rasterMiner
 
 from algorithms.clustering.spectralClustering import spectralClustering
 
@@ -52,7 +52,7 @@ class spectralGUI:
 
     def back(self):
         self.root.destroy()
-        GUImain.GUImain().rootGUI()
+        rasterMiner.GUImain().rootGUI()
 
     def Main(self):
         def makeAddOptions(bin):

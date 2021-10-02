@@ -3,8 +3,8 @@ from tkinter import filedialog, Label
 import webbrowser
 from tkinter import ttk
 from algorithms.clustering.meanShift import meanShift
+import rasterMiner
 import GUImain
-
 
 class meanShiftGUI:
     def __init__(self):
@@ -42,7 +42,7 @@ class meanShiftGUI:
         return dirName
     def back(self):
         self.root.destroy()
-        GUImain.GUImain().rootGUI()
+        rasterMiner.GUImain().rootGUI()
     def Main(self):
         def makeAddOptions(bin):
             if bin.get():

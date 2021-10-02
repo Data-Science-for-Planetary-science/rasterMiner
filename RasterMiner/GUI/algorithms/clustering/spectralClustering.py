@@ -71,7 +71,7 @@ class spectralClustering:
                     j[r] = float(j[r])
                 pts.append(j[0:1])
                 data.append(j[1:])
-            X = np.array(data)
+            X = np.array(data,dtype='float64')
             #X_precomputed = pairwise_distances(X, metric='manhattan')
             spectralClustering = SpectralClustering(n_clusters=int(self.k),eigen_solver=self.eigenSolver,random_state=self.random_state,
                                                     n_init=int(self.n_init),gamma=float(self.gamma),affinity=self.affinity,

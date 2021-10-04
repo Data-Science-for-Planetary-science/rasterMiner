@@ -118,7 +118,6 @@ class GUImain:
                     df = df.dropna(how='any')
                 elif dropVar.get() == 'any row':
                     df = df.dropna(how='any', axis=1)
-            print(df)
             df.to_csv(oFileNameHandlingNan.get() + '/processedData.tsv', sep='\t',index=False,float_format='%.2f')
             messagebox.showinfo('notification', 'Successfully completed')
 

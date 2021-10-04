@@ -73,7 +73,7 @@ class fuzzyKmeans:
                 of.write(stri)
             of.close()
             co = 1
-            print(fuzzykmeans.cluster_centers_)
+            #print(fuzzykmeans.cluster_centers_)
             for j in fuzzykmeans.cluster_centers_:
                 text = 'Center-' + str(co)
                 for d in j:

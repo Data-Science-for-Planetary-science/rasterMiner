@@ -32,7 +32,8 @@ class fuzzyKMeansGUI:
         webbrowser.open_new(url)
     def openFile(self):
         filename1=filedialog.askopenfilename(initialdir="~/Desktop",title="select a file",filetypes=(("csv","*.csv"),
-                                                                                                     ("text Files","*.txt"),                                                                                          ('tsv file','*.tsv')))
+                                                                                                     ("text Files","*.txt"),
+                                                                                                     ('tsv file','*.tsv')))
         return filename1
     def pathtooutfile(self):
         dirName=filedialog.askdirectory(initialdir="~/Desktop")

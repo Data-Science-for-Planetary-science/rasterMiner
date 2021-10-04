@@ -35,7 +35,7 @@ class meanShiftGUI:
     def callBack(self,url):
         webbrowser.open_new(url)
     def openFile(self):
-        filename1=filedialog.askopenfilename(initialdir="~/Desktop",title="select a file",filetypes=(("csv","*.csv"),("txt","*.txt"),('tsv','*tsv')))
+        filename1=filedialog.askopenfilename(initialdir="~/Desktop",title="select a file",filetypes=(("csv","*.csv"),("txt","*.txt"),('tsv','*.tsv')))
         return filename1
     def pathtooutfile(self):
         dirName=filedialog.askdirectory(initialdir="~/Desktop")

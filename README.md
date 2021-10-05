@@ -1,3 +1,8 @@
+![GitHub](https://img.shields.io/github/license/udayRage/rasterMiner)
+![PyPI - License](https://img.shields.io/pypi/l/rasterMiner)
+
+
+
 # rasterMiner
 
    This open-source software empowers the users with the set of tools to discover knowledge hidden in raster datasets.  

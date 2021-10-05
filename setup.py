@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name = 'RasterMiner',
-    version = '0.1.2',
+    version = '0.1.2.2',
     author = 'Rage Uday Kiran',
     author_email = 'uday.rage@gmail.com',
     description = 'This software is being developed at the University of Aizu, Aizu-Wakamatsu, Fukushima, Japan',
@@ -23,10 +23,11 @@ setuptools.setup(
         'sklearn',
         'pandas',
         'pami',
-        'sklearn_extensions',
+        'sklearn-extensions',
         'tk',
         'setuptools',
         'numpy',
+        'scikit-learn',
     ],
     classifiers = [
         'Development Status :: 3 - Alpha',      # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package

@@ -51,11 +51,11 @@ class GUImain:
     def rasterToHorizontal(self,inputRasterFolderName,fileExtension,outputFolderName,startBandVar,endBandVar):
         print("Calling HorizontalExpansion.py")
         a = HorizontalExpansion(inputRasterFolderName, fileExtension, outputFolderName,
-                            startBandVar, endBandVar)
+                                startBandVar, endBandVar)
         a.convert()
-            #     print(f'-bounds{i}',end=' ')
-            # print(inputRasterFolderName.get())
-            # print(outputFolderName.get())
+        #     print(f'-bounds{i}',end=' ')
+        # print(inputRasterFolderName.get())
+        # print(outputFolderName.get())
     def rasterToVertical(self,inputRasterFolderName,fileExtension,outputFolderName):
         print("Calling VerticalExpansion.py")
         a = verticalExpansion(inputRasterFolderName, fileExtension, outputFolderName)
@@ -85,7 +85,7 @@ class GUImain:
         if target == 'Frequent-spatial Pattern':
             periodicFrequentPattern.periodicFrequentPattern().Main()
     #def judgeClassificationAlg(self):
-        # if oneNNEDFlag == True:
+    # if oneNNEDFlag == True:
 
     def rootGUI(self):
         def addOpt():
@@ -118,8 +118,8 @@ class GUImain:
             messagebox.showinfo('notification', 'Successfully completed')
 
         clusteringAlgorithms = {'Parameter tuning': ["Elbow-kmeans", "Elbow-kmeans++"],
-                          'individual algorithm': ["k-Means/k-Means++", "DBScan", "SpectralClustering", "MeanShift",
-                                                   "OPTICS","BIRCH","AffinityPropagation"]}
+                                'individual algorithm': ["k-Means/k-Means++", "DBScan", "SpectralClustering", "MeanShift",
+                                                         "OPTICS","BIRCH","AffinityPropagation"]}
         pamiAlgorithms = ['Periodic-frequent Pattern', 'Partial-periodic Pattern', 'Frequent-spatial Pattern', 'Periodic-frequent spatial Pattern']
         classificationOptions = ['1folderValue','prediction']
         options = ['multi-band images', 'single-band temporal images',"handling Nan value"]
@@ -287,7 +287,7 @@ class GUImain:
                 iTempFile_TB = ttk.Entry(subFrame2, textvariable=inputTempFileName, width=40)
                 iTempFile_TB.grid(column=1, row=0, padx=60, pady=30)
                 iTempFile_B = tk.Button(subFrame2, text='Browse',
-                                    command=lambda :inputTempFileName.set(str(self.uploadInputFile())))
+                                        command=lambda :inputTempFileName.set(str(self.uploadInputFile())))
                 iTempFile_B.grid(row=0, column=2, padx=60, pady=30)
 
                 oTempFolder_label = ttk.Label(subFrame2, text='output folder')
@@ -295,7 +295,7 @@ class GUImain:
                 oTempFolder_TB = ttk.Entry(subFrame2, textvariable=oTempFolderVar, width=40)
                 oTempFolder_TB.grid(column=1, row=1, padx=60, pady=30)
                 oTempFolder_B = tk.Button(subFrame2, text='Browse',
-                                    command=lambda :oTempFolderVar.set(str(self.uploadOutputDir())))
+                                          command=lambda :oTempFolderVar.set(str(self.uploadOutputDir())))
                 oTempFolder_B.grid(row=1, column=2, padx=60, pady=30)
 
                 condition_label = ttk.Label(subFrame2, text='condition')
@@ -329,7 +329,7 @@ class GUImain:
                 iNeighborFile_TB.grid(row=0, column=1)
 
                 iNeighborFile_B = tk.Button(subFrame2, text='Browse',
-                                    command=lambda: inputNeighborFileVar.set(str(self.uploadInputFile())))
+                                            command=lambda: inputNeighborFileVar.set(str(self.uploadInputFile())))
                 iNeighborFile_B.grid(row=0, column=2, padx=60)
 
                 outputNeighborFolder_label = ttk.Label(subFrame2, text='Select output folder:')
@@ -338,7 +338,7 @@ class GUImain:
                 outputNeighborFolder_TB.grid(row=1, column=1)
 
                 outputNeighborFolder_B = tk.Button(subFrame2, text='Browse',
-                                    command=lambda: outputNeighborFolderVar.set(str(self.uploadOutputDir())))
+                                                   command=lambda: outputNeighborFolderVar.set(str(self.uploadOutputDir())))
                 outputNeighborFolder_B.grid(row=1, column=2, padx=60)
 
                 threshold_label = ttk.Label(subFrame2, text='threshold')
@@ -379,7 +379,7 @@ class GUImain:
                 iTrainingFile_TB = ttk.Entry(subFrame4, textvariable=inputTempFileName, width=40)
                 iTrainingFile_TB.grid(column=1, row=2, padx=60, pady=30)
                 iTrainingFile_B = tk.Button(subFrame4, text='Browse',
-                                    command=lambda :inputTempFileName.set(str(self.uploadInputFile())))
+                                            command=lambda :inputTempFileName.set(str(self.uploadInputFile())))
                 iTrainingFile_B.grid(row=2, column=2, padx=60, pady=30)
 
                 iTestingFile_label = ttk.Label(subFrame4, text='input test file')
@@ -387,7 +387,7 @@ class GUImain:
                 iTestingFile_TB = ttk.Entry(subFrame4, textvariable=inputTempFileName, width=40)
                 iTestingFile_TB.grid(column=1, row=3, padx=60, pady=30)
                 iTestingFile_B = tk.Button(subFrame4, text='Browse',
-                                    command=lambda :inputTempFileName.set(str(self.uploadInputFile())))
+                                           command=lambda :inputTempFileName.set(str(self.uploadInputFile())))
                 iTestingFile_B.grid(row=3, column=2, padx=60, pady=30)
             if classificationOption == 'prediction':
                 iPredictionFile_label = ttk.Label(subFrame4, text='input file for prediction')
@@ -395,7 +395,7 @@ class GUImain:
                 iPredictionFile_TB = ttk.Entry(subFrame4, textvariable=inputTempFileName, width=40)
                 iPredictionFile_TB.grid(column=1, row=2, padx=60, pady=30)
                 iPredictionFile_B = tk.Button(subFrame4, text='Browse',
-                                    command=lambda :inputTempFileName.set(str(self.uploadInputFile())))
+                                              command=lambda :inputTempFileName.set(str(self.uploadInputFile())))
                 iPredictionFile_B.grid(row=2, column=2, padx=60, pady=30)
 
 

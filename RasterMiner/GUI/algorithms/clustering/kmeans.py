@@ -69,7 +69,7 @@ class kMeans:
                 pts.append(j[0:1])
                 data.append(j[1:])
                 # print(pts)
-
+            print(data)
             X = np.array(data,dtype='float64')
             kmeans = KMeans(n_clusters=int(self.k), init=self.init, max_iter=int(self.max_iter)
                             ,n_init=int(self.n_init),random_state=self.random_state,algorithm=self.alg).fit(X)
@@ -105,7 +105,7 @@ if __name__ == '__main__':
         obj = kMeans(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],sys.argv[6],sys.argv[7])
         obj.run()
     else:
-        print('Please enter in one of the following format:'
-              '1. python kmeans.py <inputFile> <outputFile> <kValue>'
-              '2. python kmeans.py <inputFile> <outputFile> <kValue> <initialize>'
-              '3. python kmeans.py <inputFile> <outputFile> <kValue> <initialize method> <number of initialize> <max_iter> <random_state> <algorithm> ')
+        print('Please enter in one of the following format\n'
+              '1. python kmeans.py <inputFile> <outputFile> <kValue>\n'
+              '2. python kmeans.py <inputFile> <outputFile> <kValue> <initialize\n'
+              '3. python kmeans.py <inputFile> <outputFile> <kValue> <initialize method> <number of initialize> <max_iter> <random_state> <algorithm\n')

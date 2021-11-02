@@ -65,7 +65,7 @@ class meanShift:
                 pts.append(j[0:1])
                 data.append(j[1:])
             X = np.array(data,dtype='float64')
-            meanshift = MeanShift(bandwidth=self.bandwidth, max_iter=self.max_iter,seeds=self.seeds, bin_seeding=bool(self.bin_seeding)
+            meanshift = MeanShift(bandwidth=self.bandwidth, max_iter=int(self.max_iter),seeds=self.seeds, bin_seeding=bool(self.bin_seeding)
                             ,min_bin_freq=int(self.min_bin_freq),cluster_all=bool(self.cluster_all)).fit(X)
 
             print(meanshift.n_iter_)
@@ -74,7 +74,7 @@ class meanShift:
             for p in range(len(X)):
                 # print(p)
                 # wr=kmeans.predict(p)
-                stri = pts[p] + ',' + str(wr[p]) + '\n'
+                stri = str(pts[p]) + ',' + str(wr[p]) + '\n'
                 of.write(stri)
             of.close()
             co = 1

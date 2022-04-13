@@ -8,7 +8,7 @@ import meanShift
 import dbscan
 import optics
 import affinityPropagation
-import fuzzyKMeans
+#import fuzzyKMeans
 import pandas as pd
 import elbowKmeans
 import elbowKmeansPl
@@ -66,8 +66,8 @@ class GUImain:
         self.root.destroy()
         if target == 'k-Means/k-Means++':
             kmeans.kmeansGUI().Main()
-        elif target == 'fuzzy-kMeans':
-            fuzzyKMeans.fuzzyKMeansGUI().Main()
+        #elif target == 'fuzzy-kMeans':
+        #    fuzzyKMeans.fuzzyKMeansGUI().Main()
         elif target == 'DBScan':
             dbscan.DBScanGUI().Main()
         elif target == 'MeanShift':

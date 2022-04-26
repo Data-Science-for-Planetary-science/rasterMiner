@@ -67,7 +67,7 @@ class OneNNDTW:
         memory_in_KB = memory / (1024)
         print("Total Memory of oneNNDTW inKB",memory_in_KB)  # in bytes
 
-        #dist = dtw.distance(testing[i], training[j])  # math.sqrt(squaring)
+        #rasterMinerForWindows = dtw.distance(testing[i], training[j])  # math.sqrt(squaring)
 if __name__ == '__main__':
     obj = OneNNDTW(sys.argv[1], sys.argv[2])
     obj.run()

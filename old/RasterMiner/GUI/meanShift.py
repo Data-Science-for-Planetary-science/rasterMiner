@@ -4,7 +4,7 @@ import webbrowser
 from tkinter import ttk
 from algorithms.clustering.meanShift import meanShift
 import rasterMiner
-import GUImain
+
 
 class meanShiftGUI:
     def __init__(self):

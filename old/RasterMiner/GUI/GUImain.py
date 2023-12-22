@@ -16,7 +16,7 @@ from algorithms.patternmining.euclidDistance import EuclidDistance
 from dataProcessing.VerticalExpansion import verticalExpansion
 from dataProcessing.HorizontalExpansion import HorizontalExpansion
 import periodicFrequentPattern
-import os
+
 
 class GUImain:
     def __init__(self):

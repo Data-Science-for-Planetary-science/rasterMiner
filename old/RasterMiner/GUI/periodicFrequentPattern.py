@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter import filedialog, Label
+from tkinter import filedialog
 from tkinter import ttk
 
 import rasterMiner

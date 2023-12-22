@@ -20,7 +20,6 @@ setuptools.setup(
         'matplotlib',
         'resource',
         'mplcursors',
-        'sklearn',
         'pandas',
         'pami',
         'sklearn-extensions',
